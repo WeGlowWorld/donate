@@ -20,7 +20,7 @@ export const useOrgStore = defineStore('orgStore', {
   async hydrate(storeState) {
     const { orgSlug } = useRoute().params;
     try {
-      const content = await $fetch<ContentOrg>(`http://localhost:8000/api/org/content/${orgSlug}`);
+      const content = await $fetch<ContentOrg>(`https://weglow-backend.azurewebsites.net/api/org/content/${orgSlug}`);
       storeState.content = content;
       storeState.initialized = true;
     }
@@ -35,7 +35,7 @@ export const useOrgStore = defineStore('orgStore', {
   actions: {
     async donate(orgSlug: string, campSlug: string, body: DonateBody & { certificate?: DonateKbsBody }): Promise<string> {
       try {
-        return await $fetch<string>(`http://localhost:8000/api/donation/${orgSlug}/${campSlug}`, {
+        return await $fetch<string>(`https://weglow-backend.azurewebsites.net/api/donation/${orgSlug}/${campSlug}`, {
           method: 'POST',
           body: {
             amount: body.amount,

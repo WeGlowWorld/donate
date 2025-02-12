@@ -22,7 +22,7 @@ export const useCampaignStore = defineStore('campaignStore', {
   async hydrate(storeState) {
     const { orgSlug, campaignSlug } = useRoute().params;
     try {
-      const content = await $fetch<Content>(`http://localhost:8000/api/campaign/content/${orgSlug}/${campaignSlug}`);
+      const content = await $fetch<Content>(`https://weglow-backend.azurewebsites.net/api/campaign/content/${orgSlug}/${campaignSlug}`);
       storeState.content = content;
       storeState.initialized = true;
     }
