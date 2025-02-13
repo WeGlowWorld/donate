@@ -6,7 +6,7 @@
     v-else-if="imagesLoaded"
     class="min-h-screen flex relative bg-[#F56900] px-4"
   >
-    <div class="max-w-5xl w-full mx-auto py-16 text-white flex flex-col gap-16">
+    <div class="max-w-5xl w-full mx-auto pt-16 pb-48 text-white flex flex-col gap-16">
       <h1 class="text-2xl sm:text-4xl font-bold text-center mb-4">
         Feestvarken x PostNL
       </h1>
@@ -59,11 +59,15 @@
         </ol>
       </section>
       <prime-form
+        v-if="!result"
         :initial-values="formValues"
         :resolver="resolver"
-        class="w-full h-full flex flex-col md:grid gap-x-2 gap-y-2 grid-cols-2 p-4 bg-white bg-opacity-20 rounded-lg shadow-lg"
+        class="w-full h-full grid-cols-2 grid gap-x-2 gap-y-2 md:grid-cols-4 p-4 bg-white bg-opacity-80 text-black rounded-lg shadow-lg"
         @submit="submit"
       >
+        <h1 class="text-2xl sm:text-4xl font-bold col-span-full">
+          Verzendlabel aanvragen
+        </h1>
         <h2 class="text-lg italic font-bold col-span-full">
           Informatie
         </h2>
@@ -75,37 +79,91 @@
         />
         <custom-input-text
           v-model="formValues.firstName"
+          class="md:col-span-2"
           required
           name="firstName"
         />
         <custom-input-text
           v-model="formValues.lastName"
+          class="md:col-span-2"
           required
           name="lastName"
+        />
+        <custom-input-select
+          v-model="formValues.productId"
+          class="col-span-full"
+          required
+          :options="packages"
+          :filter="false"
+          name="productId"
+        />
+        <custom-input-text
+          v-model="formValues.remark"
+          class="col-span-full"
+          name="remark"
         />
         <h2 class="text-lg italic font-bold col-span-full mt-8">
           Adres
         </h2>
         <custom-input-text
-          v-model="formValues.address.street"
+          v-model="formValues.street"
+          class="col-span-2"
           required
           name="street"
         />
         <custom-input-text
-          v-model="formValues.address.houseNumber"
+          v-model="formValues.houseNumber"
           required
           name="houseNumber"
         />
         <custom-input-text
-          v-model="formValues.address.houseNumberSuffix"
+          v-model="formValues.houseNumberSuffix"
           name="houseNumberSuffix"
         />
         <custom-input-text
-          v-model="formValues.remark"
-          class="col-span-full mt-8"
-          name="remark"
+          v-model="formValues.town"
+          class="md:col-span-2"
+          required
+          name="town"
         />
+        <custom-input-text
+          v-model="formValues.postalCode"
+          required
+          name="postalCode"
+        />
+        <div class="w-full flex justify-end col-span-full mt-8">
+          <button
+            :disabled="loading"
+            type="submit"
+            class="bg-orange-600 text-white font-bold py-2 px-4 rounded-lg hover:shadow-lg"
+          >
+            Aanvragen
+          </button>
+        </div>
       </prime-form>
+      <div
+        v-else
+        class="w-full h-full flex flex-col gap-4 p-4 bg-white bg-opacity-80 text-black rounded-lg shadow-lg"
+      >
+        <p style="font-size: 1.5rem; margin-bottom: 0">
+          <b>Super hard bedankt!</b><br>Daar bezorgen we heel wat kindjes een fijne en bijzondere verjaardag mee!
+        </p>
+        <div
+          class="flex flex-col gap-4"
+          role="dialog"
+        >
+          <p>Uw label is aangemaakt. U kan het hieronder downloaden.</p>
+          <div class="flex justify-start">
+            <a
+              class="bg-orange-600 text-white font-bold py-2 px-4 rounded-lg hover:shadow-lg"
+              :download="`Verzendlabel_${result?.Barcode}.pdf`"
+              :href="`data:application/pdf;base64,${result?.Labels[0].Content}`"
+            >
+              Download Label
+            </a>
+          </div>
+        </div>
+      </div>
       <section>
         <h2>
           Doneer en brand een verjaardagskaarsje!
@@ -165,22 +223,16 @@ export default defineComponent({
           value: '26cb0534-7a39-47fc-b9fd-fbdd9c2141a4',
         },
       ],
-      labelResponse: ref(undefined as undefined | {
-        Barcode: string;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        Labels: Array<any>;
-      }),
       resolver: zodResolver(z.object({
+        productId: z.string().uuid(),
         email: z.string().nonempty('required').email('email'),
         firstName: z.string().nonempty('required'),
         lastName: z.string().nonempty('required'),
-        address: z.object({
-          houseNumber: z.string().nonempty('required'),
-          houseNumberSuffix: z.string().optional(),
-          street: z.string().nonempty('required'),
-          postalCode: z.string().nonempty('required'),
-          town: z.string().nonempty('required'),
-        }),
+        houseNumber: z.string().nonempty('required'),
+        houseNumberSuffix: z.string().optional(),
+        street: z.string().nonempty('required'),
+        postalCode: z.string().nonempty('required'),
+        town: z.string().nonempty('required'),
         agreedToTerms: z.literal(true),
         remark: z.string().optional(),
       })),
@@ -189,24 +241,49 @@ export default defineComponent({
   data() {
     return {
       imagesLoaded: false,
+      loading: false,
+      result: undefined as {
+        Barcode: string;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        Labels: Array<any>;
+      } | undefined,
       formValues: {
         productId: '7237d06e-79ca-4e9d-a19d-894e264e7d99',
-        email: '',
-        firstName: '',
-        lastName: '',
-        address: {
-          houseNumber: '',
-          houseNumberSuffix: '',
-          street: '',
-          postalCode: '',
-          town: '',
-        },
+        email: 'jonathancouck@hotmail.be',
+        firstName: 'Jonathan',
+        lastName: 'Couck',
+        houseNumber: '41',
+        houseNumberSuffix: '',
+        street: 'Santhovenstraat',
+        postalCode: '8434',
+        town: 'Middelkerke',
         agreedToTerms: true,
-        remark: '',
+        remark: 'Testing',
       },
+      // formValues: {
+      //   productId: '7237d06e-79ca-4e9d-a19d-894e264e7d99',
+      //   email: '',
+      //   firstName: '',
+      //   lastName: '',
+      //   houseNumber: '',
+      //   houseNumberSuffix: '',
+      //   street: '',
+      //   postalCode: '',
+      //   town: '',
+      //   agreedToTerms: true,
+      //   remark: '',
+      // },
     };
   },
   async mounted() {
+    const style = document.documentElement.style;
+    style.setProperty('--p-primary-200', 'var(--p-orange-200)');
+    style.setProperty('--p-primary-300', 'var(--p-orange-300)');
+    style.setProperty('--p-primary-400', 'var(--p-orange-400)');
+    style.setProperty('--p-primary-500', 'var(--p-orange-500)');
+    style.setProperty('--p-primary-600', 'var(--p-orange-600)');
+    style.setProperty('--p-primary-700', 'var(--p-orange-700)');
+    style.setProperty('--p-primary-800', 'var(--p-orange-800)');
     try {
       await loadImagesAsync([
         'https://weglowdashboard.blob.core.windows.net/feestvarkenvzw/feestvarkenCandle.png',
@@ -222,8 +299,20 @@ export default defineComponent({
   },
   methods: {
     async submit(e: FormSubmitEvent) {
-      console.log(this.formValues);
-      console.log(e);
+      if (!e.valid) return;
+      try {
+        this.loading = true;
+        this.result = await $fetch('http://localhost:8000/api/postnl/label', {
+          method: 'POST',
+          body: this.formValues,
+        });
+      }
+      catch (err) {
+        console.error(err);
+      }
+      finally {
+        this.loading = false;
+      }
     },
   },
 });

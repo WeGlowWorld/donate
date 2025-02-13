@@ -15,7 +15,7 @@
       :options="options"
       option-label="label"
       option-value="value"
-      filter
+      :filter="filter"
       fluid
       size="large"
       @change="onChange"
@@ -57,6 +57,10 @@ export default defineComponent({
     required: {
       type: Boolean,
       default: false,
+    },
+    filter: {
+      type: Boolean,
+      default: true,
     },
   },
   emits: ['update:modelValue'],
