@@ -1,5 +1,5 @@
 import type { Content } from '~/models/content';
-import type { Locale, VarRefType, VarType } from '~/models/enums';
+import { VarType, type Locale, type VarRefType } from '~/models/enums';
 
 export const useCampaignStore = defineStore('campaignStore', {
   state: () => ({
@@ -22,7 +22,8 @@ export const useCampaignStore = defineStore('campaignStore', {
   async hydrate(storeState) {
     const { orgSlug, campaignSlug } = useRoute().params;
     try {
-      const content = await $fetch<Content>(`https://weglow-backend.azurewebsites.net/api/campaign/content/${orgSlug}/${campaignSlug}`);
+      const content = await $fetch<Content>(`http://localhost:8000/api/campaign/content/${orgSlug}/${campaignSlug}`);
+      console.log(content.variables.filter(v => v.type === VarType.COLOR));
       storeState.content = content;
       storeState.initialized = true;
     }

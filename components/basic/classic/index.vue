@@ -6,13 +6,13 @@
     <basic-header />
     <div
       id="content"
-      class="flex flex-col mx-auto w-full gap-x-8 gap-y-16 xl:grid grid-cols-6 max-w-[90rem] py-16 px-4"
+      class="flex flex-col mx-auto w-full gap-8 xl:grid grid-cols-3 max-w-[75rem] py-16 px-4"
     >
-      <basic-classic-description class="max-w-5xl mx-auto xl:mx-0 col-span-3" />
-      <basic-classic-donate class="max-w-5xl mx-auto xl:mx-0 col-span-3" />
-      <basic-classic-map class="col-span-4" />
-      <basic-classic-messages class="col-span-2" />
-      <basic-classic-links class="col-span-6" />
+      <basic-classic-description class="mx-auto xl:mx-0 col-span-3" />
+      <basic-classic-donate class="mx-auto xl:mx-0 col-span-3" />
+      <basic-classic-map class="col-span-2" />
+      <basic-classic-messages />
+      <basic-classic-links class="col-span-3" />
     </div>
     <basic-footer />
   </div>

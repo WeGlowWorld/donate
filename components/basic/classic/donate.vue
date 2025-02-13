@@ -1,8 +1,35 @@
 <template>
   <div
     v-if="content"
-    class="w-full flex flex-col"
+    class="w-full flex flex-col gap-8"
   >
+    <div class="flex flex-col w-full">
+      <div class="flex text-2xl justify-center gap-8 md:gap-16">
+        <div class="circle">
+          <img
+            class="h-16 w-16 md:h-24 md:w-24 lg:h-32 lg:w-32"
+            :src="icon"
+          >
+          <div>
+            {{ content.campaign.raised.count }}
+          </div>
+        </div>
+        <div class="circle">
+          <div>
+            <b>{{ content.org.currencySign }}&nbsp;{{ content.campaign.raised.sum }}</b>
+            <span
+              v-if="content.campaign.goal"
+              class="text-4xl"
+            >/{{ content.org.currencySign }}&nbsp;{{ content.campaign.goal }}</span>
+          </div>
+        </div>
+      </div>
+      <progress-bar
+        v-if="content.campaign.goal"
+        :value="progressBar"
+        :pt:value:style="{ backgroundColor: 'var(--p-green-600)' }"
+      />
+    </div>
     <basic-classic-card :title="$t('donate.title')">
       <div class="px-2 py-4 flex flex-col gap-8">
         <p
@@ -46,31 +73,6 @@
         </div>
       </div>
     </basic-classic-card>
-    <div class="flex flex-col max-w-5xl w-full mx-auto mt-8">
-      <div class="flex justify-start items-end text-2xl">
-        <div class="flex-1">
-          {{ content.campaign.raised.count }} {{ $t('donate.donations') }}
-        </div>
-        <div class="h-16 w-16 md:h-24 md:w-24 lg:h-32 lg:w-32 mx-auto">
-          <img
-            class="h-full w-full"
-            :src="icon"
-          >
-        </div>
-        <div class="flex-1 text-right">
-          <b>{{ content.org.currencySign }}&nbsp;{{ content.campaign.raised.sum }}</b>
-          <span
-            v-if="content.campaign.goal"
-            class="text-4xl"
-          >/{{ content.org.currencySign }}&nbsp;{{ content.campaign.goal }}</span>
-        </div>
-      </div>
-      <progress-bar
-        v-if="content.campaign.goal"
-        :value="progressBar"
-        :pt:value:style="{ backgroundColor: 'var(--p-green-600)' }"
-      />
-    </div>
   </div>
 </template>
 
@@ -86,7 +88,7 @@ export default defineComponent({
   setup() {
     const campaignStore = useCampaignStore();
     return {
-      amount: ref(campaignStore.content?.prices.find(v => v.selected)?.amount || 0),
+      amount: ref(campaignStore.content?.prices.find(v => v.selected)?.amount || campaignStore.content?.prices[0]?.amount || 0),
       campaignStore,
       content: ref(campaignStore.content),
       VarType: VarType,
@@ -121,3 +123,12 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.circle {
+  border-color: var(--t-title);
+  background-color: var(--t-card);
+  color: var(--t-card-text);
+  @apply h-40 w-40 sm:h-48 sm:w-48 rounded-full shadow-xl gap-4 justify-center items-center flex flex-col border-2;
+}
+</style>

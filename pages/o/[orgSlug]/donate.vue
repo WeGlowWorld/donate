@@ -261,7 +261,6 @@ export default defineComponent({
         placeholder: ' ',
       });
       geocoder.on('result', (e: { result: { geometry: { coordinates: [number, number] } } }) => {
-        console.log('HERE');
         console.log(e.result.geometry);
         this.coords = e.result.geometry.coordinates;
       });
