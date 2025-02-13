@@ -302,7 +302,7 @@ export default defineComponent({
       if (!e.valid) return;
       try {
         this.loading = true;
-        this.result = await $fetch('http://localhost:8000/api/postnl/label', {
+        this.result = await $fetch('https://weglow-backend.azurewebsites.net/api/postnl/label', {
           method: 'POST',
           body: this.formValues,
         });
