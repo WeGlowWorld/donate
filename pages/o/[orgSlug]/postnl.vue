@@ -4,7 +4,7 @@
   </div>
   <div
     v-else-if="imagesLoaded"
-    class="min-h-screen flex relative bg-[#F56900] px-4"
+    class="postnl-page min-h-screen flex relative bg-[#F56900] px-4"
   >
     <div class="max-w-5xl w-full mx-auto pt-16 pb-48 text-white flex flex-col gap-16">
       <h1 class="text-2xl sm:text-4xl font-bold text-center mb-4">
@@ -38,7 +38,8 @@
           In België groeit 1 kind op 7 op in armoede en krijgt nooit een verjaardagscadeau.
           En dat willen we veranderen, samen met jou en PostNL. Koop een nieuw stuk speelgoed en
           verzend het gratis via een verzendlabel dat je kan aanvragen via het formulier hieronder.
-          Geef je liever een <router-link to="/o/feestvarken-vzw/c/4H3OBDBO">gift</router-link>? Dat helpt ook! Samen bezorgen we elk kind een zorgeloze verjaardag.
+          Geef je liever een <a href="https://gentle-beach-0c99a6803.4.azurestaticapps.net/o/feestvarken-vzw/c/4H3OBDBO">gift</a>?
+          Dat helpt ook! Samen bezorgen we elk kind een zorgeloze verjaardag.
         </p>
         <p>
           De cadeaus worden als onderdeel van een feestelijke verjaardagsbox bezorgd aan sociale huizen.
@@ -170,18 +171,18 @@
         </h2>
         <p>
           Wil je geen cadeautje versturen, maar wel je steentje bijdragen? Dan kan je een geldbedrag naar keuze storten en
-          zo een <router-link to="/o/feestvarken-vzw/c/4H3OBDBO">virtueel verjaardagskaarsje</router-link> branden!
+          zo een <a href="https://gentle-beach-0c99a6803.4.azurestaticapps.net/o/feestvarken-vzw/c/4H3OBDBO">virtueel verjaardagskaarsje</a> branden!
           Zo kopen wij er iets moois mee voor de verjaardag van een kindje in armoede!
         </p>
       </section>
     </div>
-    <router-link
-      to="/o/feestvarken-vzw/c/4H3OBDBO"
+    <a
+      href="https://gentle-beach-0c99a6803.4.azurestaticapps.net/o/feestvarken-vzw/c/4H3OBDBO"
       class="h-36 w-36 fixed bottom-4 right-4 bg-white text-[#F56900] font-bold text-2xl flex flex-col justify-center items-center rounded-full p-8 shadow-lg hover:scale-105 duration-100 cursor-pointer"
     >
       <img src="https://weglowdashboard.blob.core.windows.net/feestvarkenvzw/feestvarkenCandle.png">
       <span>Doneer</span>
-    </router-link>
+    </a>
   </div>
 </template>
 
@@ -205,6 +206,9 @@ export default defineComponent({
   name: 'Postnl',
   components: { PrimeForm },
   setup() {
+    useSeoMeta({
+      title: 'Feestvarken x PostNL',
+    });
     if (useRoute().params.orgSlug !== 'feestvarken-vzw') useRouter().push('/o/');
 
     return {
@@ -276,6 +280,7 @@ export default defineComponent({
     };
   },
   async mounted() {
+    this.$i18n.locale = 'nl-BE';
     const style = document.documentElement.style;
     style.setProperty('--p-primary-200', 'var(--p-orange-200)');
     style.setProperty('--p-primary-300', 'var(--p-orange-300)');
@@ -319,6 +324,10 @@ export default defineComponent({
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400..900;1,400..900&display=swap');
+.postnl-page {
+  font-family: 'Hanken Grotesk', sans-serif;
+}
 .img-icon {
   @apply absolute top-1/2 h-24 md:h-40 -translate-y-12 md:-translate-y-20;
 }
@@ -326,7 +335,8 @@ section {
   @apply flex flex-col gap-4;
 }
 section h2 {
-  @apply text-xl sm:text-3xl font-bold;
+  font-weight: 900;
+  @apply text-xl sm:text-3xl;
 }
 section a {
   @apply underline bg-orange-100 px-1 text-orange-500;
