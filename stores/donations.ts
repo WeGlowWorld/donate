@@ -17,7 +17,7 @@ export const useDonationsStore = defineStore('donationsStore', {
         const result = await $fetch<{
           messages: Message[];
           coords?: Coord[];
-        }>(`http://localhost:8000/api/campaign/donations/${orgSlug}/${campaignSlug}`, {
+        }>(`https://weglow-backend.azurewebsites.net/api/campaign/donations/${orgSlug}/${campaignSlug}`, {
           query: {
             limit: 20,
             offset: this.page * 20,
