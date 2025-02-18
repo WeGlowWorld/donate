@@ -5,6 +5,7 @@
       class="donate-page min-h-screen flex p-4 md:p-16"
     >
       <div class="donate-form max-w-4xl mx-auto w-full h-fit p-4 md:p-8 shadow-lg">
+        <!-- <Button @click="useRouter().push(`/o/${route.params.orgSlug}/c/${route.query.campaignSlug}`)" /> -->
         <slot />
       </div>
     </div>
@@ -18,18 +19,11 @@ export default defineComponent({
     if (!route.params.orgSlug) {
       useRouter().push('/404');
     }
-    try {
-      useOrgStore();
-    }
-    catch (err) {
-      console.error(err);
-      useRouter().push('/404');
-    }
-
     useSeoMeta({
       title: 'WeGlow pagina',
     });
     return {
+      route: ref(route),
       orgStore: ref(useOrgStore()),
     };
   },
@@ -57,6 +51,15 @@ export default defineComponent({
       },
       deep: true,
     },
+  },
+  async mounted() {
+    try {
+      await useOrgStore().init();
+    }
+    catch (err) {
+      console.error(err);
+      useRouter().push('/404');
+    }
   },
 });
 </script>

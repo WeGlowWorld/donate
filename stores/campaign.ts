@@ -19,19 +19,24 @@ export const useCampaignStore = defineStore('campaignStore', {
       return (state.content?.org.locales.includes(useI18n().locale.value as Locale) ? useI18n().locale.value : state.content?.org.locales[0]) as Locale;
     },
   },
-  async hydrate(storeState) {
-    const { orgSlug, campaignSlug } = useRoute().params;
-    try {
-      const content = await $fetch<Content>(`https://weglow-backend.azurewebsites.net/api/campaign/content/${orgSlug}/${campaignSlug}`);
-      storeState.content = content;
-      storeState.initialized = true;
-    }
-    catch (err) {
-      if (err instanceof Error)
-        storeState.error = err.message;
-    }
-    finally {
-      storeState.initialized = true;
-    }
+  async hydrate() {
+    await this.actions?.init();
+  },
+  actions: {
+    async init() {
+      const { orgSlug, campaignSlug } = useRoute().params;
+      try {
+        const content = await $fetch<Content>(`https://weglow-backend.azurewebsites.net/api/campaign/content/${orgSlug}/${campaignSlug}`);
+        this.content = content;
+        this.initialized = true;
+      }
+      catch (err) {
+        if (err instanceof Error)
+          this.error = err.message;
+      }
+      finally {
+        this.initialized = true;
+      }
+    },
   },
 });

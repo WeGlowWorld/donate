@@ -17,11 +17,49 @@ const t: Translations = {
     tac: 'Gebruiksvoorwaarden',
     pp: 'Privacybeleid',
   },
+  donate: {
+    title: 'Doneer',
+    next: 'Volgende',
+    donation: 'Donatie',
+    submit: 'Doneer',
+  },
+  messages: {
+    noMessages: 'Geen berichten',
+    title: 'Berichten',
+  },
+  thanks: {
+    toFiscal: 'Naar de fiscale pagina',
+    toPage: 'Naar de pagina',
+  },
 };
 
 export default {
   ...t,
   fields: {
+    amount: {
+      name: 'Bedrag',
+      errors: {
+        required: 'Bedrag is verplicht',
+      },
+    },
+    name: {
+      name: 'Naam',
+      errors: {
+        required: 'Naam is verplicht',
+      },
+    },
+    description: {
+      name: 'Bericht',
+      errors: {
+        required: 'Bericht is verplicht',
+      },
+    },
+    coords: {
+      name: 'Locatie',
+      errors: {
+        required: 'Locatie is verplicht',
+      },
+    },
     email: {
       name: 'E-mail',
       errors: {

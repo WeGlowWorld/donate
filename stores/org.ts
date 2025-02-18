@@ -17,25 +17,30 @@ export const useOrgStore = defineStore('orgStore', {
       && (!refId || v.refId === refId),
     )?.value,
   },
-  async hydrate(storeState) {
-    const { orgSlug } = useRoute().params;
-    try {
-      const content = await $fetch<ContentOrg>(`https://weglow-backend.azurewebsites.net/api/org/content/${orgSlug}`);
-      storeState.content = content;
-      storeState.initialized = true;
-    }
-    catch (err) {
-      if (err instanceof Error)
-        storeState.error = err.message;
-    }
-    finally {
-      storeState.initialized = true;
-    }
+  async hydrate() {
+    console.log('here');
+    await this.actions?.init();
   },
   actions: {
+    async init() {
+      if (this.initialized) return;
+      const { orgSlug } = useRoute().params;
+      try {
+        const content = await $fetch<ContentOrg>(`https://weglow-backend.azurewebsites.net/api/org/content/${orgSlug}`);
+        this.content = content;
+        this.initialized = true;
+      }
+      catch (err) {
+        if (err instanceof Error)
+          this.error = err.message;
+      }
+      finally {
+        this.initialized = true;
+      }
+    },
     async donate(orgSlug: string, campSlug: string, body: DonateBody & { certificate?: DonateKbsBody }): Promise<string> {
       try {
-        return await $fetch<string>(`https://weglow-backend.azurewebsites.net/api/donation/${orgSlug}/${campSlug}`, {
+        return await $fetch<string>(`http://localhost:8000/api/donation/${orgSlug}/${campSlug}`, {
           method: 'POST',
           body: {
             amount: body.amount,

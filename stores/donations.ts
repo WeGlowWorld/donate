@@ -8,33 +8,16 @@ export const useDonationsStore = defineStore('donationsStore', {
     initialized: false as boolean,
     error: undefined as string | undefined,
   }),
-  async hydrate(storeState) {
-    const { orgSlug, campaignSlug } = useRoute().params;
-
-    try {
-      const result = await $fetch<{
-        messages: Message[];
-        coords: Coord[];
-      }>(`https://weglow-backend.azurewebsites.net/api/campaign/donations/${orgSlug}/${campaignSlug}`);
-      storeState.messages = result.messages;
-      storeState.coords = result.coords;
-      storeState.page += 1;
-    }
-    catch (err) {
-      if (err instanceof Error)
-        storeState.error = err.message;
-    }
-    finally {
-      storeState.initialized = true;
-    }
-  },
   actions: {
+    async init(campaignSlug: string, orgSlug: string) {
+      this.fetchDonations(campaignSlug, orgSlug);
+    },
     async fetchDonations(campaignSlug: string, orgSlug: string): Promise<void> {
       try {
         const result = await $fetch<{
           messages: Message[];
           coords?: Coord[];
-        }>(`https://weglow-backend.azurewebsites.net/api/campaign/donations/${orgSlug}/${campaignSlug}`, {
+        }>(`http://weglow-backend.azurewebsites.net/api/campaign/donations/${orgSlug}/${campaignSlug}`, {
           query: {
             limit: 20,
             offset: this.page * 20,
@@ -44,10 +27,10 @@ export const useDonationsStore = defineStore('donationsStore', {
       }
       catch (err) {
         if (err instanceof Error)
-          this.$state.error = err.message;
+          this.error = err.message;
       }
       finally {
-        this.$state.initialized = true;
+        this.initialized = true;
       }
     },
   },

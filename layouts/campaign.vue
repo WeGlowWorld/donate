@@ -11,18 +11,20 @@ export default defineComponent({
     if (!route.params.campaignSlug) {
       useRouter().push('/404');
     }
+
+    useSeoMeta({
+      title: 'WeGlow pagina',
+    });
+  },
+  async mounted() {
     try {
-      useCampaignStore();
-      useDonationsStore();
+      useCampaignStore().init();
+      useDonationsStore().init(this.$route.params.campaignSlug as string, this.$route.params.orgSlug as string);
     }
     catch (err) {
       console.error(err);
       useRouter().push('/404');
     }
-
-    useSeoMeta({
-      title: 'WeGlow pagina',
-    });
   },
 });
 </script>

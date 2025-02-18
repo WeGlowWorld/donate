@@ -38,7 +38,7 @@
           :href="`${sm.link}${pageLink}`"
         />
         <PrimeButton
-          :label="$t('share.copy')"
+          :label="$t('share.copyLink')"
           class="ml-auto"
           raised
           :pt:root:style="{ backgroundColor: 'var(--d-primary)', color: 'var(--d-primary-text)', border: 'none', padding: '0.75rem 2rem 0.75rem 2rem' }"
@@ -110,6 +110,9 @@ export default defineComponent({
   computed: {
     pageLink() {
       return `${window.location.origin}/o/${this.route.params.orgSlug}/c/${this.campaignSlug}`;
+    },
+    fiscalLink() {
+      return `${window.location.origin}/o/${this.route.params.orgSlug}/fiscal-certificate?order=${this.orderNr}`;
     },
   },
   methods: {

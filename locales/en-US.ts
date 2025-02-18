@@ -17,6 +17,20 @@ const t: Translations = {
     tac: 'Terms and conditions',
     pp: 'Privacy policy',
   },
+  donate: {
+    title: 'Donate',
+    next: 'Next',
+    donation: 'Donation',
+    submit: 'Donate',
+  },
+  messages: {
+    noMessages: 'No messages',
+    title: 'Messages',
+  },
+  thanks: {
+    toFiscal: 'To the fiscal page',
+    toPage: 'To the page',
+  },
 };
 
 export default t;
