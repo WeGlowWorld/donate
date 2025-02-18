@@ -136,14 +136,6 @@ export default defineComponent({
       orgSlug: this.$route.params.orgSlug,
     };
   },
-  watch: {
-    formValues: {
-      handler() {
-        console.log(this.formValues);
-      },
-      deep: true,
-    },
-  },
   methods: {
     async submit(event: FormSubmitEvent) {
       try {
