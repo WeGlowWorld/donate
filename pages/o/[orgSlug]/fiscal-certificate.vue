@@ -142,7 +142,7 @@ export default defineComponent({
       try {
         console.log(event);
         console.log(this.formValues);
-        // await this.$api.donation.createCertificate(this.orgSlug, this.formValues);
+        // await $fetch(`https://weglow-backend.azurewebsites.net/api/certificate/${this.formValues.}`)(this.orgSlug, this.formValues);
         // this.$router.push(`/o/${this.orgSlug}/thank-you`);
       }
       catch (err) {

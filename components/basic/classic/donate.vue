@@ -10,17 +10,20 @@
             class="h-16 w-16 md:h-24 md:w-24 lg:h-32 lg:w-32"
             :src="icon"
           >
-          <div>
+          <div class="font-bold">
             {{ content.campaign.raised.count }}
           </div>
         </div>
         <div class="circle">
-          <div>
+          <div class="text-center">
             <b>{{ content.org.currencySign }}&nbsp;{{ content.campaign.raised.sum }}</b>
             <span
               v-if="content.campaign.goal"
               class="text-4xl"
             >/{{ content.org.currencySign }}&nbsp;{{ content.campaign.goal }}</span>
+            <div class="text-[1.125rem]">
+              ingezameld
+            </div>
           </div>
         </div>
       </div>
@@ -129,6 +132,6 @@ export default defineComponent({
   border-color: var(--t-title);
   background-color: var(--t-card);
   color: var(--t-card-text);
-  @apply h-40 w-40 sm:h-48 sm:w-48 rounded-full shadow-xl gap-4 justify-center items-center flex flex-col border-2;
+  @apply h-40 w-40 sm:h-48 sm:w-48 rounded-full shadow-xl gap-0 justify-center items-center flex flex-col border-2;
 }
 </style>

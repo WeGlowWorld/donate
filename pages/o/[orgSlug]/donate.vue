@@ -226,10 +226,7 @@ export default defineComponent({
   methods: {
     async submit(event: FormSubmitEvent) {
       try {
-        if (!event.valid) {
-          console.log(event);
-          return;
-        };
+        if (!event.valid) return;
         const checkout = await this.orgStore.donate(
           this.orgSlug,
           this.campSlug,
@@ -239,7 +236,6 @@ export default defineComponent({
             coords: this.coords,
           },
         );
-        console.log(checkout);
         window.location.href = checkout;
       }
       catch (err) {
@@ -261,7 +257,6 @@ export default defineComponent({
         placeholder: ' ',
       });
       geocoder.on('result', (e: { result: { geometry: { coordinates: [number, number] } } }) => {
-        console.log(e.result.geometry);
         this.coords = e.result.geometry.coordinates;
       });
 

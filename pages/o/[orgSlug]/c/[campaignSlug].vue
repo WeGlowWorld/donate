@@ -1,7 +1,7 @@
 <template>
   <basic-classic v-if="campaignStore.content?.base.template === Template.BASIC_CLASSIC" />
   <basic-modern v-else-if="campaignStore.content?.base.template === Template.BASIC_MODERN" />
-  <div v-else>
+  <div v-else-if="campaignStore.initialized">
     This template has ended
   </div>
 </template>

@@ -27,7 +27,6 @@ export default defineComponent({
     const campaignStore = useCampaignStore();
     const i18n = useI18n();
     const route = useRoute();
-
     const locale = (route.params.locale || i18n.locale.value || Locale.NL_BE) as Locale;
     const [title, description, image] = [
       campaignStore.variable('campaign_name', locale, VarType.TRANSLATION, VarRefType.CAMPAIGN),
