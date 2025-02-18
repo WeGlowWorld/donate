@@ -29,4 +29,13 @@ export type Translations = {
     toFiscal: string;
     toPage: string;
   };
+  fiscal: {
+    personalFields: string;
+    locationFields: string;
+    companyFields: string;
+  };
+  fields: Record<string, {
+    name: string;
+    errors: Record<string, string>;
+  }>;
 };

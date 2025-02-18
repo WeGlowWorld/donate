@@ -38,7 +38,7 @@
           In België groeit 1 kind op 7 op in armoede en krijgt nooit een verjaardagscadeau.
           En dat willen we veranderen, samen met jou en PostNL. Koop een nieuw stuk speelgoed en
           verzend het gratis via een verzendlabel dat je kan aanvragen via het formulier hieronder.
-          Geef je liever een <a href="https://gentle-beach-0c99a6803.4.azurestaticapps.net/o/feestvarken-vzw/c/4H3OBDBO">gift</a>?
+          Geef je liever een <a href="https://donate.weglow.world/o/feestvarken-vzw/c/4H3OBDBO">gift</a>?
           Dat helpt ook! Samen bezorgen we elk kind een zorgeloze verjaardag.
         </p>
         <p>
@@ -171,13 +171,13 @@
         </h2>
         <p>
           Wil je geen cadeautje versturen, maar wel je steentje bijdragen? Dan kan je een geldbedrag naar keuze storten en
-          zo een <a href="https://gentle-beach-0c99a6803.4.azurestaticapps.net/o/feestvarken-vzw/c/4H3OBDBO">virtueel verjaardagskaarsje</a> branden!
+          zo een <a href="https://donate.weglow.world/o/feestvarken-vzw/c/4H3OBDBO">virtueel verjaardagskaarsje</a> branden!
           Zo kopen wij er iets moois mee voor de verjaardag van een kindje in armoede!
         </p>
       </section>
     </div>
     <a
-      href="https://gentle-beach-0c99a6803.4.azurestaticapps.net/o/feestvarken-vzw/c/4H3OBDBO"
+      href="https://donate.weglow.world/o/feestvarken-vzw/c/4H3OBDBO"
       class="h-36 w-36 fixed bottom-4 right-4 bg-white text-[#F56900] font-bold text-2xl flex flex-col justify-center items-center rounded-full p-8 shadow-lg hover:scale-105 duration-100 cursor-pointer"
     >
       <img src="https://weglowdashboard.blob.core.windows.net/feestvarkenvzw/feestvarkenCandle.png">

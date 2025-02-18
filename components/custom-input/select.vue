@@ -67,6 +67,7 @@ export default defineComponent({
   methods: {
     onChange(event: SelectChangeEvent) {
       if (event.value !== this.modelValue) {
+        console.log('event.value', event.value);
         this.$emit('update:modelValue', event.value);
       }
     },

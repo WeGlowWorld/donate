@@ -7,14 +7,14 @@
       <div
         v-for="message in messages"
         :key="`${message.name}-${message.date}`"
-        class="basic-classic-message flex flex-col mx-2 py-4 text-sm"
+        class="basic-classic-message flex flex-row mx-2 py-4 text-sm"
       >
-        <div class="flex justify-between">
+        <div class="flex flex-col justify-between">
           <div><b>{{ message.name }}</b></div>
-          <div>{{ message.date }}</div>
-        </div>
-        <div class="flex justify-between">
           <div>{{ message.description }}</div>
+        </div>
+        <div class="flex flex-col justify-start items-end">
+          <div>{{ message.date }}</div>
           <div><b>{{ message.amount }}</b></div>
         </div>
       </div>

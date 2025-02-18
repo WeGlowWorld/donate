@@ -19,10 +19,10 @@
     <custom-input-switch
       v-model="formValues.company"
       name="company"
-      class="md:col-span-2"
+      class="col-span-full"
     />
     <template v-if="formValues.company">
-      <label>{{ $t('fiscal.companyFields') }}</label>
+      <label class="col-span-full font-bold">{{ $t('fiscal.companyFields') }}</label>
       <custom-input-text
         v-model="formValues.companyName"
         required
@@ -31,11 +31,11 @@
       <custom-input-text
         v-model="formValues.nationalNr"
         required
-        name="vatNr"
+        name="companyNr"
       />
     </template>
     <template v-else>
-      <label>{{ $t('fiscal.personalFields') }}</label>
+      <label class="col-span-full font-bold">{{ $t('fiscal.personalFields') }}</label>
       <custom-input-text
         v-model="formValues.firstName"
         required
@@ -57,7 +57,7 @@
         name="gender"
       />
     </template>
-    <label>{{ $t('fiscal.location') }}</label>
+    <label class="col-span-full font-bold">{{ $t('fiscal.locationFields') }}</label>
     <custom-input-select
       v-model="formValues.country"
       :options="countryOptions"
@@ -81,7 +81,6 @@
     />
     <custom-input-text
       v-model="formValues.premise"
-      required
       name="premise"
     />
     <div class="md:col-span-2 ml-auto">
@@ -136,6 +135,14 @@ export default defineComponent({
       resolver: zodResolver(certificateZod),
       orgSlug: this.$route.params.orgSlug,
     };
+  },
+  watch: {
+    formValues: {
+      handler() {
+        console.log(this.formValues);
+      },
+      deep: true,
+    },
   },
   methods: {
     async submit(event: FormSubmitEvent) {

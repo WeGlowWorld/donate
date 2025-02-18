@@ -1,7 +1,7 @@
 <template>
   <div
     ref="mapContainer"
-    class="flex-1 h-[30rem] shadow-xl rounded-lg"
+    class="h-[30rem] shadow-xl rounded-lg"
   />
 </template>
 
@@ -29,7 +29,7 @@ export default defineComponent({
     const basemap = this.campaignStore.content?.base.map;
     if (!basemap) return;
 
-    // @ts-expect-error Just writing something
+    // @ts-expect-error Test
     this.map = new mapboxgl.Map({
       container: this.$refs.mapContainer,
       style: 'mapbox://styles/weglow/clbe7xzo2000514t825nyh63a',

@@ -31,6 +31,12 @@ const t: Translations = {
     toFiscal: 'Vers la page fiscale',
     toPage: 'Vers la page',
   },
+  fiscal: {
+    personalFields: 'Données personnelles',
+    locationFields: 'Emplacement',
+    companyFields: 'Données de l\'entreprise',
+  },
+  fields: {},
 };
 
 export default t;

@@ -31,11 +31,16 @@ const t: Translations = {
     toFiscal: 'Naar de fiscale pagina',
     toPage: 'Naar de pagina',
   },
-};
-
-export default {
-  ...t,
+  fiscal: {
+    personalFields: 'Persoonlijke gegevens',
+    locationFields: 'Locatie',
+    companyFields: 'Bedrijfsgegevens',
+  },
   fields: {
+    company: {
+      name: 'Doneren als bedrijf',
+      errors: {},
+    },
     amount: {
       name: 'Bedrag',
       errors: {
@@ -87,6 +92,7 @@ export default {
     },
     remark: {
       name: 'Opmerking',
+      errors: {},
     },
     street: {
       name: 'Straat',
@@ -118,5 +124,59 @@ export default {
         required: 'Postcode is verplicht',
       },
     },
+    anonymous: {
+      name: 'Anoniem doneren',
+      errors: {},
+    },
+    nationalNr: {
+      name: 'Rijksregisternummer',
+      errors: {
+        required: 'Rijksregisternummer is verplicht',
+      },
+    },
+    gender: {
+      name: 'Geslacht',
+      errors: {
+        required: 'Geslacht is verplicht',
+      },
+    },
+    country: {
+      name: 'Land',
+      errors: {
+        required: 'Land is verplicht',
+      },
+    },
+    locality: {
+      name: 'Gemeente',
+      errors: {
+        required: 'Gemeente is verplicht',
+      },
+    },
+    streetNr: {
+      name: 'Straat en huisnummer',
+      errors: {
+        required: 'Straat en huisnummer is verplicht',
+      },
+    },
+    premise: {
+      name: 'Bus',
+      errors: {
+        required: 'Bus is verplicht',
+      },
+    },
+    companyName: {
+      name: 'Bedrijfsnaam',
+      errors: {
+        required: 'Bedrijfsnaam is verplicht',
+      },
+    },
+    companyNr: {
+      name: 'Ondernemingsnummer',
+      errors: {
+        required: 'Ondernemingsnummer is verplicht',
+      },
+    },
   },
 };
+
+export default t;
