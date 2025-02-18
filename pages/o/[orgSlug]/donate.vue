@@ -224,6 +224,11 @@ export default defineComponent({
     this.initializeMap();
   },
   methods: {
+    toPage() {
+      this.$router.push({
+        path: `/o/${this.$route.params.orgSlug}/c/${this.$route.query.campaignSlug}`,
+      });
+    },
     async submit(event: FormSubmitEvent) {
       try {
         if (!event.valid) return;

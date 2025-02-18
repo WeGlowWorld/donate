@@ -24,6 +24,11 @@ export default defineComponent({
       markers: [] as Marker[],
     };
   },
+  watch: {
+    'donationStore.coords'() {
+      this.updateMap();
+    },
+  },
   mounted() {
     mapboxgl.accessToken = 'pk.eyJ1Ijoid2VnbG93IiwiYSI6ImNsYXdsMG1idDBleGUzcHA0bXV6czQyaWMifQ.2JmaCHMYFmNLPQrzNQkv9A' as string;
     const basemap = this.campaignStore.content?.base.map;
@@ -53,6 +58,7 @@ export default defineComponent({
   },
   methods: {
     updateMap() {
+      console.log(this.donationStore.coords);
       const candlesGeojson = {
         type: 'FeatureCollection',
         features: this.donationStore.coords.map(l => ({
@@ -64,7 +70,6 @@ export default defineComponent({
           properties: {},
         })),
       };
-
       if (this.map.getLayer('points')) {
         this.map.removeLayer('points');
       }
@@ -97,7 +102,6 @@ export default defineComponent({
       const features = this.map.querySourceFeatures('candles', {
         sourceLayer: 'symbol',
       });
-
       const newMarkers = [] as Marker[];
 
       features.forEach((feature) => {

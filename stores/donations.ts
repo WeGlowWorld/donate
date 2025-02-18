@@ -10,20 +10,21 @@ export const useDonationsStore = defineStore('donationsStore', {
   }),
   actions: {
     async init(campaignSlug: string, orgSlug: string) {
-      this.fetchDonations(campaignSlug, orgSlug);
+      await this.fetchDonations(campaignSlug, orgSlug);
     },
     async fetchDonations(campaignSlug: string, orgSlug: string): Promise<void> {
       try {
         const result = await $fetch<{
           messages: Message[];
           coords?: Coord[];
-        }>(`https://weglow-backend.azurewebsites.net/api/campaign/donations/${orgSlug}/${campaignSlug}`, {
+        }>(`http://localhost:8000/api/campaign/donations/${orgSlug}/${campaignSlug}`, {
           query: {
             limit: 20,
             offset: this.page * 20,
           },
         });
         this.messages.push(...result.messages);
+        this.coords.push(...(result.coords || []));
       }
       catch (err) {
         if (err instanceof Error)
