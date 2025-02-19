@@ -10,6 +10,15 @@ export default defineNuxtConfig({
     '@primevue/nuxt-module',
   ],
   ssr: true,
+  app: {
+    head: {
+      link: [{
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/img/weglow-white.svg',
+      }],
+    },
+  },
   compatibilityDate: '2025-01-12',
   nitro: {
     preset: 'azure',
