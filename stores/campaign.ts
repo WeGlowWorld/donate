@@ -25,12 +25,15 @@ export const useCampaignStore = defineStore('campaignStore', {
   actions: {
     async init() {
       const { orgSlug, campaignSlug } = useRoute().params;
+      console.log('orgSlug', orgSlug);
       try {
         const content = await $fetch<Content>(`${useRuntimeConfig().public.apiUrl}/campaign/content/${orgSlug}/${campaignSlug}`);
+        console.log('content', content);
         this.content = content;
         this.initialized = true;
       }
       catch (err) {
+        console.log('err', err);
         if (err instanceof Error)
           this.error = err.message;
       }
