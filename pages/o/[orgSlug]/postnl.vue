@@ -10,9 +10,9 @@
       <h1 class="text-2xl sm:text-4xl font-bold text-center -mb-16">
         Feestvarken x PostNL
       </h1>
-      <div class="relative max-w-3xl mx-auto">
+      <div class="relative max-h-[40rem] mx-auto">
         <img
-          class="rounded-lg shadow-lg"
+          class="rounded-lg shadow-lg h-full w-full object-cover"
           src="https://weglowdashboard.blob.core.windows.net/weglow-data/postnl-cover.png"
         >
         <!-- <img
