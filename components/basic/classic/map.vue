@@ -58,7 +58,6 @@ export default defineComponent({
   },
   methods: {
     updateMap() {
-      console.log(this.donationStore.coords);
       const candlesGeojson = {
         type: 'FeatureCollection',
         features: this.donationStore.coords.map(l => ({

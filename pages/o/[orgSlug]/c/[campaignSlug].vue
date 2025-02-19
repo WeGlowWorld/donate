@@ -12,12 +12,8 @@ import { Template, VarType } from '~/models/enums';
 export default defineComponent({
   name: 'CampaignPage',
   setup() {
-    definePageMeta({
-      layout: 'campaign',
-      title: 'WeGlow pagina',
-    });
     const campaignStore = useCampaignStore();
-
+    console.log(campaignStore.content);
     const colors = campaignStore.content?.variables.filter(v => v.type === VarType.COLOR);
     if (colors) {
       const style = document.documentElement.style;
@@ -40,11 +36,20 @@ export default defineComponent({
         }
       });
     }
+    useSeoMeta({
+      title: campaignStore.variable('org_name', campaignStore.locale) || 'WeGlow pagina',
+    });
 
     return {
       Template: Template,
       campaignStore,
     };
+  },
+  mounted() {
+    definePageMeta({
+      layout: 'campaign',
+      title: 'test',
+    });
   },
 });
 </script>

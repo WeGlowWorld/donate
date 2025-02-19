@@ -19,8 +19,8 @@
             <b>{{ content.org.currencySign }}&nbsp;{{ content.campaign.raised.sum }}</b>
             <span
               v-if="content.campaign.goal"
-              class="text-4xl"
-            >/{{ content.org.currencySign }}&nbsp;{{ content.campaign.goal }}</span>
+              class="text-2xl"
+            >/{{ content.campaign.goal }}</span>
             <div class="text-[1.125rem]">
               ingezameld
             </div>
@@ -29,6 +29,7 @@
       </div>
       <progress-bar
         v-if="content.campaign.goal"
+        class="mt-4"
         :value="progressBar"
         :pt:value:style="{ backgroundColor: 'var(--p-green-600)' }"
       />
@@ -47,6 +48,7 @@
               v-for="price of content.prices"
               :key="price.amount"
               :variant="amount === price.amount ? undefined : 'outlined'"
+              :style="{ border: amount === price.amount ? '1px solid var(--t-button)': '1px solid var(--t-title)' }"
               size="large"
               class="flex-1 min-w-48"
               @click="amount = price.amount"

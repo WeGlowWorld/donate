@@ -22,6 +22,7 @@ const t: Translations = {
     next: 'Suivant',
     donation: 'Donation',
     submit: 'Donner',
+    chooseAmount: 'Choisissez un montant',
   },
   messages: {
     noMessages: 'Pas de messages',
