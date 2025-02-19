@@ -25,6 +25,8 @@ import 'primeicons/primeicons.css';
 
 export default defineComponent({
   setup() {
+    console.log('App setup');
+
     useI18n().setLocale('nl-BE');
     if (!useRoute().params.orgSlug) {
       useRouter().push('/404');
