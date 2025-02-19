@@ -24,6 +24,8 @@ export const useCampaignStore = defineStore('campaignStore', {
   },
   actions: {
     async init() {
+      console.log(useRuntimeConfig().public.apiUrl);
+
       const { orgSlug, campaignSlug } = useRoute().params;
       console.log('orgSlug', orgSlug);
       try {
