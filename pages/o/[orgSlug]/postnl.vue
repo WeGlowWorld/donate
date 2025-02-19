@@ -299,7 +299,7 @@ export default defineComponent({
       if (!e.valid) return;
       try {
         this.loading = true;
-        this.result = await $fetch('https://weglow-backend.azurewebsites.net/api/postnl/label', {
+        this.result = await $fetch(`${useRuntimeConfig().public.apiUrl}/postnl/label`, {
           method: 'POST',
           body: this.formValues,
         });

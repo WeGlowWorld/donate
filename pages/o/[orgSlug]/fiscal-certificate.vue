@@ -141,7 +141,7 @@ export default defineComponent({
       try {
         console.log(event);
         console.log(this.formValues);
-        // await $fetch(`https://weglow-backend.azurewebsites.net/api/certificate/${this.formValues.}`)(this.orgSlug, this.formValues);
+        // await $fetch(`${useRuntimeConfig().public.apiUrl}/certificate/${this.formValues}`)(this.orgSlug, this.formValues);
         // this.$router.push(`/o/${this.orgSlug}/c/${this.campaignSlug}`);
       }
       catch (err) {

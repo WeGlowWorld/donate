@@ -26,7 +26,7 @@ export const useCampaignStore = defineStore('campaignStore', {
     async init() {
       const { orgSlug, campaignSlug } = useRoute().params;
       try {
-        const content = await $fetch<Content>(`https://weglow-backend.azurewebsites.net/api/campaign/content/${orgSlug}/${campaignSlug}`);
+        const content = await $fetch<Content>(`${useRuntimeConfig().public.apiUrl}/campaign/content/${orgSlug}/${campaignSlug}`);
         this.content = content;
         this.initialized = true;
       }
