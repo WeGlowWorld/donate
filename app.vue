@@ -16,6 +16,7 @@
     href="https://weglowdashboard.blob.core.windows.net/weglow-data/logo-postnl-outline.svg"
   >
   <NuxtLayout>
+    <Toast position="bottom-center" />
     <NuxtPage />
   </NuxtLayout>
 </template>

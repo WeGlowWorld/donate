@@ -109,7 +109,7 @@ export default defineComponent({
   mounted() {
     setTimeout(() => {
       if (this.content && this.content.campaign.goal)
-        this.progressBar = Math.round(this.content.campaign.raised.sum / this.content.campaign.goal * 10000) / 100;
+        this.progressBar = Math.round(this.content.campaign.raised.sum / this.content.campaign.goal * 100 * 100) / 100;
     }, 200);
   },
   methods: {

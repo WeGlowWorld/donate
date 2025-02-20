@@ -135,7 +135,7 @@ export default defineComponent({
   mounted() {
     setTimeout(() => {
       if (this.campaignStore.content && this.campaignStore.content.campaign.goal)
-        this.progressBar = Math.min(Math.round(this.campaignStore.content.campaign.raised.sum / this.campaignStore.content.campaign.goal * 10000) / 100, 100);
+        this.progressBar = Math.min(Math.round(this.campaignStore.content.campaign.raised.sum / this.campaignStore.content.campaign.goal * 100 * 100) / 100, 100);
     }, 200);
   },
   methods: {

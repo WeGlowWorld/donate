@@ -12,12 +12,13 @@
     <input-number
       :model-value="modelValue"
       :name="name"
+      :disabled="disabled"
       size="large"
       type="text"
       fluid
       allow-empty
       :min="positive ? 0 : undefined"
-      show-buttons
+      :show-buttons="showButtons"
       :max-fraction-digits="2"
       :locale="$i18n.locale"
       @input="onInput"
@@ -53,6 +54,14 @@ export default defineComponent({
       default: false,
     },
     positive: {
+      type: Boolean,
+      default: false,
+    },
+    showButtons: {
+      type: Boolean,
+      default: true,
+    },
+    disabled: {
       type: Boolean,
       default: false,
     },

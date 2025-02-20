@@ -16,6 +16,7 @@ export const useOrgStore = defineStore('orgStore', {
       && (!refType || v.refType === refType)
       && (!refId || v.refId === refId),
     )?.value,
+    orgName: state => state.content?.variables.find(v => v.title === 'org_name')?.value,
   },
   async hydrate() {
     await this.actions?.init();

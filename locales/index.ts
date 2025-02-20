@@ -34,6 +34,10 @@ export type Translations = {
     personalFields: string;
     locationFields: string;
     companyFields: string;
+    fiscalSuccess: string;
+    fiscalError: string;
+    alreadyCreated: string;
+    orderNotFound: string;
   };
   fields: Record<string, {
     name: string;

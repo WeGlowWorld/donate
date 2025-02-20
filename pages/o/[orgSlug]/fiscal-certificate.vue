@@ -5,7 +5,7 @@
     :initial-values="formValues"
     @submit="submit"
   >
-    <div class="max-w-full mx-auto col-span-2">
+    <div class="max-w-full mx-auto col-span-2 mb-8">
       <a
         :href="orgStore.content?.general.website"
         target="_blank"
@@ -16,79 +16,94 @@
         >
       </a>
     </div>
-    <custom-input-switch
-      v-model="formValues.company"
-      name="company"
+    <div
+      v-if="done"
       class="col-span-full"
-    />
-    <template v-if="formValues.company">
-      <label class="col-span-full font-bold">{{ $t('fiscal.companyFields') }}</label>
-      <custom-input-text
-        v-model="formValues.companyName"
-        required
-        name="companyName"
-      />
-      <custom-input-text
-        v-model="formValues.nationalNr"
-        required
-        name="companyNr"
-      />
-    </template>
-    <template v-else>
-      <label class="col-span-full font-bold">{{ $t('fiscal.personalFields') }}</label>
-      <custom-input-text
-        v-model="formValues.firstName"
-        required
-        name="firstName"
-      />
-      <custom-input-text
-        v-model="formValues.lastName"
-        required
-        name="lastName"
-      />
-      <custom-input-text
-        v-model="formValues.nationalNr"
-        required
-        name="nationalNr"
-      />
-      <custom-input-select
-        v-model="formValues.gender"
-        :options="genderOptions"
-        name="gender"
-      />
-    </template>
-    <label class="col-span-full font-bold">{{ $t('fiscal.locationFields') }}</label>
-    <custom-input-select
-      v-model="formValues.country"
-      :options="countryOptions"
-      name="country"
-    />
-    <div class="hidden md:block" />
-    <custom-input-text
-      v-model="formValues.locality"
-      required
-      name="locality"
-    />
-    <custom-input-text
-      v-model="formValues.postalCode"
-      required
-      name="postalCode"
-    />
-    <custom-input-text
-      v-model="formValues.streetNr"
-      required
-      name="streetNr"
-    />
-    <custom-input-text
-      v-model="formValues.premise"
-      name="premise"
-    />
-    <div class="md:col-span-2 ml-auto">
-      <Button
-        type="submit"
-        :label="$t('donate.submit')"
-      />
+    >
+      <p>{{ $t('fiscal.fiscalSuccess') }}</p>
     </div>
+    <template v-else>
+      <custom-input-number
+        v-model="formValues.orderNr"
+        :disabled="!!$route.query.orderNr"
+        required
+        :show-buttons="false"
+        name="orderNr"
+      />
+      <custom-input-switch
+        v-model="formValues.company"
+        name="company"
+        class="col-span-full"
+      />
+      <template v-if="formValues.company">
+        <label class="col-span-full font-bold">{{ $t('fiscal.companyFields') }}</label>
+        <custom-input-text
+          v-model="formValues.companyName"
+          required
+          name="companyName"
+        />
+        <custom-input-text
+          v-model="formValues.nationalNr"
+          required
+          name="companyNr"
+        />
+      </template>
+      <template v-else>
+        <label class="col-span-full font-bold">{{ $t('fiscal.personalFields') }}</label>
+        <custom-input-text
+          v-model="formValues.firstName"
+          required
+          name="firstName"
+        />
+        <custom-input-text
+          v-model="formValues.lastName"
+          required
+          name="lastName"
+        />
+        <custom-input-text
+          v-model="formValues.nationalNr"
+          required
+          name="nationalNr"
+        />
+        <custom-input-select
+          v-model="formValues.gender"
+          :options="genderOptions"
+          name="gender"
+        />
+      </template>
+      <label class="col-span-full font-bold">{{ $t('fiscal.locationFields') }}</label>
+      <custom-input-select
+        v-model="formValues.country"
+        :options="countryOptions"
+        name="country"
+      />
+      <div class="hidden md:block" />
+      <custom-input-text
+        v-model="formValues.locality"
+        required
+        name="locality"
+      />
+      <custom-input-text
+        v-model="formValues.postalCode"
+        required
+        name="postalCode"
+      />
+      <custom-input-text
+        v-model="formValues.streetNr"
+        required
+        name="streetNr"
+      />
+      <custom-input-text
+        v-model="formValues.premise"
+        name="premise"
+      />
+      <div class="md:col-span-2 ml-auto">
+        <Button
+          type="submit"
+          :label="$t('donate.submit')"
+        />
+      </div>
+    </template>
   </prime-form>
 </template>
 
@@ -97,6 +112,7 @@ import { Form as PrimeForm, type FormSubmitEvent } from '@primevue/forms';
 import { zodResolver } from '@primevue/forms/resolvers/zod';
 import { certificateZod } from '~/models/donation';
 import countryOptions from '~/assets/europeanCountries';
+import type { BackendError } from '~/models/error';
 
 export default defineComponent({
   name: 'Donate',
@@ -106,10 +122,12 @@ export default defineComponent({
   setup() {
     definePageMeta({
       layout: 'org',
-      title: 'WeGlow pagina',
     });
 
     const orgStore = useOrgStore();
+    useSeoMeta({
+      title: `Fiscal certificate | ${orgStore.orgName}`,
+    });
 
     return {
       orgStore: ref(orgStore),
@@ -119,7 +137,9 @@ export default defineComponent({
   },
   data() {
     return {
+      done: false,
       formValues: {
+        orderNr: this.$route.query.orderNr ? parseInt(this.$route.query.orderNr as string) : undefined,
         company: false,
         firstName: '',
         lastName: '',
@@ -139,13 +159,30 @@ export default defineComponent({
   methods: {
     async submit(event: FormSubmitEvent) {
       try {
-        console.log(event);
-        console.log(this.formValues);
-        // await $fetch(`${useRuntimeConfig().public.apiUrl}/certificate/${this.formValues}`)(this.orgSlug, this.formValues);
+        if (!event.valid) throw new Error('Form is not valid');
+        const { orderNr, ...body } = this.formValues;
+        await $fetch(`${useRuntimeConfig().public.apiUrl}/certificate/${orderNr}`, {
+          method: 'POST',
+          body,
+        });
         // this.$router.push(`/o/${this.orgSlug}/c/${this.campaignSlug}`);
+        this.$toast.add({ severity: 'success', summary: 'Success', detail: this.$t('fiscal.fiscalSuccess'), life: 5000 });
+        this.done = true;
       }
-      catch (err) {
-        console.error(err);
+      catch (_e) {
+        const e = _e as BackendError;
+        let detail: string;
+        switch (e.status) {
+          case 405:
+            detail = this.$t('fiscal.orderNotFound');
+            break;
+          case 406:
+            detail = this.$t('fiscal.alreadyCreated');
+            break;
+          default:
+            detail = this.$t('fiscal.fiscalError');
+        }
+        this.$toast.add({ severity: 'error', summary: 'Error', detail, life: 5000 });
       }
     },
   },

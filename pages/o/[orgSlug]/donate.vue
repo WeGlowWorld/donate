@@ -16,9 +16,7 @@
         >
       </a>
     </div>
-    <h2
-      class="col-span-2 text-xl font-bold"
-    >
+    <h2 class="col-span-2 text-xl font-bold">
       {{ $t('donate.donation') }}
     </h2>
     <custom-input-number
@@ -162,7 +160,6 @@
 import { Form as PrimeForm, type FormSubmitEvent } from '@primevue/forms';
 import { zodResolver } from '@primevue/forms/resolvers/zod';
 import mapboxgl from 'mapbox-gl';
-// @ts-expect-error Typings are wrong
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import { donateKbsZod, donateZod } from '~/models/donation';
 import countryOptions from '~/assets/europeanCountries';

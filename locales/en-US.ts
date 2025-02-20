@@ -36,6 +36,10 @@ const t: Translations = {
     personalFields: 'Personal details',
     locationFields: 'Location',
     companyFields: 'Company details',
+    fiscalSuccess: 'Your fiscal certificate has been successfully submitted!',
+    fiscalError: 'An error occurred while submitting your fiscal certificate.',
+    alreadyCreated: 'You have already created a fiscal certificate.',
+    orderNotFound: 'Order not found.',
   },
   fields: {},
 };

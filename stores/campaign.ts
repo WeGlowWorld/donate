@@ -15,9 +15,7 @@ export const useCampaignStore = defineStore('campaignStore', {
       && (!refType || v.refType === refType)
       && (!refId || v.refId === refId),
     )?.value,
-    locale: (state): Locale => {
-      return (state.content?.org.locales.includes(useI18n().locale.value as Locale) ? useI18n().locale.value : state.content?.org.locales[0]) as Locale;
-    },
+    locale: state => (state.content?.org.locales.includes(useI18n().locale.value as Locale) ? useI18n().locale.value : state.content?.org.locales[0]) as Locale,
   },
   async hydrate() {
     await this.actions?.init();

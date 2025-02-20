@@ -36,6 +36,10 @@ const t: Translations = {
     personalFields: 'Persoonlijke gegevens',
     locationFields: 'Locatie',
     companyFields: 'Bedrijfsgegevens',
+    fiscalSuccess: 'Uw fiscaal certificaat is succesvol ingediend!',
+    fiscalError: 'Er is een fout opgetreden bij het indienen van uw fiscaal certificaat.',
+    alreadyCreated: 'U heeft al een fiscaal certificaat aangemaakt.',
+    orderNotFound: 'Bestelling niet gevonden.',
   },
   fields: {
     company: {
@@ -177,6 +181,12 @@ const t: Translations = {
       name: 'Ondernemingsnummer',
       errors: {
         required: 'Ondernemingsnummer is verplicht',
+      },
+    },
+    orderNr: {
+      name: 'Bestelnummer',
+      errors: {
+        required: 'Bestelnummer is verplicht',
       },
     },
   },
