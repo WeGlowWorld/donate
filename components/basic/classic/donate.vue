@@ -4,10 +4,10 @@
     class="w-full flex flex-col gap-8"
   >
     <div class="flex flex-col w-full">
-      <div class="flex text-2xl justify-center gap-8 md:gap-16">
+      <div class="flex text-xl md:text-2xl justify-center gap-8 md:gap-16">
         <div class="circle">
           <img
-            class="h-16 w-16 md:h-24 md:w-24 lg:h-32 lg:w-32"
+            class="h-12 w-12 sm:h-16 sm:w-16 md:h-24 md:w-24 lg:h-32 lg:w-32"
             :src="icon"
           >
           <div class="font-bold">
@@ -22,7 +22,7 @@
               class="text-2xl"
             >/{{ content.campaign.goal }}</span>
             <div class="text-[1.125rem]">
-              ingezameld
+              {{ $t('donate.raised') }}
             </div>
           </div>
         </div>
@@ -134,6 +134,6 @@ export default defineComponent({
   border-color: var(--t-title);
   background-color: var(--t-card);
   color: var(--t-card-text);
-  @apply h-40 w-40 sm:h-48 sm:w-48 rounded-full shadow-xl gap-0 justify-center items-center flex flex-col border-2;
+  @apply h-32 w-32 sm:h-48 sm:w-48 rounded-full shadow-xl gap-0 justify-center items-center flex flex-col border-2;
 }
 </style>

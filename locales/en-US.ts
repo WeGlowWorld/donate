@@ -23,6 +23,8 @@ const t: Translations = {
     donation: 'Donation',
     submit: 'Donate',
     chooseAmount: 'Choose an amount',
+    fiscal: 'For a donation of €40 or more, you will receive a fiscal receipt.',
+    raised: 'raised',
   },
   messages: {
     noMessages: 'No messages',

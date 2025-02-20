@@ -16,6 +16,8 @@ export type Translations = {
     donation: string;
     submit: string;
     chooseAmount: string;
+    fiscal: string;
+    raised: string;
   };
   messages: {
     title: string;

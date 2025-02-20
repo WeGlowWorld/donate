@@ -23,6 +23,8 @@ const t: Translations = {
     donation: 'Donatie',
     submit: 'Doneer',
     chooseAmount: 'Kies zelf een bedrag',
+    fiscal: 'Bij een donatie van €40 of meer ontvang je een fiscaal attest.',
+    raised: 'opgehaald',
   },
   messages: {
     noMessages: 'Geen berichten',

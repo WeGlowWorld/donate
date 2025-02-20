@@ -182,7 +182,6 @@ export default defineComponent({
   color: var(--t-title-text);
   background-color: var(--t-title);
   font-size: 12px;
-  font-weight: bold;
 }
 
 .fs-button {
