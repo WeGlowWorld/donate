@@ -70,6 +70,8 @@ const t: Translations = {
       name: 'E-mail',
       errors: {
         required: 'E-mail is verplicht',
+        email: 'Ongeldig e-mailadres',
+        regex: 'Ongeldig e-mailadres',
         invalid: 'Ongeldig e-mailadres',
       },
     },
