@@ -78,9 +78,6 @@ export default defineComponent({
       charset: 'utf-8',
       author: 'WeGlow',
     });
-    useSeoMeta({
-      title: campaignStore.variable('org_name', campaignStore.locale) || 'WeGlow pagina',
-    });
 
     return {
       Template: Template,
