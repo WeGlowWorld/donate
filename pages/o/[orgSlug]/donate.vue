@@ -247,15 +247,10 @@ export default defineComponent({
     initializeMap() {
       mapboxgl.accessToken = 'pk.eyJ1Ijoid2VnbG93IiwiYSI6ImNsYXdsMG1idDBleGUzcHA0bXV6czQyaWMifQ.2JmaCHMYFmNLPQrzNQkv9A' as string;
 
-      // Initialize the map
-      // @ts-expect-error Typings are wrong
-      this.map = new mapboxgl.Map({
-        container: this.$refs.map as HTMLElement,
-      });
       // Add geocoder control to the map
       const geocoder = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
-        mapboxgl: mapboxgl,
+        mapboxgl,
         placeholder: ' ',
       });
       geocoder.on('result', (e: { result: { geometry: { coordinates: [number, number] } } }) => {
@@ -342,6 +337,7 @@ export default defineComponent({
 }
 
 .suggestions-wrapper {
+  z-index: 1000;
   position: absolute;
   background-color: white;
   color: black;

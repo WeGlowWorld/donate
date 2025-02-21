@@ -7,13 +7,13 @@
 </template>
 
 <script lang="ts">
+import { convert } from 'html-to-text';
 import { Template, VarType } from '~/models/enums';
 
 export default defineComponent({
   name: 'CampaignPage',
   setup() {
     const campaignStore = useCampaignStore();
-    console.log(campaignStore.content);
     const colors = campaignStore.content?.variables.filter(v => v.type === VarType.COLOR);
     if (colors) {
       const style = document.documentElement.style;
@@ -36,6 +36,48 @@ export default defineComponent({
         }
       });
     }
+    console.log(campaignStore.content);
+    const title
+      = convert(campaignStore.variable('campaign_name', campaignStore.locale, VarType.TRANSLATION)
+        || campaignStore.variable('campaign_name', undefined, VarType.TRANSLATION)
+        || campaignStore.variable('org_name', campaignStore.locale, VarType.TRANSLATION)
+        || campaignStore.variable('org_name', undefined, VarType.TRANSLATION)
+        || 'WeGlow pagina',
+      );
+    const desc
+      = convert(campaignStore.variable('description', campaignStore.locale, VarType.TRANSLATION)
+        || campaignStore.variable('description', undefined, VarType.TRANSLATION)
+        || '',
+      );
+    const img
+      = campaignStore.variable('description', campaignStore.locale, VarType.IMAGE)
+      || campaignStore.variable('description', undefined, VarType.IMAGE)
+      || campaignStore.variable('logo', campaignStore.locale, VarType.IMAGE)
+      || campaignStore.variable('logo', undefined, VarType.IMAGE);
+    console.log(title);
+    console.log(desc);
+    console.log(img);
+    useSeoMeta({
+      title,
+      description: desc,
+      contentType: 'text/html; charset=utf-8',
+      robots: 'index, follow',
+
+      ogTitle: title,
+      ogDescription: desc,
+      ogImage: img,
+      ogImageAlt: title,
+      ogLocale: 'nl-BE',
+      ogUrl: 'https://donate.weglow.world/o/feestvarken-vzw/postnl',
+      ogType: 'website',
+      twitterCard: 'summary_large_image',
+      twitterTitle: title,
+      twitterDescription: desc,
+      twitterImage: img,
+      viewport: 'width=device-width, initial-scale=1',
+      charset: 'utf-8',
+      author: 'WeGlow',
+    });
     useSeoMeta({
       title: campaignStore.variable('org_name', campaignStore.locale) || 'WeGlow pagina',
     });

@@ -29,6 +29,7 @@
     "@primevue/themes": "^4.2.5",
     "@vueuse/core": "^12.6.1",
     "dayjs": "^1.11.13",
+    "html-to-text": "^9.0.5",
     "mapbox-gl": "^3.9.2",
     "primeicons": "^7.0.0",
     "primevue": "^4.2.5",
