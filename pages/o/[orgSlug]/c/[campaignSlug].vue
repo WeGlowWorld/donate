@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { convert } from 'html-to-text';
+// import { convert } from 'html-to-text';
 import { Template, VarType } from '~/models/enums';
 
 export default defineComponent({
@@ -37,44 +37,30 @@ export default defineComponent({
       });
     }
 
-    const title
-      = convert(campaignStore.variable('campaign_name', campaignStore.locale, VarType.TRANSLATION)
-        || campaignStore.variable('campaign_name', undefined, VarType.TRANSLATION)
-        || campaignStore.variable('org_name', campaignStore.locale, VarType.TRANSLATION)
-        || campaignStore.variable('org_name', undefined, VarType.TRANSLATION)
-        || 'WeGlow pagina',
-      );
-    const desc
-      = convert(campaignStore.variable('description', campaignStore.locale, VarType.TRANSLATION)
-        || campaignStore.variable('description', undefined, VarType.TRANSLATION)
-        || '',
-      );
-    const img
-      = campaignStore.variable('description', campaignStore.locale, VarType.IMAGE)
-      || campaignStore.variable('description', undefined, VarType.IMAGE)
-      || campaignStore.variable('logo', campaignStore.locale, VarType.IMAGE)
-      || campaignStore.variable('logo', undefined, VarType.IMAGE);
-    useSeoMeta({
+    // const title = campaignStore.variable('campaign_name', campaignStore.locale, VarType.TRANSLATION)
+    //   || campaignStore.variable('campaign_name', undefined, VarType.TRANSLATION)
+    //   || campaignStore.variable('org_name', campaignStore.locale, VarType.TRANSLATION)
+    //   || campaignStore.variable('org_name', undefined, VarType.TRANSLATION)
+    //   || 'WeGlow pagina';
+    // const desc
+    //   = convert(campaignStore.variable('description', campaignStore.locale, VarType.TRANSLATION)
+    //     || campaignStore.variable('description', undefined, VarType.TRANSLATION)
+    //     || '',
+    //   );
+    // const img
+    //   = campaignStore.variable('description', campaignStore.locale, VarType.IMAGE)
+    //   || campaignStore.variable('description', undefined, VarType.IMAGE)
+    //   || campaignStore.variable('logo', campaignStore.locale, VarType.IMAGE)
+    //   || campaignStore.variable('logo', undefined, VarType.IMAGE);
+
+    const title = 'Feestvarken x PostNL';
+    const desc = 'In België groeit 1 op de 7 kinderen op in armoede. Voor hen is er geen feestje, geen cadeautje, geen traktatie voor in de klas… Soms blijven ze zelfs thuis op hun verjaardag, uit schaamte. En daar willen we samen met jou iets aan veranderen.';
+    const img = 'https://weglowdashboard.blob.core.windows.net/weglow-data/postnl-cover.png';
+    useSeoMeta(varsToSeo({
       title,
       description: desc,
-      contentType: 'text/html; charset=utf-8',
-      robots: 'index, follow',
-
-      ogTitle: title,
-      ogDescription: desc,
-      ogImage: img,
-      ogImageAlt: title,
-      ogLocale: 'nl-BE',
-      ogUrl: 'https://donate.weglow.world/o/feestvarken-vzw/postnl',
-      ogType: 'website',
-      twitterCard: 'summary_large_image',
-      twitterTitle: title,
-      twitterDescription: desc,
-      twitterImage: img,
-      viewport: 'width=device-width, initial-scale=1',
-      charset: 'utf-8',
-      author: 'WeGlow',
-    });
+      image: img,
+    }));
 
     return {
       Template: Template,

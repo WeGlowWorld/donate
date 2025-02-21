@@ -213,27 +213,11 @@ export default defineComponent({
     const title = 'Feestvarken x PostNL';
     const desc = 'In België groeit 1 op de 7 kinderen op in armoede. Voor hen is er geen feestje, geen cadeautje, geen traktatie voor in de klas… Soms blijven ze zelfs thuis op hun verjaardag, uit schaamte. En daar willen we samen met jou iets aan veranderen.';
     const img = 'https://weglowdashboard.blob.core.windows.net/weglow-data/postnl-cover.png';
-    useSeoMeta({
+    useSeoMeta(varsToSeo({
       title,
       description: desc,
-      contentType: 'text/html; charset=utf-8',
-      robots: 'index, follow',
-
-      ogTitle: title,
-      ogDescription: desc,
-      ogImage: img,
-      ogImageAlt: title,
-      ogLocale: 'nl-BE',
-      ogUrl: 'https://donate.weglow.world/o/feestvarken-vzw/postnl',
-      ogType: 'website',
-      twitterCard: 'summary_large_image',
-      twitterTitle: title,
-      twitterDescription: desc,
-      twitterImage: img,
-      viewport: 'width=device-width, initial-scale=1',
-      charset: 'utf-8',
-      author: 'WeGlow',
-    });
+      image: img,
+    }));
     if (useRoute().params.orgSlug !== 'feestvarken-vzw') useRouter().push('/o/');
 
     useFavicon('https://weglowdashboard.blob.core.windows.net/weglow-data/logo-postnl-outline.svg');
