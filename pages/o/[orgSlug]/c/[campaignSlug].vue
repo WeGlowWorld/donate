@@ -36,7 +36,7 @@ export default defineComponent({
         }
       });
     }
-    console.log(campaignStore.content);
+
     const title
       = convert(campaignStore.variable('campaign_name', campaignStore.locale, VarType.TRANSLATION)
         || campaignStore.variable('campaign_name', undefined, VarType.TRANSLATION)
@@ -54,9 +54,6 @@ export default defineComponent({
       || campaignStore.variable('description', undefined, VarType.IMAGE)
       || campaignStore.variable('logo', campaignStore.locale, VarType.IMAGE)
       || campaignStore.variable('logo', undefined, VarType.IMAGE);
-    console.log(title);
-    console.log(desc);
-    console.log(img);
     useSeoMeta({
       title,
       description: desc,
