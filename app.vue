@@ -22,10 +22,14 @@
 </template>
 
 <script lang="ts">
+import { useColorMode } from '@vueuse/core';
 import 'primeicons/primeicons.css';
 
 export default defineComponent({
   setup() {
+    const colorMode = useColorMode();
+    colorMode.value = 'light';
+
     useI18n().setLocale('nl-BE');
     if (!useRoute().params.orgSlug) {
       useRouter().push('/404');
