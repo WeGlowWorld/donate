@@ -3,10 +3,10 @@
   <basic-classic-card :title="title || 'Title'">
     <div
       v-if="descriptionImage"
-      class="md:float-right md:ml-4"
+      class="md:float-right md:ml-4 md:max-w-[50%]"
     >
       <img
-        class="max-h-96 md:max-w-[50%] mx-auto md:mx-0 object-cover"
+        class="max-h-96 w-full ml-auto"
         :src="descriptionImage"
         alt="Description"
       >
