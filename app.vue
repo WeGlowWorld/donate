@@ -31,9 +31,7 @@ export default defineComponent({
     colorMode.value = 'light';
 
     useI18n().setLocale('nl-BE');
-    if (!useRoute().params.orgSlug) {
-      useRouter().push('/404');
-    }
+    if (!useRoute().params.orgSlug) useRouter().push('/404');
 
     useSeoMeta({
       title: 'WeGlow Donate',

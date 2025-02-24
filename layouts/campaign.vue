@@ -1,6 +1,10 @@
 <template>
   <div class="min-h-screen w-screen overflow-x-hidden flex">
-    <slot v-if="useCampaignStore().initialized" />
+    <slot v-if="campStore.initialized" />
+    <translator
+      v-if="campStore.content"
+      :locales="campStore.content.org.locales"
+    />
   </div>
 </template>
 
@@ -15,11 +19,15 @@ export default defineComponent({
     useSeoMeta({
       title: 'WeGlow pagina',
     });
+
+    return {
+      campStore: ref(useCampaignStore()),
+    };
   },
   async mounted() {
     try {
-      useCampaignStore().init();
-      useDonationsStore().init(this.$route.params.campaignSlug as string, this.$route.params.orgSlug as string);
+      await this.campStore.init();
+      await useDonationsStore().init(this.$route.params.campaignSlug as string, this.$route.params.orgSlug as string);
     }
     catch (err) {
       console.error(err);
