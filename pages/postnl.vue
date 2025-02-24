@@ -284,6 +284,7 @@ export default defineComponent({
         });
       }
       catch (err) {
+        this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Er is een fout opgetreden bij het aanmaken van het verzendlabel', life: 5000 });
         console.error(err);
       }
       finally {
