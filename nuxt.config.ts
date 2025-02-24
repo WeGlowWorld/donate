@@ -21,7 +21,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiUrl: 'https://weglow-backend.azurewebsites.net/api',
+      apiUrl: 'https://weglow-backend.azurewebsites.net/api', // process.env.API_URL,
     },
   },
   compatibilityDate: '2025-01-12',

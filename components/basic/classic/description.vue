@@ -12,6 +12,7 @@
       >
     </div>
     <div
+      v-if="description"
       class="p-2 text-justify"
       v-html="description"
     />
@@ -37,7 +38,9 @@ export default defineComponent({
       return this.campaignStore.variable('description', this.campaignStore.locale, VarType.IMAGE, VarRefType.CAMPAIGN);
     },
     description() {
-      return this.campaignStore.variable('description', this.campaignStore.locale, VarType.TRANSLATION, VarRefType.CAMPAIGN);
+      const d = this.campaignStore.variable('description', this.campaignStore.locale, VarType.TRANSLATION, VarRefType.CAMPAIGN);
+      console.log(d);
+      return d;
     },
   },
 });

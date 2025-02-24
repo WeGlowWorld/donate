@@ -16,7 +16,7 @@
         >
       </a>
     </div>
-    <h2 class="col-span-2 text-xl font-bold">
+    <h2>
       {{ $t('donate.donation') }}
     </h2>
     <custom-input-number
@@ -78,7 +78,7 @@
     />
     <template v-if="orgStore.content?.general.superAdmin === 'kbs' && formKbsValues">
       <div class="col-span-2 flex">
-        <label>{{ $t(formKbsValues.company ? 'fiscal.companyFields' : 'fiscal.personalFields') }}</label>
+        <h2>{{ $t(formKbsValues.company ? 'fiscal.companyFields' : 'fiscal.personalFields') }}</h2>
         <custom-input-switch
           v-model="formKbsValues.company"
           name="company"
@@ -119,7 +119,7 @@
           name="gender"
         />
       </template>
-      <label>{{ $t('fiscal.location') }}</label>
+      <h2>{{ $t('fiscal.locationFields') }}</h2>
       <custom-input-select
         v-model="formKbsValues.country"
         :options="countryOptions"
@@ -262,12 +262,14 @@ export default defineComponent({
     },
   },
 });
-// localhost:3000/o/rise-up-now/donate?amount=25&slug=E3G6YFNV
 </script>
 
 <style scoped>
 .map-container {
   display: none;
+}
+h2 {
+  @apply col-span-2 text-xl font-bold;
 }
 </style>
 

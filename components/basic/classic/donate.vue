@@ -48,7 +48,11 @@
               v-for="price of content.prices"
               :key="price.amount"
               :variant="amount === price.amount ? undefined : 'outlined'"
-              :style="{ border: amount === price.amount ? '1px solid var(--t-button)': '1px solid var(--t-title)' }"
+              :style="[
+                amount === price.amount
+                  ? 'border: 1px solid var(--t-button);'
+                  : 'border: 1px solid var(--t-button); background-color: var(--t-button-text) !important;',
+              ]"
               size="large"
               class="flex-1 min-w-48"
               @click="amount = price.amount"
