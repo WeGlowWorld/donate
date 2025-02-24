@@ -12,13 +12,9 @@
 export default defineComponent({
   setup() {
     const route = useRoute();
-    if (!route.params.campaignSlug) {
-      useRouter().push('/404');
-    }
+    if (!route.params.campaignSlug) useRouter().push('/404');
 
-    useSeoMeta({
-      title: 'WeGlow pagina',
-    });
+    useSeoMeta({ title: 'WeGlow Donate' });
 
     return {
       campStore: ref(useCampaignStore()),

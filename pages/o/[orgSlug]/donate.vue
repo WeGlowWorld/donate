@@ -170,7 +170,7 @@ export default defineComponent({
   setup() {
     definePageMeta({
       layout: 'org',
-      title: 'WeGlow pagina',
+      title: 'WeGlow Donate',
     });
 
     const orgStore = useOrgStore();

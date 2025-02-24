@@ -68,7 +68,7 @@ export default defineComponent({
   setup() {
     definePageMeta({
       layout: 'org',
-      title: 'WeGlow pagina',
+      title: 'WeGlow Donate | Thanks!',
     });
 
     const { slug, returning, order, certificate } = useRoute().query;

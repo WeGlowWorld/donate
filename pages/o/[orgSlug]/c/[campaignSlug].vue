@@ -41,7 +41,7 @@ export default defineComponent({
       || campaignStore.variable('campaign_name', undefined, VarType.TRANSLATION)
       || campaignStore.variable('org_name', campaignStore.locale, VarType.TRANSLATION)
       || campaignStore.variable('org_name', undefined, VarType.TRANSLATION)
-      || 'WeGlow pagina';
+      || 'WeGlow Donate';
     const desc
       = convert(campaignStore.variable('description', campaignStore.locale, VarType.TRANSLATION)
         || campaignStore.variable('description', undefined, VarType.TRANSLATION)

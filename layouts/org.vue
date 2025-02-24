@@ -21,7 +21,7 @@ export default defineComponent({
       useRouter().push('/404');
     }
     useSeoMeta({
-      title: 'WeGlow pagina',
+      title: 'WeGlow Donate',
     });
     return {
       route: ref(route),
