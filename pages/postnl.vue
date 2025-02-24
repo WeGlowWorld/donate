@@ -1,22 +1,14 @@
 <template>
   <div
     v-if="imagesLoaded"
-    class="postnl-page min-h-screen flex relative bg-white text-black px-4"
+    class="postnl-page min-h-screen flex relative bg-white text-black px-4 pt-8"
   >
-    <div class="max-w-5xl w-full mx-auto pt-16 pb-48 flex flex-col gap-24">
+    <div class="max-w-5xl w-full mx-auto pb-48 flex flex-col gap-16">
       <div class="relative max-h-[40rem] mx-auto">
         <img
           class="rounded-lg shadow-lg h-full w-full object-cover"
           src="https://weglowdashboard.blob.core.windows.net/weglow-data/postnl-cover.png"
         >
-        <!-- <img
-          src="https://weglowdashboard.blob.core.windows.net/weglow-data/postnl-logo.png"
-          class="img-icon right-0 xl:-right-20"
-        >
-        <img
-          src="https://weglowdashboard.blob.core.windows.net/weglow-data/feestvarken.svg"
-          class="img-icon left-0 xl:-left-20"
-        > -->
       </div>
       <prime-form
         v-if="!result"
@@ -210,6 +202,7 @@ export default defineComponent({
     const title = 'Feestvarken x PostNL';
     const desc = 'In België groeit 1 op de 7 kinderen op in armoede. Voor hen is er geen feestje, geen cadeautje, geen traktatie voor in de klas… Soms blijven ze zelfs thuis op hun verjaardag, uit schaamte. En daar willen we samen met jou iets aan veranderen.';
     const img = 'https://weglowdashboard.blob.core.windows.net/weglow-data/postnl-cover.png';
+
     useSeoMeta(varsToSeo({
       title,
       description: desc,
