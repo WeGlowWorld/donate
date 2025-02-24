@@ -199,7 +199,7 @@ export default defineComponent({
   name: 'Postnl',
   components: { PrimeForm },
   setup() {
-    const title = 'Feestvarken x PostNL';
+    const title = 'Feestvarken | PostNL';
     const desc = 'In België groeit 1 op de 7 kinderen op in armoede. Voor hen is er geen feestje, geen cadeautje, geen traktatie voor in de klas… Soms blijven ze zelfs thuis op hun verjaardag, uit schaamte. En daar willen we samen met jou iets aan veranderen.';
     const img = 'https://weglowdashboard.blob.core.windows.net/weglow-data/postnl-cover.png';
 
