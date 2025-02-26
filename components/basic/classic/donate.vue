@@ -107,7 +107,7 @@ export default defineComponent({
   },
   computed: {
     icon() {
-      return this.campaignStore.variable('icon', this.campaignStore.locale, VarType.IMAGE, VarRefType.CAMPAIGN);
+      return this.campaignStore.variable('icon', this.campaignStore.locale, VarType.IMAGE);
     },
   },
   mounted() {

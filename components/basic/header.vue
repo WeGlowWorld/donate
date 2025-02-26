@@ -26,7 +26,7 @@ export default defineComponent({
   computed: {
     logo() {
       return this.campaignStore.variable('logo', this.campaignStore.locale, VarType.IMAGE, VarRefType.ORG)
-        || this.campaignStore.variable('logo', undefined, VarType.IMAGE, VarRefType.CAMPAIGN);
+        || this.campaignStore.variable('logo', undefined, VarType.IMAGE, VarRefType.ORG);
     },
   },
 });

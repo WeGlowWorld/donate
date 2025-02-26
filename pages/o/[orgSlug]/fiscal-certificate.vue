@@ -139,7 +139,7 @@ export default defineComponent({
     return {
       done: false,
       formValues: {
-        orderNr: this.$route.query.orderNr ? parseInt(this.$route.query.orderNr as string) : undefined,
+        orderNr: this.$route.query.orderNr ? parseInt(this.$route.query.order as string) : undefined,
         company: false,
         firstName: '',
         lastName: '',

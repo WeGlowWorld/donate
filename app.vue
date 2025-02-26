@@ -43,5 +43,11 @@ export default defineComponent({
 <style>
 :root {
   font-family: 'Titillium Web';
+  color-scheme: light !important;
+}
+input {
+  background-color: white !important;
+  color: black !important;
+  border-color: var(--p-button-outlined-primary-border-color) !important;
 }
 </style>

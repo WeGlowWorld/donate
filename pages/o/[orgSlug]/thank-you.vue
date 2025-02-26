@@ -11,17 +11,20 @@
         >
       </a>
     </div>
-    <p>Bedankt voor uw donatie!</p>
+    <p class="text-lg font-bold">
+      Bedankt voor uw donatie!
+    </p>
     <div
       v-if="certificate"
       class="flex flex-col gap-4 text-justify"
     >
       <p>Met deze donatie heeft u recht op een fiscaal attest. Het mailtje om deze gegevens in te vullen is al onderweg, maar als u dit liever nu direct doet kan u op volgende link klikken.</p>
       <PrimeButton
+        as="a"
+        :href="fiscalLink"
         :label="$t('thanks.toFiscal')"
         raised
         :pt:root:style="{ backgroundColor: 'var(--d-primary)', color: 'var(--d-primary-text)', border: 'none', padding: '0.75rem 2rem 0.75rem 2rem', width: 'fit-content' }"
-        @click="copyLink"
       />
     </div>
     <div class="flex flex-col gap-4 text-justify">
@@ -72,11 +75,12 @@ export default defineComponent({
     });
 
     const { slug, returning, order, certificate } = useRoute().query;
+    console.log(certificate);
     return {
       route: ref(useRoute()),
       orgStore: ref(useOrgStore()),
-      returning: returning || returning === null,
-      certificate: certificate || certificate === null,
+      returning: returning !== '0' || returning === null,
+      certificate: certificate === '1',
       campaignSlug: slug,
       orderNr: order,
       socialMedia: {
@@ -117,8 +121,9 @@ export default defineComponent({
   },
   methods: {
     copyLink() {
-      navigator.clipboard.writeText(window.location.href);
+      navigator.clipboard.writeText(this.pageLink);
     },
   },
 });
+// /o/feestvarken-vzw/thank-you?returning=1&certificate=0&slug=4H3OBDBO&order=2df6cf11-9f5d-48b9-b66f-4e8d4bfefef5 donated link
 </script>
