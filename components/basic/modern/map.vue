@@ -73,7 +73,7 @@ export default defineComponent({
     this.map = new mapboxgl.Map({
       container: this.$refs.mapContainer,
       style: 'mapbox://styles/weglow/clbe7xzo2000514t825nyh63a',
-      center: [basemap[0], basemap[1]],
+      center: [basemap[1], basemap[0]],
       zoom: basemap[2],
     } as MapboxOptions);
 
@@ -99,7 +99,7 @@ export default defineComponent({
           type: 'Feature',
           geometry: {
             type: 'Point',
-            coordinates: [l[0], l[1]],
+            coordinates: [l[1], l[0]],
           },
           properties: {},
         })),

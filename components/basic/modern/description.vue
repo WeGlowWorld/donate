@@ -32,7 +32,7 @@
           </div>
           <progress-bar
             :value="progressBar"
-            :pt:value:style="{ backgroundColor: 'var(--p-green-600)' }"
+            :pt:value:style="{ backgroundColor: 'var(--p-green-600)', maxWidth: '100%' }"
             :pt:root:style="{ border: '1px solid var(--p-green-800)' }"
             class="w-full"
           />
