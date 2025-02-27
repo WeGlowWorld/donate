@@ -148,7 +148,8 @@
       />
     </template>
     <div class="md:col-span-2 ml-auto">
-      <Button
+      <prime-button
+        :loading="submitting"
         type="submit"
         :label="$t('donate.submit')"
       />
@@ -158,6 +159,7 @@
 
 <script lang="ts">
 import { Form as PrimeForm, type FormSubmitEvent } from '@primevue/forms';
+import { Button as PrimeButton } from 'primevue';
 import { zodResolver } from '@primevue/forms/resolvers/zod';
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
@@ -166,7 +168,7 @@ import countryOptions from '~/assets/europeanCountries';
 
 export default defineComponent({
   name: 'Donate',
-  components: { PrimeForm },
+  components: { PrimeForm, PrimeButton },
   setup() {
     definePageMeta({
       layout: 'org',
@@ -215,6 +217,7 @@ export default defineComponent({
   data() {
     return {
       map: null as unknown as mapboxgl.Map,
+      submitting: false,
     };
   },
   mounted() {
@@ -228,7 +231,8 @@ export default defineComponent({
     },
     async submit(event: FormSubmitEvent) {
       try {
-        if (!event.valid) return;
+        this.submitting = true;
+        if (!event.valid || (this.coords[0] === 0 && this.coords[1] === 0)) return;
         const checkout = await this.orgStore.donate(
           this.orgSlug,
           this.campSlug,
@@ -242,6 +246,9 @@ export default defineComponent({
       }
       catch (err) {
         console.error(err);
+      }
+      finally {
+        this.submitting = false;
       }
     },
     initializeMap() {
