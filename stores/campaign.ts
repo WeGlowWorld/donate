@@ -6,16 +6,21 @@ export const useCampaignStore = defineStore('campaignStore', {
     content: undefined as Content | undefined,
     initialized: false as boolean,
     error: undefined as string | undefined,
+    locale: useI18n().locale.value as Locale,
   }),
   getters: {
-    variable: state => (title: string, locale?: string, type?: VarType, refType?: VarRefType, refId?: string) => state.content?.variables.find(v =>
+    variable: state => (title: string, locale?: string, type?: VarType, refType?: VarRefType, refId?: string) => (state.content?.variables.find(v =>
       v.title === title
       && (!locale || v.locale === locale)
       && (!type || v.type === type)
       && (!refType || v.refType === refType)
       && (!refId || v.refId === refId),
-    )?.value,
-    locale: state => (state.content?.org.locales.includes(useI18n().locale.value as Locale) ? useI18n().locale.value : state.content?.org.locales[0]) as Locale,
+    ) || state.content?.variables.find(v =>
+      v.title === title
+      && (!type || v.type === type)
+      && (!refType || v.refType === refType)
+      && (!refId || v.refId === refId),
+    ))?.value,
   },
   async hydrate() {
     await this.actions?.init();

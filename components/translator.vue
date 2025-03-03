@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import type { Locale } from '~/models/enums';
+import { Locale } from '~/models/enums';
 
 export default defineComponent({
   name: 'TranslatorComponent',
@@ -38,6 +38,13 @@ export default defineComponent({
       type: Array as () => Locale[],
       required: true,
     },
+  },
+  setup() {
+    const campStore = useCampaignStore();
+    if (!campStore.content?.org.locales.includes(useI18n().locale.value as Locale)) campStore.locale = campStore.content?.org.locales[0] || Locale.NL_BE;
+    return {
+      campaignStore: ref(campStore),
+    };
   },
   data() {
     return {
@@ -48,6 +55,7 @@ export default defineComponent({
     changeLocale(l: string) {
       this.$i18n.locale = l as Locale;
       localStorage.setItem('locale', l);
+      this.campaignStore.locale = l as Locale;
       this.opened = false;
     },
     lang(l: string) {

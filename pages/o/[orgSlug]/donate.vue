@@ -76,7 +76,8 @@
       name="anonymous"
       class="ml-auto col-span-2"
     />
-    <template v-if="orgStore.content?.general.superAdmin === 'kbs' && formKbsValues">
+    <!-- <template v-if="orgStore.content?.general.superAdmin === 'kbs' && formKbsValues"> -->
+    <template v-if="true">
       <div class="col-span-2 flex">
         <h2>{{ $t(formKbsValues.company ? 'fiscal.companyFields' : 'fiscal.personalFields') }}</h2>
         <custom-input-switch
