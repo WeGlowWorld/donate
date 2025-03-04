@@ -1,15 +1,4 @@
 <template>
-  <script
-    async
-    src="https://www.googletagmanager.com/gtag/js?id=G-G4W3GZDDVV"
-  />
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-G4W3GZDDVV');
-  </script>
   <link
     rel="preconnect"
     href="https://fonts.googleapis.com"
