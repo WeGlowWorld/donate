@@ -30,7 +30,10 @@ export const useCampaignStore = defineStore('campaignStore', {
       const { orgSlug, campaignSlug } = useRoute().params;
       try {
         const content = await $fetch<Content>(`${useRuntimeConfig().public.apiUrl}/campaign/content/${orgSlug}/${campaignSlug}`);
-        this.content = content;
+        this.content = {
+          ...content,
+          variables: content.variables.filter(v => v.value !== 'No translation'),
+        };
         this.initialized = true;
       }
       catch (err) {

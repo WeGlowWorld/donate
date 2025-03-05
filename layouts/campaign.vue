@@ -9,6 +9,8 @@
 </template>
 
 <script lang="ts">
+import type { Locale } from '~/models/enums';
+
 export default defineComponent({
   setup() {
     const route = useRoute();
@@ -23,6 +25,9 @@ export default defineComponent({
   async mounted() {
     try {
       await this.campStore.init();
+      if (!this.campStore.content?.org.locales.includes(this.$i18n.locale as Locale))
+        this.$i18n.locale = this.campStore.content?.org.locales[0] as Locale;
+
       await useDonationsStore().init(this.$route.params.campaignSlug as string, this.$route.params.orgSlug as string);
     }
     catch (err) {
