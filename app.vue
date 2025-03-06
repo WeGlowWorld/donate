@@ -28,7 +28,7 @@ export default defineComponent({
 
     useI18n().setLocale('nl-BE');
     // if (!useRoute().params.orgSlug) useRouter().push('/404');
-
+    console.log(useRuntimeConfig().public);
     useSeoMeta({
       title: 'WeGlow Donate',
     });
