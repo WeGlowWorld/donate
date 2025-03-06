@@ -1,5 +1,6 @@
 <template>
   <div>
-    No campaign selected
+    <p>No campaign selected</p>
+    <p>{{ $config.public.testVar }}</p>
   </div>
 </template>
