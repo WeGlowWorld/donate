@@ -157,14 +157,13 @@ export default defineComponent({
 }
 
 .marker {
-  background-size: cover;
-  width: 36px;
-  height: 36px;
+  background-size: contain !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  width: 36px !important;
+  height: 36px !important;
   border-radius: 50%;
   position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .marker_icon {

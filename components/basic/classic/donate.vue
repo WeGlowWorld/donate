@@ -7,7 +7,7 @@
       <div class="flex text-xl md:text-2xl justify-center gap-8 md:gap-16">
         <div class="circle">
           <img
-            class="h-12 w-12 sm:h-16 sm:w-16 md:h-24 md:w-24 lg:h-32 lg:w-32"
+            class="h-12 w-12 sm:h-16 sm:w-16 md:h-24 md:w-24 lg:h-32 lg:w-32 bg-contain"
             :src="icon"
           >
           <div class="font-bold">

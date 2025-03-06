@@ -14,15 +14,17 @@ export const useDonationsStore = defineStore('donationsStore', {
     },
     async fetchDonations(campaignSlug: string, orgSlug: string): Promise<void> {
       try {
-        const result = await $fetch<{
+        const result = await useAPI<{
           messages: Message[];
           coords?: Coord[];
-        }>(`${useRuntimeConfig().public.apiUrl}/campaign/donations/${orgSlug}/${campaignSlug}`, {
+        }>(`/campaign/donations/${orgSlug}/${campaignSlug}`, {
           query: {
             limit: 20,
             offset: this.page * 20,
           },
         });
+        if (!result) throw new Error('No content found');
+
         this.messages.push(...result.messages);
         this.coords.push(...(result.coords || []));
       }

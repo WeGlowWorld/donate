@@ -26,8 +26,7 @@ export const useOrgStore = defineStore('orgStore', {
       if (this.initialized) return;
       const { orgSlug } = useRoute().params;
       try {
-        const content = await $fetch<ContentOrg>(`${useRuntimeConfig().public.apiUrl}/org/content/${orgSlug}`);
-        this.content = content;
+        this.content = await useAPI<ContentOrg>(`/org/content/${orgSlug}`);
         this.initialized = true;
       }
       catch (err) {
@@ -40,7 +39,7 @@ export const useOrgStore = defineStore('orgStore', {
     },
     async donate(orgSlug: string, campSlug: string, body: DonateBody & { certificate?: DonateKbsBody }): Promise<string> {
       try {
-        return await $fetch<string>(`${useRuntimeConfig().public.apiUrl}/donation/${orgSlug}/${campSlug}`, {
+        return await useAPI<string>(`/donation/${orgSlug}/${campSlug}`, {
           method: 'POST',
           body: {
             amount: body.amount,

@@ -161,11 +161,11 @@ export default defineComponent({
       try {
         if (!event.valid) throw new Error('Form is not valid');
         const { orderNr, ...body } = this.formValues;
-        await $fetch(`${useRuntimeConfig().public.apiUrl}/certificate/${orderNr}`, {
+
+        await useAPI(`/certificate/${orderNr}`, {
           method: 'POST',
           body,
         });
-        // this.$router.push(`/o/${this.orgSlug}/c/${this.campaignSlug}`);
         this.$toast.add({ severity: 'success', summary: 'Success', detail: this.$t('fiscal.fiscalSuccess'), life: 5000 });
         this.done = true;
       }

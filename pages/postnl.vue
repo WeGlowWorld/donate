@@ -278,10 +278,12 @@ export default defineComponent({
       if (!e.valid) return;
       try {
         this.loading = true;
-        this.result = await $fetch(`${useRuntimeConfig().public.apiUrl}/postnl/label`, {
-          method: 'POST',
-          body: this.formValues,
-        });
+
+        this.result = await useAPI<{
+          Barcode: string;
+          Errors: string[];
+          Labels: { Content: string }[];
+        }>('/postnl/label');
       }
       catch (err) {
         this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Er is een fout opgetreden bij het aanmaken van het verzendlabel', life: 5000 });

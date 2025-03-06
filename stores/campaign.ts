@@ -29,7 +29,9 @@ export const useCampaignStore = defineStore('campaignStore', {
     async init() {
       const { orgSlug, campaignSlug } = useRoute().params;
       try {
-        const content = await $fetch<Content>(`${useRuntimeConfig().public.apiUrl}/campaign/content/${orgSlug}/${campaignSlug}`);
+        const content = await useAPI<Content>(`/campaign/content/${orgSlug}/${campaignSlug}`);
+        if (!content) throw new Error('No content found');
+
         this.content = {
           ...content,
           variables: content.variables.filter(v => v.value !== 'No translation'),

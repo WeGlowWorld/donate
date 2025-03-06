@@ -75,7 +75,6 @@ export default defineComponent({
     });
 
     const { slug, returning, order, certificate } = useRoute().query;
-    console.log(certificate);
     return {
       route: ref(useRoute()),
       orgStore: ref(useOrgStore()),
