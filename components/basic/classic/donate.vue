@@ -63,7 +63,6 @@
           <ifta-label>
             <input-number
               v-model="amount"
-              :min="5"
               :max="9999"
               fluid
               :locale="$i18n.locale"
