@@ -25,7 +25,7 @@
     <template v-else>
       <custom-input-number
         v-model="formValues.orderNr"
-        :disabled="!!$route.query.orderNr"
+        :disabled="!!$route.query.order"
         required
         :show-buttons="false"
         name="orderNr"
