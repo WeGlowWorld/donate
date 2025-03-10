@@ -5,17 +5,18 @@ export const certificateZod = z.object({
   companyName: z.string().nullable(),
   firstName: z.string().nullable(),
   lastName: z.string().nullable(),
-  nationalNr: z.string().nonempty('required'),
+  nationalNr: z.string().nullable(),
+  companyNr: z.string().nullable(),
   country: z.string().length(2, 'length'),
   locality: z.string().nonempty('required'),
   postalCode: z.string().nonempty('required'),
   streetNr: z.string().nonempty('required'),
   premise: z.string().nullable(),
-  gender: z.string().nonempty('required'),
+  gender: z.string(),
 }).refine(
   data =>
-    (data.company && data.companyName)
-    || (!data.company && data.firstName && data.lastName),
+    (data.company && data.companyName && data.companyNr)
+    || (!data.company && data.firstName && data.lastName && data.nationalNr),
   {
     message:
       'required',

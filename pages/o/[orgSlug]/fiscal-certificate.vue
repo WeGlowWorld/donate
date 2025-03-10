@@ -43,7 +43,7 @@
           name="companyName"
         />
         <custom-input-text
-          v-model="formValues.nationalNr"
+          v-model="formValues.companyNr"
           required
           name="companyNr"
         />
@@ -112,7 +112,7 @@ import { Form as PrimeForm, type FormSubmitEvent } from '@primevue/forms';
 import { zodResolver } from '@primevue/forms/resolvers/zod';
 import { certificateZod } from '~/models/donation';
 import countryOptions from '~/assets/europeanCountries';
-import type { BackendError } from '~/models/error';
+import type { NuxtError } from '#app';
 
 export default defineComponent({
   name: 'Donate',
@@ -145,6 +145,7 @@ export default defineComponent({
         lastName: '',
         nationalNr: '',
         companyName: '',
+        companyNr: '',
         country: '',
         locality: '',
         postalCode: '',
@@ -160,19 +161,25 @@ export default defineComponent({
     async submit(event: FormSubmitEvent) {
       try {
         if (!event.valid) throw new Error('Form is not valid');
-        const { orderNr, ...body } = this.formValues;
+        const { orderNr, companyNr, nationalNr, ...body } = this.formValues;
 
-        await useAPI(`/certificate/${orderNr}`, {
-          method: 'POST',
-          body,
-        });
+        const { error } = await useAsyncData('home-data', () =>
+          useAPI(`/certificate/${orderNr}`, {
+            method: 'POST',
+            body: {
+              ...body,
+              nationalNr: body.company ? companyNr : nationalNr,
+            },
+          }),
+        );
+        if (error.value) throw error.value;
         this.$toast.add({ severity: 'success', summary: 'Success', detail: this.$t('fiscal.fiscalSuccess'), life: 5000 });
         this.done = true;
       }
       catch (_e) {
-        const e = _e as BackendError;
+        const e = _e as NuxtError;
         let detail: string;
-        switch (e.status) {
+        switch (e.statusCode) {
           case 405:
             detail = this.$t('fiscal.orderNotFound');
             break;
