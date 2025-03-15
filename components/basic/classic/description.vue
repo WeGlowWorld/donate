@@ -6,7 +6,7 @@
       class="md:float-right md:ml-4 md:max-w-[50%]"
     >
       <img
-        class="max-h-96 w-full ml-auto"
+        class="max-h-96 w-full ml-auto object-cover"
         :src="descriptionImage"
         alt="Description"
       >
