@@ -1,0 +1,3 @@
+<template>
+  <easter-field />
+</template>
