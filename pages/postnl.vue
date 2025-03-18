@@ -283,7 +283,10 @@ export default defineComponent({
           Barcode: string;
           Errors: string[];
           Labels: { Content: string }[];
-        }>('/postnl/label');
+        }>('/postnl/label', {
+          method: 'POST',
+          body: this.formValues,
+        });
       }
       catch (err) {
         this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Er is een fout opgetreden bij het aanmaken van het verzendlabel', life: 5000 });
