@@ -9,13 +9,13 @@
       </h2>
       <div class="flex flex-wrap justify-left gap-2">
         <Button
+          v-if="website"
           as="a"
           size="large"
           class="border-none"
-          :href="`https://hub.weglow.world/o/${$route.params.orgSlug}`"
+          :href="website"
           :label="$t('share.toWebsite')"
           raised
-          @click="copyLink"
         />
         <Button
           as="a"
@@ -24,7 +24,6 @@
           :href="`https://hub.weglow.world/o/${$route.params.orgSlug}`"
           :label="$t('share.toHub')"
           raised
-          @click="copyLink"
         />
       </div>
     </div>
@@ -84,7 +83,10 @@ export default defineComponent({
         color: '#25d366',
       },
     ];
-    return { links };
+    return {
+      links,
+      website: useCampaignStore().content?.org.website,
+    };
   },
   computed: {
     shareUrl() {
