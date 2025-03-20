@@ -40,15 +40,11 @@
       </div>
       <Button
         :disabled="amount === null"
-        class="ml-auto donate-btn"
+        class="ml-auto bg-[var(--t-button)] text-[var(--t-button-text)] hover:bg-[var(--t-button-dark)]"
+        size="large"
         raised
         as="router-link"
         :to="{ path: `/o/${$route.params.orgSlug}/donate`, query: { amount: amount, slug: $route.params.campaignSlug, noLocation: '1' } }"
-        :style="{
-          backgroundColor: `#${btnColor.bg}`,
-          color: `#${btnColor.text}`,
-          border: 'none',
-        }"
         :label="$t('campaign.donate')"
       />
     </div>
@@ -104,8 +100,5 @@ export default defineComponent({
 }
 .donate-div .description {
   background-color: white !important;
-}
-.donate-btn {
-  font-size: 1.25rem;
 }
 </style>
