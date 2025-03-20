@@ -126,7 +126,9 @@ export default defineComponent({
       return this.campaignStore.variable('description', this.campaignStore.locale, VarType.IMAGE, VarRefType.CAMPAIGN);
     },
     iconImage() {
-      return this.campaignStore.variable('icon', this.campaignStore.locale, VarType.IMAGE, VarRefType.CAMPAIGN);
+      console.log(this.campaignStore.content?.variables);
+      console.log(this.campaignStore.locale);
+      return this.campaignStore.variable('icon', this.campaignStore.locale, VarType.IMAGE, VarRefType.BASE);
     },
     description() {
       return this.campaignStore.variable('description', this.campaignStore.locale, VarType.TRANSLATION, VarRefType.CAMPAIGN);
