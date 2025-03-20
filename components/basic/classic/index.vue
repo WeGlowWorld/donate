@@ -33,6 +33,7 @@ export default defineComponent({
       campaignStore.variable('description', locale, VarType.TRANSLATION, VarRefType.CAMPAIGN),
       campaignStore.variable('description', locale, VarType.IMAGE, VarRefType.CAMPAIGN),
     ];
+    console.log(campaignStore.content);
     useServerSeoMeta({
       title,
       description: description,

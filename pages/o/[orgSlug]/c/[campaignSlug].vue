@@ -1,8 +1,12 @@
 <template>
   <basic-classic v-if="campaignStore.content?.base.template === Template.BASIC_CLASSIC" />
   <basic-modern v-else-if="campaignStore.content?.base.template === Template.BASIC_MODERN" />
+  <easter-field v-else-if="campaignStore.content?.base.template === Template.EASTER_FIELD" />
   <div v-else-if="campaignStore.initialized">
     This template has ended
+  </div>
+  <div v-else>
+    <span class="pi pi-spinner pi-spin h-fit w-fit m-4" />
   </div>
 </template>
 
@@ -57,7 +61,6 @@ export default defineComponent({
       description: desc,
       image: img,
     }));
-
     return {
       Template: Template,
       campaignStore,

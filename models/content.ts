@@ -11,7 +11,12 @@ export type Coord = [number, number];
 
 export type DonationContent = {
   messages: Message[];
-  coords: Coord[];
+  coords: {
+    coords: Coord;
+    amount?: number;
+    name?: string;
+    description?: string;
+  }[];
 };
 
 export type Content = {

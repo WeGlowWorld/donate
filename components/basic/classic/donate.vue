@@ -76,7 +76,9 @@
             class="mt-4 w-64 ml-auto"
             :label="$t('donate.next')"
             raised
-            @click="toDonate"
+            :disabled="amount === null"
+            as="router-link"
+            :to="{ path: `/o/${$route.params.orgSlug}/donate`, query: { amount: amount, slug: $route.params.campaignSlug, noLocation: '1' } }"
           />
         </div>
       </div>
@@ -114,20 +116,6 @@ export default defineComponent({
       if (this.content && this.content.campaign.goal)
         this.progressBar = Math.round(this.content.campaign.raised.sum / this.content.campaign.goal * 100 * 100) / 100;
     }, 200);
-  },
-  methods: {
-    toDonate() {
-      if (this.amount === null) {
-        return;
-      }
-      this.$router.push({
-        path: `/o/${this.$route.params.orgSlug}/donate`,
-        query: {
-          amount: this.amount,
-          slug: this.$route.params.campaignSlug,
-        },
-      });
-    },
   },
 });
 </script>
