@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="locales && locales.length > 1"
-    class="fixed bottom-4 right-4"
+    class="fixed top-4 bottom-auto right-4"
   >
     <Button
       type="button"
@@ -13,7 +13,7 @@
     </Button>
     <div
       v-if="opened"
-      class="absolute bottom-[105%] w-full left-0 bg-white flex flex-col gap-1 border-2 border-slate-100 rounded-md z-50 transition-all duration-300"
+      class="absolute top-[105%] w-full left-0 bg-white flex flex-col gap-1 border-2 border-slate-100 rounded-md z-50 transition-all duration-300"
     >
       <div
         v-for="l in locales"
@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Locale } from '~/models/enums';
+import { Locale, Template } from '~/models/enums';
 
 export default defineComponent({
   name: 'TranslatorComponent',
@@ -44,6 +44,7 @@ export default defineComponent({
     if (!campStore.content?.org.locales.includes(useI18n().locale.value as Locale)) campStore.locale = campStore.content?.org.locales[0] || Locale.NL_BE;
     return {
       campaignStore: ref(campStore),
+      Template: Template,
     };
   },
   data() {

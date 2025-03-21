@@ -4,6 +4,12 @@ export const useDonationsStore = defineStore('donationsStore', {
   state: () => ({
     messages: [] as Message[],
     coords: [] as Coord[],
+    coordsFull: [] as {
+      coords: Coord;
+      amount?: number;
+      name?: string;
+      description?: string;
+    }[],
     page: 0,
     initialized: false as boolean,
     error: undefined as string | undefined,
@@ -16,7 +22,12 @@ export const useDonationsStore = defineStore('donationsStore', {
       try {
         const result = await useAPI<{
           messages: Message[];
-          coords?: Coord[];
+          coords?: {
+            coords: Coord;
+            amount?: number;
+            name?: string;
+            description?: string;
+          }[];
         }>(`/campaign/donations/${orgSlug}/${campaignSlug}`, {
           query: {
             limit: 20,
@@ -26,7 +37,8 @@ export const useDonationsStore = defineStore('donationsStore', {
         if (!result) throw new Error('No content found');
 
         this.messages.push(...result.messages);
-        this.coords.push(...(result.coords || []));
+        this.coords.push(...(result.coords?.map(v => v.coords) || []));
+        this.coordsFull.push(...(result.coords || []));
       }
       catch (err) {
         if (err instanceof Error)
