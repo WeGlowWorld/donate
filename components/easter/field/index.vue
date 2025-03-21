@@ -5,8 +5,20 @@
       class="easter"
     >
       <img
+        :src="logo"
+        class="absolute top-4 left-4 h-32 w-32 z-40 object-contain"
+      >
+      <img
+        src="/img/bunny.svg"
+        class="bunny bottom-[30%] right-12"
+      >
+      <img
         src="/img/bush.svg"
         class="bush"
+      >
+      <img
+        src="/img/tree.svg"
+        class="tree"
       >
       <div
         class="cloud"
@@ -46,12 +58,15 @@
 </template>
 
 <script lang="ts">
+import { VarRefType, VarType } from '~/models/enums';
+
 export default defineComponent({
   name: 'EasterTemplate',
   setup() {
     return {
       easterField: useTemplateRef<HTMLDivElement>('easter'),
       donationStore: ref(useDonationsStore()),
+      campaignStore: ref(useCampaignStore()),
     };
   },
   data() {
@@ -68,6 +83,9 @@ export default defineComponent({
         case l < 500: return '500vw';
         default: return '500vw';
       }
+    },
+    logo() {
+      return this.campaignStore.variable('logo', this.campaignStore.locale, VarType.IMAGE, VarRefType.ORG);
     },
   },
   mounted() {
@@ -124,7 +142,25 @@ export default defineComponent({
   position: absolute;
   z-index: 1;
   transform: translateY(2rem);
-  width: 100vw;
-  top: calc(37% - 7vw);
+  @apply min-w-[200vw] md:min-w-[104vw];
+  @apply left-[calc(50%-100vw)] md:left-[calc(50%-52vw)];
+  @apply bottom-[calc(50%+5rem)] md:bottom-[calc(50%+2rem)];
+  @apply max-w-[100rem]
+}
+
+.tree {
+  position: absolute;
+  height: 40%;
+  z-index: 0;
+  top: 3%;
+  right: 10%;
+}
+
+.bunny {
+  position: absolute;
+  height: 7rem;
+  z-index: 2;
+  right: 3rem;
+  top: 60%;
 }
 </style>
