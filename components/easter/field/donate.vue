@@ -95,7 +95,7 @@ export default defineComponent({
 
 <style scoped>
 .donate-div {
-  top: calc(100vh - 6rem);
+  top: calc(100dvh - 6rem);
   background-color: var(--t-background);
   color: var(--t-background-text);
   @apply relative z-10 min-h-96 w-screen p-4 shadow-[rgb(0,0,15,0.5)_0px_0px_16px_0px] !important;
