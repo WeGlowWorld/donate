@@ -6,12 +6,12 @@
     />
     <div
       :class="[
-        'card cursor-pointer h-full max-w-[90%] flex-shrink-0 transition-all duration-300 ease-in-out overflow-hidden',
+        'card cursor-pointer h-full max-w-[90%] flex-shrink-0 transition-all duration-300 ease-in-out overflow-scroll',
         messagesOpen ? 'w-80': 'w-12',
       ]"
       @click="messagesOpen = !messagesOpen"
     >
-      <div class="w-80 h-full border-l shadow-lg border-black border-solid">
+      <div class="w-80 h-full border-l border-black border-solid">
         <div
           v-for="message in messages"
           :key="`${message.name}-${message.date}`"

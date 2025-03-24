@@ -85,7 +85,7 @@ input {
 }
 @supports (height: 100dvh) {
   .full-viewport-height {
-    height: 100dvh;
+    height: 100dvh !important;
   }
 }
 .h-screen {
