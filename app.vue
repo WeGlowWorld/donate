@@ -79,16 +79,4 @@ input {
   color: black !important;
   border-color: var(--p-button-outlined-primary-border-color) !important;
 }
-
-.full-viewport-height {
-  height: 100vh;
-}
-@supports (height: 100dvh) {
-  .full-viewport-height {
-    height: 100dvh !important;
-  }
-}
-.h-screen {
-  @apply full-viewport-height !important;
-}
 </style>

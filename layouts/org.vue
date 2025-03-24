@@ -2,7 +2,7 @@
   <div class="w-screen overflow-x-hidden">
     <div
       v-if="orgStore.initialized && orgStore.content"
-      class="donate-page min-h-screen flex p-4 md:p-16"
+      class="donate-page min-h-dvh flex p-4 md:p-16"
     >
       <div class="donate-form max-w-4xl mx-auto w-full h-fit p-4 md:p-8 shadow-lg">
         <!-- <Button @click="useRouter().push(`/o/${route.params.orgSlug}/c/${route.query.campaignSlug}`)" /> -->

@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="imagesLoaded"
-    class="postnl-page min-h-screen flex relative bg-white text-black px-4 pt-8"
+    class="postnl-page min-h-dvh flex relative bg-white text-black px-4 pt-8"
   >
     <div class="max-w-5xl w-full mx-auto pb-48 flex flex-col gap-16">
       <div class="relative max-h-[40rem] mx-auto">

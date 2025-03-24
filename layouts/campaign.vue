@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen w-screen overflow-x-hidden flex">
+  <div class="min-h-dvh w-screen overflow-x-hidden flex">
     <slot v-if="campStore.initialized" />
     <translator
       v-if="campStore.content"

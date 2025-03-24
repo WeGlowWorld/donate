@@ -104,7 +104,7 @@ export default defineComponent({
 
 <style>
 .easter {
-  @apply bg-sky-500 h-screen w-screen fixed flex flex-col justify-end top-0 left-0 overflow-x-scroll;
+  @apply bg-sky-500 h-dvh w-screen fixed flex flex-col justify-end top-0 left-0 overflow-x-scroll;
   background: linear-gradient(to bottom, #87CEEB, #FFFFFF);;
   background-position: cover;
 }
