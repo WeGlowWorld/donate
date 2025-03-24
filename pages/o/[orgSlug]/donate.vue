@@ -38,6 +38,7 @@
     />
 
     <form-field
+      v-if="hasLocation"
       name="coords"
       :initial-value="formValues.address"
       class="relative"
@@ -181,12 +182,12 @@ export default defineComponent({
     if (!route.query['slug']) throw new Error('Campaign slug is required');
 
     const isKbs = orgStore.content?.general.superAdmin === 'kbs';
-
+    const hasLocation = route.query.noLocation === undefined;
     return {
       orgStore: ref(orgStore),
       isKbs,
       countryOptions,
-      coords: ref([0, 0]),
+      coords: ref(route.query.noLocation === undefined ? [0, 0] : [-1, -1]),
       genderOptions: [{ value: 'M', label: 'M' }, { value: 'F', label: 'F' }, { value: 'X', label: 'X' }],
       formValues: ref({
         amount: parseInt(route.query.amount as string) || 123,
@@ -209,6 +210,7 @@ export default defineComponent({
         premise: '',
         gender: '',
       }),
+      hasLocation,
       resolver: zodResolver(isKbs ? donateKbsZod : donateZod),
       orgSlug: route.params.orgSlug as string,
       campSlug: route.query.slug as string,

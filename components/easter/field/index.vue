@@ -122,6 +122,7 @@ export default defineComponent({
 }
 .cloud {
   position: absolute;
+  z-index: -1;
   left: -200px;
   width: 150px;
   height: 80px;
@@ -140,11 +141,11 @@ export default defineComponent({
 
 .bush {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   transform: translateY(2rem);
-  @apply min-w-[200vw] md:min-w-[104vw];
-  @apply left-[calc(50%-100vw)] md:left-[calc(50%-52vw)];
-  @apply bottom-[calc(50%+5rem)] md:bottom-[calc(50%+2rem)];
+  @apply w-[150vw] sm:min-w-[150vw] md:min-w-[104vw];
+  @apply left-[calc(50%-75vw)] md:left-[calc(50%-52vw)];
+  @apply bottom-[calc(50%+6rem)] sm:bottom-[calc(50%+5rem)] md:bottom-[calc(50%+4rem)];
   @apply max-w-[100rem]
 }
 
@@ -159,7 +160,7 @@ export default defineComponent({
 .bunny {
   position: absolute;
   height: 7rem;
-  z-index: 2;
+  z-index: 3;
   right: 3rem;
   top: 60%;
 }
