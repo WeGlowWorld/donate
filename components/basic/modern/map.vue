@@ -5,13 +5,15 @@
       class="h-full w-full"
     />
     <div
+      ref="messagesScroll"
       :class="[
-        'card cursor-pointer h-full max-w-[90%] flex-shrink-0 transition-all duration-300 ease-in-out overflow-scroll',
+        'card cursor-pointer h-full max-w-[90%] flex-shrink-0 transition-all duration-300 ease-in-out border-l border-black border-solid overflow-scroll',
         messagesOpen ? 'w-80': 'w-12',
       ]"
+      @scroll="onScroll"
       @click="messagesOpen = !messagesOpen"
     >
-      <div class="w-80 h-full border-l border-black border-solid">
+      <div class="w-80 h-full">
         <div
           v-for="message in messages"
           :key="`${message.name}-${message.date}`"
@@ -23,7 +25,9 @@
           </div>
           <div class="flex justify-between">
             <div>{{ message.description }}</div>
-            <div><b>{{ message.amount }}</b></div>
+            <div class="w-12 text-right shrink-0">
+              <b>{{ message.amount }}</b>
+            </div>
           </div>
         </div>
       </div>
@@ -50,6 +54,7 @@ export default defineComponent({
       messagesOpen: false,
       map: null as unknown as Map,
       markers: [] as Marker[],
+      fetchingNew: false,
     };
   },
   computed: {
@@ -92,6 +97,18 @@ export default defineComponent({
     this.map.remove();
   },
   methods: {
+    async onScroll() {
+      if (this.fetchingNew) return;
+      const container = this.$refs.messagesScroll as HTMLElement;
+      if (container && this.donationStore.hasMore) {
+        const nearBottom = container.scrollHeight - container.scrollTop <= container.clientHeight + 10;
+        if (nearBottom) {
+          this.fetchingNew = true;
+          await this.donationStore.nextPage(this.$route.params.campaignSlug as string, this.$route.params.orgSlug as string);
+          this.fetchingNew = false;
+        }
+      }
+    },
     updateMap() {
       const candlesGeojson = {
         type: 'FeatureCollection',
@@ -238,7 +255,7 @@ export default defineComponent({
   color: var(--t-card-text);
 }
 
-.message {
+.message:not(:last-child) {
   border-bottom: 1px solid var(--t-card-text);
 }
 </style>

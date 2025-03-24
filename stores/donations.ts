@@ -14,6 +14,11 @@ export const useDonationsStore = defineStore('donationsStore', {
     initialized: false as boolean,
     error: undefined as string | undefined,
   }),
+  getters: {
+    hasMore(state) {
+      return state.messages.length < state.coords.length;
+    },
+  },
   actions: {
     async init(campaignSlug: string, orgSlug: string) {
       await this.fetchDonations(campaignSlug, orgSlug);
@@ -35,10 +40,11 @@ export const useDonationsStore = defineStore('donationsStore', {
           },
         });
         if (!result) throw new Error('No content found');
-
         this.messages.push(...result.messages);
-        this.coords.push(...(result.coords?.map(v => v.coords) || []));
-        this.coordsFull.push(...(result.coords || []));
+        if (this.page === 0) {
+          this.coords.push(...(result.coords?.map(v => v.coords) || []));
+          this.coordsFull.push(...(result.coords || []));
+        }
       }
       catch (err) {
         if (err instanceof Error)
@@ -47,6 +53,10 @@ export const useDonationsStore = defineStore('donationsStore', {
       finally {
         this.initialized = true;
       }
+    },
+    async nextPage(campaignSlug: string, orgSlug: string) {
+      this.page++;
+      await this.fetchDonations(campaignSlug, orgSlug);
     },
   },
 });

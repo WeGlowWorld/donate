@@ -3,7 +3,11 @@
     :title="$t('messages.title')"
     class="w-full"
   >
-    <div class="max-h-[26rem] overflow-scroll">
+    <div
+      ref="messagesScroll"
+      class="max-h-[26rem] overflow-scroll"
+      @scroll="onScroll"
+    >
       <div
         v-for="message in messages"
         :key="`${message.name}-${message.date}`"
@@ -33,6 +37,12 @@ export default defineComponent({
       donationStore: ref(useDonationsStore()),
     };
   },
+  data() {
+    return {
+      messagesOpen: false,
+      fetchingNew: false,
+    };
+  },
   computed: {
     currency() {
       return this.campaignStore.content?.org.currencySign;
@@ -43,6 +53,20 @@ export default defineComponent({
         amount: `${this.currency} ${v.amount}`,
         date: dayjs(v.date).format('DD/MM/YYYY'),
       }));
+    },
+  },
+  methods: {
+    async onScroll() {
+      if (this.fetchingNew) return;
+      const container = this.$refs.messagesScroll as HTMLElement;
+      if (container && this.donationStore.hasMore) {
+        const nearBottom = container.scrollHeight - container.scrollTop <= container.clientHeight + 10;
+        if (nearBottom) {
+          this.fetchingNew = true;
+          await this.donationStore.nextPage(this.$route.params.campaignSlug as string, this.$route.params.orgSlug as string);
+          this.fetchingNew = false;
+        }
+      }
     },
   },
 });
