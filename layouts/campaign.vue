@@ -14,6 +14,10 @@ import type { Locale } from '~/models/enums';
 export default defineComponent({
   async setup() {
     const route = useRoute();
+    useSeoMeta({
+      title: 'Test Donate',
+      description: 'Test Description',
+    });
     if (!route.params.campaignSlug) useRouter().push('/404');
     const campStore = useCampaignStore();
     await useAsyncData('data', () => campStore.init());
