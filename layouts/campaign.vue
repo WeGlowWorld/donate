@@ -25,8 +25,9 @@ export default defineComponent({
       || 'WeGlow Donate';
     const desc = convert(campStore.variable('description', campStore.locale, VarType.TRANSLATION) || '');
     const img = campStore.variable('description', campStore.locale, VarType.IMAGE)
+      || campStore.variable('cover', campStore.locale, VarType.IMAGE)
       || campStore.variable('logo', campStore.locale, VarType.IMAGE);
-
+    console.log(title, desc, img);
     useSeoMeta(varsToSeo({
       title,
       description: desc,
