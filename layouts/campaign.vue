@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import type { Locale } from '~/models/enums';
+import { VarType, type Locale } from '~/models/enums';
 
 export default defineComponent({
   async setup() {
@@ -24,8 +24,8 @@ export default defineComponent({
   async mounted() {
     try {
       useSeoMeta({
-        title: 'Test Donate 2',
-        description: 'Test Description 2',
+        title: this.campStore.variable('campaign_name', this.campStore.locale),
+        description: this.campStore.variable('description', this.campStore.locale, VarType.TRANSLATION),
       });
       if (!this.campStore.content?.org.locales.includes(this.$i18n.locale as Locale))
         this.$i18n.locale = this.campStore.content?.org.locales[0] as Locale;
