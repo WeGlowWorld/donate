@@ -12,9 +12,12 @@ export default defineComponent({
     useSeoMeta({
       title: content.value?.org.slug,
       description: content.value?.org.currency,
+      ogTitle: content.value?.org.slug,
+      ogDescription: content.value?.org.currency,
     });
     console.log(content);
     console.log('layout setup end');
+
     return {
       content,
     };
