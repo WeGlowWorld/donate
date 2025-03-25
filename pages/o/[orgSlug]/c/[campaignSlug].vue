@@ -11,7 +11,6 @@
 </template>
 
 <script lang="ts">
-import { convert } from 'html-to-text';
 import { Template, VarType } from '~/models/enums';
 
 export default defineComponent({
@@ -40,29 +39,6 @@ export default defineComponent({
         }
       });
     }
-    const title = campaignStore.variable('campaign_name', campaignStore.locale, VarType.TRANSLATION)
-      || campaignStore.variable('campaign_name', undefined, VarType.TRANSLATION)
-      || campaignStore.variable('org_name', campaignStore.locale, VarType.TRANSLATION)
-      || campaignStore.variable('org_name', undefined, VarType.TRANSLATION)
-      || 'WeGlow Donate';
-    const desc
-      = convert(campaignStore.variable('description', campaignStore.locale, VarType.TRANSLATION)
-        || campaignStore.variable('description', undefined, VarType.TRANSLATION)
-        || '',
-      );
-    const img
-      = campaignStore.variable('description', campaignStore.locale, VarType.IMAGE)
-      || campaignStore.variable('description', undefined, VarType.IMAGE)
-      || campaignStore.variable('logo', campaignStore.locale, VarType.IMAGE)
-      || campaignStore.variable('logo', undefined, VarType.IMAGE);
-    useSeoMeta(varsToSeo({
-      title,
-      description: desc,
-      image: img,
-    }), {
-      tagPosition: 'head',
-      tagPriority: 'critical',
-    });
     return {
       Template: Template,
       campaignStore,
