@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { convert } from 'html-to-text';
+// import { convert } from 'html-to-text';
 import { Template, VarType } from '~/models/enums';
 
 export default defineComponent({
@@ -22,13 +22,12 @@ export default defineComponent({
     const title = campStore.variable('campaign_name', campStore.locale, VarType.TRANSLATION)
       || campStore.variable('org_name', campStore.locale, VarType.TRANSLATION)
       || 'WeGlow Donate';
-    const description = convert(campStore.variable('description', campStore.locale, VarType.TRANSLATION) || '');
+    // const description = convert(campStore.variable('description', campStore.locale, VarType.TRANSLATION) || '');
     // const image = campStore.variable('description', campStore.locale, VarType.IMAGE)
     //   || campStore.variable('logo', campStore.locale, VarType.IMAGE);
 
-    useSeoMeta({
+    useHead({
       title: () => title,
-      description,
     }, {
       tagPriority: 'critical',
     });
