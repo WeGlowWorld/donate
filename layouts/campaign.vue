@@ -14,10 +14,6 @@ import type { Locale } from '~/models/enums';
 export default defineComponent({
   async setup() {
     const route = useRoute();
-    useSeoMeta({
-      title: 'Test Donate 2',
-      description: 'Test Description 2',
-    });
     if (!route.params.campaignSlug) useRouter().push('/404');
     const campStore = useCampaignStore();
     await useAsyncData('data', () => campStore.init());
@@ -27,6 +23,10 @@ export default defineComponent({
   },
   async mounted() {
     try {
+      useSeoMeta({
+        title: 'Test Donate 2',
+        description: 'Test Description 2',
+      });
       if (!this.campStore.content?.org.locales.includes(this.$i18n.locale as Locale))
         this.$i18n.locale = this.campStore.content?.org.locales[0] as Locale;
       await useDonationsStore().init(this.$route.params.campaignSlug as string, this.$route.params.orgSlug as string);

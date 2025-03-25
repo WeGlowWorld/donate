@@ -31,7 +31,7 @@ export default defineComponent({
 
     useI18n().setLocale('nl-BE');
     useHead({
-      title: 'Test Donate',
+      title: 'WeGlow Donate',
     });
   },
   data() {
