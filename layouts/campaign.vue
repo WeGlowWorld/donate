@@ -9,44 +9,14 @@
 </template>
 
 <script lang="ts">
-import { convert } from 'html-to-text';
-import { VarType, type Locale } from '~/models/enums';
+import type { Locale } from '~/models/enums';
 
 export default defineComponent({
   async setup() {
     const route = useRoute();
     if (!route.params.campaignSlug) useRouter().push('/404');
     const campStore = useCampaignStore();
-
     await useAsyncData('data', () => campStore.init());
-
-    const title = campStore.variable('campaign_name', campStore.locale, VarType.TRANSLATION)
-      || campStore.variable('campaign_name', undefined, VarType.TRANSLATION)
-      || campStore.variable('org_name', campStore.locale, VarType.TRANSLATION)
-      || campStore.variable('org_name', undefined, VarType.TRANSLATION)
-      || 'WeGlow Donate';
-    const desc
-      = convert(campStore.variable('description', campStore.locale, VarType.TRANSLATION)
-        || campStore.variable('description', undefined, VarType.TRANSLATION)
-        || '',
-      );
-    const img
-      = campStore.variable('description', campStore.locale, VarType.IMAGE)
-      || campStore.variable('description', undefined, VarType.IMAGE)
-      || campStore.variable('logo', campStore.locale, VarType.IMAGE)
-      || campStore.variable('logo', undefined, VarType.IMAGE);
-
-    console.log(title, desc, img);
-
-    useSeoMeta(varsToSeo({
-      title,
-      description: desc,
-      image: img,
-    }), {
-      tagPosition: 'head',
-      tagPriority: 'critical',
-    });
-
     return {
       campStore: ref(campStore),
     };

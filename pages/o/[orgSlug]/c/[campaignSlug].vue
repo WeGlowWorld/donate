@@ -11,13 +11,30 @@
 </template>
 
 <script lang="ts">
+import { convert } from 'html-to-text';
 import { Template, VarType } from '~/models/enums';
 
 export default defineComponent({
   name: 'CampaignPage',
   setup() {
-    const campaignStore = useCampaignStore();
-    const colors = campaignStore.content?.variables.filter(v => v.type === VarType.COLOR);
+    const campStore = useCampaignStore();
+
+    const title = campStore.variable('campaign_name', campStore.locale, VarType.TRANSLATION)
+      || campStore.variable('org_name', campStore.locale, VarType.TRANSLATION)
+      || 'WeGlow Donate';
+    const description = convert(campStore.variable('description', campStore.locale, VarType.TRANSLATION) || '');
+    const image = campStore.variable('description', campStore.locale, VarType.IMAGE)
+      || campStore.variable('logo', campStore.locale, VarType.IMAGE);
+
+    useSeoMeta(varsToSeo({
+      title,
+      description,
+      image,
+    }), {
+      tagPosition: 'head',
+      tagPriority: 'critical',
+    });
+    const colors = campStore.content?.variables.filter(v => v.type === VarType.COLOR);
     if (colors) {
       const style = document.documentElement.style;
       colors.forEach((color) => {
@@ -41,13 +58,12 @@ export default defineComponent({
     }
     return {
       Template: Template,
-      campaignStore,
+      campaignStore: campStore,
     };
   },
   mounted() {
     definePageMeta({
       layout: 'campaign',
-      title: 'test',
     });
   },
 });

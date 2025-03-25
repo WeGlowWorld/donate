@@ -32,6 +32,9 @@ export default defineComponent({
     useI18n().setLocale('nl-BE');
     useSeoMeta({
       title: 'WeGlow Donate',
+      description: 'Test',
+      ogDescription: 'Test 2',
+      ogTitle: 'WeGlow Donate Test',
     });
   },
   data() {
