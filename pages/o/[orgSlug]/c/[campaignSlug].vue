@@ -1,12 +1,11 @@
 <template>
-  <basic-classic v-if="campaignStore.content?.base.template === Template.BASIC_CLASSIC" />
-  <basic-modern v-else-if="campaignStore.content?.base.template === Template.BASIC_MODERN" />
-  <easter-field v-else-if="campaignStore.content?.base.template === Template.EASTER_FIELD" />
-  <div v-else-if="campaignStore.initialized">
-    This template has ended
-  </div>
-  <div v-else>
-    <span class="pi pi-spinner pi-spin h-fit w-fit m-4" />
+  <div v-if="colorsLoaded">
+    <basic-classic v-if="campStore.content?.base.template === Template.BASIC_CLASSIC" />
+    <basic-modern v-else-if="campStore.content?.base.template === Template.BASIC_MODERN" />
+    <easter-field v-else-if="campStore.content?.base.template === Template.EASTER_FIELD" />
+    <div v-else>
+      <span class="pi pi-spinner pi-spin h-fit w-fit m-4" />
+    </div>
   </div>
 </template>
 
@@ -17,8 +16,18 @@ import { Template, VarType } from '~/models/enums';
 export default defineComponent({
   name: 'CampaignPage',
   setup() {
-    const campStore = useCampaignStore();
-    const colors = campStore.content?.variables.filter(v => v.type === VarType.COLOR);
+    return {
+      Template: Template,
+      campStore: ref(useCampaignStore()),
+    };
+  },
+  data() {
+    return {
+      colorsLoaded: false,
+    };
+  },
+  mounted() {
+    const colors = this.campStore.content?.variables.filter(v => v.type === VarType.COLOR);
     if (colors) {
       const style = document.documentElement.style;
       colors.forEach((color) => {
@@ -40,12 +49,7 @@ export default defineComponent({
         }
       });
     }
-    return {
-      Template: Template,
-      campaignStore: campStore,
-    };
-  },
-  mounted() {
+    this.colorsLoaded = true;
     definePageMeta({
       layout: 'campaign',
     });

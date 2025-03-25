@@ -22,9 +22,6 @@ export const useCampaignStore = defineStore('campaignStore', {
       && (!refId || v.refId === refId),
     ))?.value,
   },
-  async hydrate() {
-    await this.actions?.init();
-  },
   actions: {
     async init() {
       const { orgSlug, campaignSlug } = useRoute().params;
@@ -37,15 +34,20 @@ export const useCampaignStore = defineStore('campaignStore', {
           variables: content.variables.filter(v => v.value !== 'No translation'),
         };
         this.initialized = true;
+        return this.content;
       }
       catch (err) {
-        console.log('err', err);
+        console.error('err', err);
         if (err instanceof Error)
           this.error = err.message;
       }
       finally {
         this.initialized = true;
       }
+    },
+    setContent(content: Content) {
+      this.content = content;
+      this.initialized = true;
     },
   },
 });
