@@ -40,7 +40,6 @@ export default defineComponent({
         }
       });
     }
-
     const title = campaignStore.variable('campaign_name', campaignStore.locale, VarType.TRANSLATION)
       || campaignStore.variable('campaign_name', undefined, VarType.TRANSLATION)
       || campaignStore.variable('org_name', campaignStore.locale, VarType.TRANSLATION)
@@ -60,7 +59,10 @@ export default defineComponent({
       title,
       description: desc,
       image: img,
-    }));
+    }), {
+      tagPosition: 'head',
+      tagPriority: 'critical',
+    });
     return {
       Template: Template,
       campaignStore,

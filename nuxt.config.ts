@@ -25,6 +25,9 @@ export default defineNuxtConfig({
       apiUrl: process.env.NUXT_PUBLIC_API_URL || '-no-api-url-',
     },
   },
+  experimental: {
+    headNext: true,
+  },
   compatibilityDate: '2025-01-12',
   nitro: {
     preset: 'azure',
