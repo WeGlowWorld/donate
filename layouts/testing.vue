@@ -6,13 +6,14 @@
 
 <script lang="ts">
 export default defineComponent({
-  setup() {
+  async setup() {
     console.log('layout setup');
-    const { data: content } = useAsyncData('data', () => useCampaignStore().init());
+    const { data: content } = await useAsyncData('data', () => useCampaignStore().init());
     useSeoMeta({
       title: content.value?.org.slug,
       description: content.value?.org.currency,
     });
+    console.log(content);
     console.log('layout setup end');
     return {
       content,
