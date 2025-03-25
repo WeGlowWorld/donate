@@ -15,8 +15,8 @@ export default defineComponent({
   async setup() {
     const route = useRoute();
     useSeoMeta({
-      title: 'Test Donate',
-      description: 'Test Description',
+      title: 'Test Donate 2',
+      description: 'Test Description 2',
     });
     if (!route.params.campaignSlug) useRouter().push('/404');
     const campStore = useCampaignStore();

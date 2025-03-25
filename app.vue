@@ -30,8 +30,8 @@ export default defineComponent({
     colorMode.value = 'light';
 
     useI18n().setLocale('nl-BE');
-    useSeoMeta({
-      title: 'WeGlow Donate',
+    useHead({
+      title: 'Test Donate',
     });
   },
   data() {

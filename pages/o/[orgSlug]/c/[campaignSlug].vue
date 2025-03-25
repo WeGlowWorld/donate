@@ -18,19 +18,6 @@ export default defineComponent({
   name: 'CampaignPage',
   setup() {
     const campStore = useCampaignStore();
-
-    const title = campStore.variable('campaign_name', campStore.locale, VarType.TRANSLATION)
-      || campStore.variable('org_name', campStore.locale, VarType.TRANSLATION)
-      || 'WeGlow Donate';
-    // const description = convert(campStore.variable('description', campStore.locale, VarType.TRANSLATION) || '');
-    // const image = campStore.variable('description', campStore.locale, VarType.IMAGE)
-    //   || campStore.variable('logo', campStore.locale, VarType.IMAGE);
-
-    useHead({
-      title: () => title,
-    }, {
-      tagPriority: 'critical',
-    });
     const colors = campStore.content?.variables.filter(v => v.type === VarType.COLOR);
     if (colors) {
       const style = document.documentElement.style;
