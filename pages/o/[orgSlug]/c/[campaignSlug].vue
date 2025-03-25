@@ -23,15 +23,13 @@ export default defineComponent({
       || campStore.variable('org_name', campStore.locale, VarType.TRANSLATION)
       || 'WeGlow Donate';
     const description = convert(campStore.variable('description', campStore.locale, VarType.TRANSLATION) || '');
-    const image = campStore.variable('description', campStore.locale, VarType.IMAGE)
-      || campStore.variable('logo', campStore.locale, VarType.IMAGE);
+    // const image = campStore.variable('description', campStore.locale, VarType.IMAGE)
+    //   || campStore.variable('logo', campStore.locale, VarType.IMAGE);
 
-    useSeoMeta(varsToSeo({
-      title,
+    useSeoMeta({
+      title: () => title,
       description,
-      image,
-    }), {
-      tagPosition: 'head',
+    }, {
       tagPriority: 'critical',
     });
     const colors = campStore.content?.variables.filter(v => v.type === VarType.COLOR);
