@@ -9,31 +9,18 @@
 </template>
 
 <script lang="ts">
-import { convert } from 'html-to-text';
-import { VarType, type Locale } from '~/models/enums';
+import type { Locale } from '~/models/enums';
 
 export default defineComponent({
   async setup() {
-    const campStore = useCampaignStore();
-    await useAsyncData('campaign-data', async () => {
-      return await campStore.init();
-    });
     const route = useRoute();
-
-    const title = campStore.variable('campaign_name', campStore.locale, VarType.TRANSLATION)
-      || campStore.variable('org_name', campStore.locale, VarType.TRANSLATION)
-      || 'WeGlow Donate';
-    const desc = convert(campStore.variable('description', campStore.locale, VarType.TRANSLATION) || '');
-    const img = campStore.variable('description', campStore.locale, VarType.IMAGE)
-      || campStore.variable('cover', campStore.locale, VarType.IMAGE)
-      || campStore.variable('logo', campStore.locale, VarType.IMAGE);
-    console.log(title, desc, img);
-    useSeoMeta(varsToSeo({
-      title,
-      description: desc,
-      image: img,
-    }));
+    useSeoMeta({
+      title: 'Test Donate 2',
+      description: 'Test Description 2',
+    });
     if (!route.params.campaignSlug) useRouter().push('/404');
+    const campStore = useCampaignStore();
+    await useAsyncData('data', () => campStore.init());
     return {
       campStore: ref(campStore),
     };
