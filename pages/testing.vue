@@ -4,16 +4,16 @@
   </div>
 </template>
 
-<script lang="ts">
-export default defineComponent({
-  setup() {
-    definePageMeta({
-      layout: 'testing',
-    });
-    console.log('page setup');
-  },
-  mounted() {
-    console.log('page mounted');
-  },
+<script lang="ts" setup>
+import type { Content } from '~/models/content';
+
+const content = await useApiTest<Content>(`content-4H3OBDBO`, '/campaign/content/feestvarken-vzw/4H3OBDBO');
+definePageMeta({
+  layout: 'testing',
 });
+if (content) {
+  useServerSeoMeta({
+    title: content.org.slug,
+  });
+}
 </script>
