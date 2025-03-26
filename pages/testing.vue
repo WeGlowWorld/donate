@@ -20,8 +20,9 @@ if (content) {
   const description = campaignStore.variable('description', campaignStore.locale, VarType.TRANSLATION, VarRefType.CAMPAIGN)
     || campaignStore.variable('description', campaignStore.locale, VarType.TRANSLATION, VarRefType.ORG) || '';
   const image = campaignStore.variable('description', campaignStore.locale, VarType.IMAGE, VarRefType.CAMPAIGN)
+    || campaignStore.variable('cover', campaignStore.locale, VarType.IMAGE, VarRefType.ORG)
     || campaignStore.variable('logo', campaignStore.locale, VarType.IMAGE, VarRefType.ORG);
-
+  console.log(image);
   useServerSeoMeta(varsToSeo({
     title,
     description: convert(description),
