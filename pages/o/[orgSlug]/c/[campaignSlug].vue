@@ -11,7 +11,6 @@
 </template>
 
 <script lang="ts">
-// import { convert } from 'html-to-text';
 import { Template, VarType } from '~/models/enums';
 
 export default defineComponent({
