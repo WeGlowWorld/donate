@@ -25,6 +25,7 @@ definePageMeta({
 
 const campStore = useCampaignStore();
 await campStore.init();
+await useDonationsStore().init();
 const content = campStore.content;
 if (content) {
   // Set SEO meta tags
@@ -42,7 +43,7 @@ if (content) {
 }
 
 const colorsLoaded = ref(false);
-onMounted(() => {
+onMounted(async () => {
   const style = document.documentElement.style;
   content?.variables.filter(v => v.type === VarType.COLOR).forEach((color) => {
     const c = `#${color.value}`;

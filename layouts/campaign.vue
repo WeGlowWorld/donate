@@ -17,8 +17,5 @@ export default defineComponent({
       Locale: Locale,
     };
   },
-  async mounted() {
-    await useDonationsStore().init(this.$route.params.campaignSlug as string, this.$route.params.orgSlug as string);
-  },
 });
 </script>

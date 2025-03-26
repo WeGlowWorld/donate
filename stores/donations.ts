@@ -20,10 +20,11 @@ export const useDonationsStore = defineStore('donationsStore', {
     },
   },
   actions: {
-    async init(campaignSlug: string, orgSlug: string) {
-      await this.fetchDonations(campaignSlug, orgSlug);
+    async init() {
+      await this.fetchDonations();
     },
-    async fetchDonations(campaignSlug: string, orgSlug: string): Promise<void> {
+    async fetchDonations(): Promise<void> {
+      const { orgSlug, campaignSlug } = useRoute().params;
       try {
         const result = await useAPI<{
           messages: Message[];
@@ -54,9 +55,9 @@ export const useDonationsStore = defineStore('donationsStore', {
         this.initialized = true;
       }
     },
-    async nextPage(campaignSlug: string, orgSlug: string) {
+    async nextPage() {
       this.page++;
-      await this.fetchDonations(campaignSlug, orgSlug);
+      await this.fetchDonations();
     },
   },
 });

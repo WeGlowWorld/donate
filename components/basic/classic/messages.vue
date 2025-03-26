@@ -63,7 +63,7 @@ export default defineComponent({
         const nearBottom = container.scrollHeight - container.scrollTop <= container.clientHeight + 10;
         if (nearBottom) {
           this.fetchingNew = true;
-          await this.donationStore.nextPage(this.$route.params.campaignSlug as string, this.$route.params.orgSlug as string);
+          await this.donationStore.nextPage();
           this.fetchingNew = false;
         }
       }
