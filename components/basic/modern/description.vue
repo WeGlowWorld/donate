@@ -93,7 +93,7 @@
           raised
           :disabled="amount === null"
           as="router-link"
-          :to="{ path: `/o/${$route.params.orgSlug}/donate`, query: { amount: amount, slug: $route.params.campaignSlug, noLocation: '1' } }"
+          :to="{ path: `/o/${$route.params.orgSlug}/donate`, query: { amount: amount, slug: $route.params.campaignSlug } }"
         />
       </div>
     </div>
