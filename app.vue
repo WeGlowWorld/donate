@@ -33,7 +33,7 @@ export default defineComponent({
   },
   data() {
     return {
-      mounted: false,
+      mounted: true,
     };
   },
   async mounted() {

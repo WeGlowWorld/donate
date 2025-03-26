@@ -90,7 +90,8 @@ export default defineComponent({
   },
   computed: {
     shareUrl() {
-      return window.location.origin + this.$route.fullPath;
+      if (window.location?.origin) return window.location.origin + this.$route.fullPath;
+      else return '';
     },
   },
   methods: {
