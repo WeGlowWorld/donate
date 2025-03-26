@@ -9,7 +9,6 @@ export const varsToSeo = ({ title, description, image }: { title?: string; descr
   ogImage?: string;
   ogImageAlt?: string;
   ogLocale: 'nl-BE';
-  ogUrl: 'https://donate.weglow.world/o/feestvarken-vzw/postnl';
   ogType: 'website';
   twitterCard: 'summary_large_image';
   twitterTitle?: string;
@@ -29,7 +28,6 @@ export const varsToSeo = ({ title, description, image }: { title?: string; descr
   ogImage: image,
   ogImageAlt: title,
   ogLocale: 'nl-BE',
-  ogUrl: 'https://donate.weglow.world/o/feestvarken-vzw/postnl',
   ogType: 'website',
   twitterCard: 'summary_large_image',
   twitterTitle: title,
