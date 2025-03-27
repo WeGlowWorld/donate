@@ -25,7 +25,9 @@ definePageMeta({
 
 const campStore = useCampaignStore();
 await campStore.init();
+
 await useDonationsStore().init();
+
 const content = campStore.content;
 if (content) {
   // Set SEO meta tags

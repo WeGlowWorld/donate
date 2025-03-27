@@ -91,7 +91,6 @@ export default defineComponent({
           icon,
         };
       });
-      // return this.donationStore.coordsFull;
     },
   },
 });

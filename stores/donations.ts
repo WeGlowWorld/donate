@@ -21,6 +21,7 @@ export const useDonationsStore = defineStore('donationsStore', {
   },
   actions: {
     async init() {
+      if (this.initialized) return;
       await this.fetchDonations();
     },
     async fetchDonations(): Promise<void> {
