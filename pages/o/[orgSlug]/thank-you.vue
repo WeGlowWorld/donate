@@ -6,49 +6,66 @@
         target="_blank"
       >
         <img
-          :src="orgStore.variable('logo')"
+          :src="logo"
           class="max-h-24 w-full h-full object-contain"
         >
       </a>
     </div>
-    <p class="text-lg font-bold">
-      Bedankt voor uw donatie!
-    </p>
-    <div
-      v-if="certificate"
-      class="flex flex-col gap-4 text-justify"
-    >
-      <p>Met deze donatie heeft u recht op een fiscaal attest. Het mailtje om deze gegevens in te vullen is al onderweg, maar als u dit liever nu direct doet kan u op volgende link klikken.</p>
-      <PrimeButton
-        as="a"
-        :href="fiscalLink"
-        :label="$t('thanks.toFiscal')"
-        raised
-        :pt:root:style="{ backgroundColor: 'var(--d-primary)', color: 'var(--d-primary-text)', border: 'none', padding: '0.75rem 2rem 0.75rem 2rem', width: 'fit-content' }"
+    <div v-if="1">
+      <thank-you-canvas
+        :logo="logo"
+        :icon="icon"
       />
     </div>
-    <div class="flex flex-col gap-4 text-justify">
-      <p>Help ons nog verder door uw donatie ook te delen op één van deze sociale media, en spoor vrienden, familie en collega's aan om hetzelfde te doen.</p>
-      <div class="flex flex-wrap gap-2 w-full">
+    <span
+      v-else-if="!loaded"
+      class="pi pi-spinner pi-spin w-fit h-fit"
+    />
+    <template v-else-if="donation">
+      <p class="text-lg font-bold">
+        Bedankt voor uw donatie!
+      </p>
+      <div
+        v-if="certificate"
+        class="flex flex-col gap-4 text-justify"
+      >
+        <p>Met deze donatie heeft u recht op een fiscaal attest. Het mailtje om deze gegevens in te vullen is al onderweg, maar als u dit liever nu direct doet kan u op volgende link klikken.</p>
         <PrimeButton
-          v-for="sm of socialMedia"
-          :key="sm.name"
           as="a"
+          :href="fiscalLink"
+          :label="$t('thanks.toFiscal')"
           raised
-          :icon="sm.logo"
-          target="_blank"
-          :pt:root:style="{ backgroundColor: sm.color, border: 'none', padding: '0.75rem 2rem 0.75rem 2rem' }"
-          :href="`${sm.link}${pageLink}`"
-        />
-        <PrimeButton
-          :label="$t('share.copyLink')"
-          class="ml-auto"
-          raised
-          :pt:root:style="{ backgroundColor: 'var(--d-primary)', color: 'var(--d-primary-text)', border: 'none', padding: '0.75rem 2rem 0.75rem 2rem' }"
-          @click="copyLink"
+          :pt:root:style="{ backgroundColor: 'var(--d-primary)', color: 'var(--d-primary-text)', border: 'none', padding: '0.75rem 2rem 0.75rem 2rem', width: 'fit-content' }"
         />
       </div>
-    </div>
+      <div class="flex flex-col gap-4 text-justify">
+        <p>Help ons nog verder door uw donatie ook te delen op één van deze sociale media, en spoor vrienden, familie en collega's aan om hetzelfde te doen.</p>
+        <div class="flex flex-wrap gap-2 w-full">
+          <PrimeButton
+            v-for="sm of socialMedia"
+            :key="sm.name"
+            as="a"
+            raised
+            :icon="sm.logo"
+            target="_blank"
+            :pt:root:style="{ backgroundColor: sm.color, border: 'none', padding: '0.75rem 2rem 0.75rem 2rem' }"
+            :href="`${sm.link}${pageLink}`"
+          />
+          <PrimeButton
+            :label="$t('share.copyLink')"
+            class="ml-auto"
+            raised
+            :pt:root:style="{ backgroundColor: 'var(--d-primary)', color: 'var(--d-primary-text)', border: 'none', padding: '0.75rem 2rem 0.75rem 2rem' }"
+            @click="copyLink"
+          />
+        </div>
+      </div>
+    </template>
+    <template v-else>
+      <p>
+        No donation was found
+      </p>
+    </template>
     <PrimeButton
       as="a"
       :label="$t('thanks.toPage')"
@@ -62,6 +79,7 @@
 
 <script lang="ts">
 import { Button as PrimeButton } from 'primevue';
+import type { ThankYouDonation } from '~/models/donation';
 
 export default defineComponent({
   name: 'Donate',
@@ -110,6 +128,12 @@ export default defineComponent({
       },
     };
   },
+  data() {
+    return {
+      donation: undefined as ThankYouDonation | undefined,
+      loaded: false,
+    };
+  },
   computed: {
     pageLink() {
       return `${window.location.origin}/o/${this.route.params.orgSlug}/c/${this.campaignSlug}`;
@@ -117,6 +141,28 @@ export default defineComponent({
     fiscalLink() {
       return `${window.location.origin}/o/${this.route.params.orgSlug}/fiscal-certificate?order=${this.orderNr}`;
     },
+    logo() {
+      return this.orgStore.variable('logo');
+    },
+    icon() {
+      const priceIcon = this.orgStore.content?.variables.find(v => v.title.includes('price_'));
+      if (priceIcon) return priceIcon.value;
+      console.log(this.orgStore.content?.variables);
+      return this.orgStore.variable('icon') as string;
+    },
+  },
+  async mounted() {
+    try {
+      if (!this.orderNr || !this.campaignSlug) throw new Error('No order number or campaign slug');
+      this.donation = await useAPI<ThankYouDonation>(`/donation/${this.orderNr}/${this.campaignSlug}`);
+      this.loaded = true;
+    }
+    catch {
+      this.$toast.add({ severity: 'error', summary: 'Error', detail: 'No donation was found', life: 5000 });
+    }
+    finally {
+      this.loaded = true;
+    }
   },
   methods: {
     copyLink() {

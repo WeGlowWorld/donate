@@ -100,7 +100,7 @@
       <div class="md:col-span-2 ml-auto">
         <Button
           type="submit"
-          :label="$t('donate.submit')"
+          :label="$t('donate.send')"
         />
       </div>
     </template>

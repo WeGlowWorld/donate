@@ -22,6 +22,7 @@ const t: Translations = {
     next: 'Volgende',
     donation: 'Donatie',
     submit: 'Doneer',
+    send: 'Verstuur',
     chooseAmount: 'Kies zelf een bedrag',
     fiscal: 'Bij een donatie van €40 of meer ontvang je (in België) een fiscaal attest.',
     raised: 'opgehaald',
