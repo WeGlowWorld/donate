@@ -94,9 +94,10 @@
           <p>Je label kan je hieronder downloaden.</p>
           <div class="flex justify-start">
             <a
+              v-if="pdfUrl"
               class="bg-orange-600 text-white font-bold py-2 px-4 rounded-lg hover:shadow-lg"
               :download="`Verzendlabel_${result?.Barcode}.pdf`"
-              :href="`data:application/pdf;base64,${result?.Labels[0].Content}`"
+              :href="pdfUrl"
             >
               Download label
             </a>
@@ -248,6 +249,21 @@ export default defineComponent({
         agreedToTerms: true,
       },
     };
+  },
+  computed: {
+    pdfUrl() {
+      if (!this.result?.Labels[0]?.Content) return null;
+
+      const byteCharacters = atob(this.result.Labels[0].Content);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: 'application/pdf' });
+
+      return URL.createObjectURL(blob);
+    },
   },
   async mounted() {
     this.$i18n.locale = 'nl-BE';
