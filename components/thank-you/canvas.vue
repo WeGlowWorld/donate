@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center p-4 -mx-4">
+  <div class="flex flex-col items-center p-4 -mx-6">
     <canvas
       ref="canvas"
       :height="type?.canvas.height"
@@ -11,6 +11,12 @@
       @click="downloadImage"
     >
       Download Image
+    </button>
+    <button
+      class="px-4 py-2 bg-purple-500 text-white rounded mt-2"
+      @click="shareOnInstagram"
+    >
+      Share on Instagram
     </button>
   </div>
 </template>
@@ -24,7 +30,7 @@ export default defineComponent({
   props: {
     type: {
       type: Object as PropType<SharePossibility>,
-      default: sharePossibilities[1],
+      default: sharePossibilities[2],
     },
     icon: {
       type: String,
@@ -37,6 +43,10 @@ export default defineComponent({
     bgColor: {
       type: String,
       default: '#ffffff',
+    },
+    name: {
+      type: String,
+      required: false,
     },
   },
   mounted() {
@@ -64,35 +74,44 @@ export default defineComponent({
       // WeGlow logo
       const weglowH = Math.min(canvas.width * 0.7, canvas.height * 1.2);
       const weglowW = weglowH * (weglow.width / weglow.height);
-      ctx.globalAlpha = 0.4;
+      ctx.globalAlpha = 0.3;
       ctx.drawImage(weglow, canvas.width - weglowW * 0.9, canvas.height - weglowH * 0.9, weglowW, weglowH);
       // WeGlow text
       const textH = canvas.height * 0.1;
       const textW = textH * (weglowText.width / weglowText.height);
-      ctx.drawImage(weglowText, 20, canvas.height - textH - 20, textW, textH);
+      ctx.drawImage(weglowText, 20, 20, textW, textH);
       ctx.globalAlpha = 1;
-
-      // Icon
-      const iconH = canvas.height * 0.3;
-      const iconW = iconH * (icon.width / icon.height);
-      // ctx.drawImage(icon, canvas.width / 2 - iconW / 2, 20, iconW, iconH);
-      ctx.drawImage(icon, 20, 20, iconW, iconH);
 
       // Logo
       let logoH = canvas.height * 0.2;
       let logoW = logoH * (logo.width / logo.height);
-      if (logoW > canvas.width * 0.3) {
-        logoW = canvas.width * 0.3;
+      if (logoW > canvas.width * 0.6) {
+        logoW = canvas.width * 0.6;
         logoH = logoW * (logo.height / logo.width);
       }
+      ctx.save();
       ctx.globalAlpha = 0.6;
       ctx.fillStyle = this.bgColor;
       ctx.ellipse(canvas.width / 2, canvas.height - logoH / 2, logoW / 2 + 20, logoH + 20, 0, 0, 2 * Math.PI);
       ctx.fill();
-      ctx.globalAlpha = 1;
-      ctx.drawImage(logo, canvas.width / 2 - logoW / 2, canvas.height - logoH - 20, logoW, logoH);
+      ctx.restore();
+      ctx.drawImage(logo, canvas.width / 2 - logoW / 2, canvas.height - logoH - 10, logoW, logoH);
+
+      // Icon
+      const iconH = canvas.height * 0.3;
+      const iconW = iconH * (icon.width / icon.height);
+      ctx.fillStyle = this.bgColor;
+      ctx.drawImage(icon, (canvas.width - iconW) / 2, 10, iconW, iconH);
 
       // Text
+      ctx.font = 'bold 3rem Titillium Web';
+      ctx.fillStyle = `#f97316`;
+      ctx.textAlign = 'center';
+      const text = `${this.$t('donate.canvasTitle')}${this.name ? `, ${this.name}` : ''}!`;
+      console.log(this.$t('donate.canvasTitle'));
+      const testWidth = ctx.measureText(text).width;
+      if (testWidth > canvas.width - 10) ctx.font = 'bold 2rem Titillium Web';
+      ctx.fillText(text, canvas.width / 2, canvas.height / 2);
     },
     loadImage(src: string) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

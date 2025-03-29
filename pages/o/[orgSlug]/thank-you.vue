@@ -11,17 +11,18 @@
         >
       </a>
     </div>
-    <div v-if="1">
+    <div v-if="donation">
       <thank-you-canvas
         :logo="logo"
         :icon="icon"
+        :name="donation?.name"
       />
     </div>
     <span
       v-else-if="!loaded"
       class="pi pi-spinner pi-spin w-fit h-fit"
     />
-    <template v-else-if="donation">
+    <template v-else>
       <p class="text-lg font-bold">
         Bedankt voor uw donatie!
       </p>
@@ -61,7 +62,7 @@
         </div>
       </div>
     </template>
-    <template v-else>
+    <template v-if="0">
       <p>
         No donation was found
       </p>

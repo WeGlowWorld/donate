@@ -10,16 +10,16 @@ export const sharePossibilities: SharePossibility[] = [
   {
     title: 'igPost',
     canvas: {
-      height: 1080,
-      width: 1080,
+      height: 800,
+      width: 800,
     },
     bg: '',
   },
   {
     title: 'igStory',
     canvas: {
-      height: 1080,
-      width: 1920,
+      height: 1280,
+      width: 720,
     },
     bg: '',
   },

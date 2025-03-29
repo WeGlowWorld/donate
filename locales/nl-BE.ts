@@ -26,6 +26,7 @@ const t: Translations = {
     chooseAmount: 'Kies zelf een bedrag',
     fiscal: 'Bij een donatie van €40 of meer ontvang je (in België) een fiscaal attest.',
     raised: 'opgehaald',
+    canvasTitle: 'Bedankt voor je donatie',
   },
   messages: {
     noMessages: 'Geen berichten',

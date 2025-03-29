@@ -19,6 +19,7 @@ export type Translations = {
     chooseAmount: string;
     fiscal: string;
     raised: string;
+    canvasTitle: string;
   };
   messages: {
     title: string;
