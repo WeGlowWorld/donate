@@ -123,9 +123,9 @@ export default defineComponent({
       const weglowH = Math.min(canvas.width * 0.7, canvas.height * 1.2);
       const weglowW = weglowH * (weglow.width / weglow.height);
       ctx.globalAlpha = 0.3;
-      ctx.drawImage(weglow, canvas.width - weglowW * 0.9, canvas.height - weglowH * 0.9, weglowW, weglowH);
+      ctx.drawImage(weglow, canvas.width - weglowW * 0.9, this.type?.title === 'portrait' ? -weglowH * 0.1 : canvas.height - weglowH * 0.9, weglowW, weglowH);
       // WeGlow text
-      const textH = canvas.height * 0.1;
+      const textH = this.type?.title === 'portrait' ? canvas.height * 0.05 : canvas.height * 0.1;
       const textW = textH * (weglowText.width / weglowText.height);
       ctx.drawImage(weglowText, 10, canvas.height - textH - 10, textW, textH);
       ctx.globalAlpha = 1;
