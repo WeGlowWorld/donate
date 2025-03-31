@@ -30,7 +30,7 @@ export default defineComponent({
   props: {
     type: {
       type: Object as PropType<SharePossibility>,
-      default: sharePossibilities[2],
+      default: sharePossibilities[3],
     },
     icon: {
       type: String,
@@ -107,7 +107,7 @@ export default defineComponent({
       ctx.font = 'bold 3rem Titillium Web';
       ctx.fillStyle = `#f97316`;
       ctx.textAlign = 'center';
-      const text = `${this.$t('donate.canvasTitle')}${this.name ? `, ${this.name}` : ''}!`;
+      const text = `""${this.name && this.name !== '-' ? ` - ${this.name}` : ''}!`;
       console.log(this.$t('donate.canvasTitle'));
       const testWidth = ctx.measureText(text).width;
       if (testWidth > canvas.width - 10) ctx.font = 'bold 2rem Titillium Web';
