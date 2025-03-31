@@ -12,7 +12,7 @@
           :style="{
             backgroundColor: type?.title === types[0] ? `var(--d-accent)` : 'white',
           }"
-          class="h-8 w-16 border border-black"
+          class="h-10 w-16 border rounded-sm border-black"
           @click="selectType(types[0])"
         />
       </div>
@@ -21,7 +21,7 @@
           :style="{
             backgroundColor: type?.title === types[1] ? `var(--d-primary)` : 'white',
           }"
-          class="h-16 w-8 border border-black"
+          class="h-16 w-8 border rounded-sm border-black"
           @click="selectType(types[1])"
         />
       </div>
@@ -30,7 +30,7 @@
           :style="{
             backgroundColor: type?.title === types[2] ? `var(--d-accent)` : 'white',
           }"
-          class="h-12 w-12 border border-black"
+          class="h-12 w-12 border rounded-sm border-black"
           @click="selectType(types[2])"
         />
       </div>
