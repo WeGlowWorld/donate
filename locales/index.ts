@@ -15,9 +15,11 @@ export type Translations = {
     next: string;
     donation: string;
     submit: string;
+    send: string;
     chooseAmount: string;
     fiscal: string;
     raised: string;
+    canvasTitle: string;
   };
   messages: {
     title: string;

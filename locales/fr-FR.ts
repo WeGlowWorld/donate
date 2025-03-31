@@ -22,9 +22,11 @@ const t: Translations = {
     next: 'Suivant',
     donation: 'Donation',
     submit: 'Donner',
+    send: 'Envoyer',
     chooseAmount: 'Choisissez un montant',
     fiscal: 'Pour un don de 40 € ou plus, vous recevrez un reçu fiscal (en Belgique).',
     raised: 'collectés',
+    canvasTitle: 'Merci pour votre don',
   },
   messages: {
     noMessages: 'Pas de messages',

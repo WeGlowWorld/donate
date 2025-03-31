@@ -24,9 +24,13 @@ export const useOrgStore = defineStore('orgStore', {
   actions: {
     async init() {
       if (this.initialized) return;
-      const { orgSlug } = useRoute().params;
+      const route = useRoute();
       try {
-        this.content = await useAPI<ContentOrg>(`/org/content/${orgSlug}`);
+        this.content = await useAPI<ContentOrg>(`/org/content/${route.params.orgSlug}`, {
+          query: {
+            campaignSlug: route.query.slug,
+          },
+        });
         this.initialized = true;
       }
       catch (err) {

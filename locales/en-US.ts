@@ -22,9 +22,11 @@ const t: Translations = {
     next: 'Next',
     donation: 'Donation',
     submit: 'Donate',
+    send: 'Send',
     chooseAmount: 'Choose an amount',
     fiscal: 'For a donation of €40 or more, you will receive a fiscal receipt (in Belgium).',
     raised: 'raised',
+    canvasTitle: 'Thank you for your donation',
   },
   messages: {
     noMessages: 'No messages',
