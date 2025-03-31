@@ -12,10 +12,12 @@
         src="/img/bunny.svg"
         class="bunny bottom-[30%] right-12"
       >
-      <img
-        src="/img/bush.svg"
-        class="bush"
-      >
+      <div class="w-screen h-screen absolute top-0 left-0 z-10 overflow-hidden">
+        <img
+          src="/img/bush.svg"
+          class="bush"
+        >
+      </div>
       <img
         src="/img/tree.svg"
         class="tree"
