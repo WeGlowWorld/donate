@@ -137,10 +137,10 @@ export default defineComponent({
         logoW = canvas.width * 0.3;
         logoH = logoW * (logo.height / logo.width);
       }
-      ctx.ellipse(canvas.width / 2, logoH / 2 + 10, logoW / 2 + 40, logoH / 2 + 40, 0, 0, 2 * Math.PI);
+      ctx.ellipse(canvas.width / 2, this.type?.title === 'portrait' ? 160 : logoH / 2 + 10, logoW / 2 + 40, logoH / 2 + 40, 0, 0, 2 * Math.PI);
       ctx.fillStyle = this.bgColor;
       ctx.fill();
-      ctx.drawImage(logo, canvas.width / 2 - logoW / 2, 10, logoW, logoH);
+      ctx.drawImage(logo, canvas.width / 2 - logoW / 2, this.type?.title === 'portrait' ? 160 - logoH / 2 : 10, logoW, logoH);
 
       // Icon
       const iconH = canvas.height * 0.25;
@@ -149,14 +149,33 @@ export default defineComponent({
       ctx.drawImage(icon, (canvas.width - iconW) / 2, (canvas.height - iconH) * 2 / 5, iconW, iconH);
 
       // Text
-      ctx.font = 'bold 3rem Titillium Web';
+      ctx.font = 'bold 2.5rem Titillium Web';
       ctx.fillStyle = `#f97316`;
       ctx.textAlign = 'center';
-      // const testWidth = ctx.measureText(text).width;
-      // if (testWidth > canvas.width - 10) ctx.font = 'bold 2rem Titillium Web';
-      if (this.desc) ctx.fillText(`"${this.desc}"`, canvas.width / 2, canvas.height * 0.75);
+      const lines = [] as string[];
+      if (this.desc) {
+        const description = `${this.desc} ${this.desc} ${this.desc} ${this.desc} ${this.desc} ${this.desc} ${this.desc} ${this.desc} ${this.desc} ${this.desc}`;
+        const words = description.split(' ');
+        let line = '';
+        for (let i = 0; i < words.length; i++) {
+          const testLine = line + words[i] + ' ';
+          const metrics = ctx.measureText(testLine);
+          const testWidth = metrics.width;
+
+          if (testWidth > canvas.width && i > 0) {
+            lines.push(line);
+            line = words[i] + ' ';
+          }
+          else {
+            line = testLine;
+          }
+        }
+        for (let i = 0; i < Math.min(4, lines.length); i++) {
+          ctx.fillText(`${i === 0 ? '"' : ''}${lines[i]}${i === lines.length - 1 ? '"' : ''}`, canvas.width / 2, canvas.height * 0.90 - (lines.length - i) * 52);
+        }
+      }
       ctx.font = 'bold 2rem Titillium Web';
-      if (this.name) ctx.fillText(`${this.desc ? '- ' : ''} ${this.name}`, canvas.width / 2, canvas.height * 0.75 + 50);
+      if (this.name) ctx.fillText(`${this.desc ? '- ' : ''} ${this.name}`, canvas.width / 2, canvas.height * 0.90);
     },
     loadImage(src: string) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
