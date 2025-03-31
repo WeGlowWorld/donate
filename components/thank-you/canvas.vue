@@ -1,37 +1,67 @@
 <template>
-  <div class="flex flex-col items-center p-4 -mx-6">
+  <div class="flex flex-col items-center p-4 -mx-4 md:mx-auto">
     <canvas
       ref="canvas"
       :height="type?.canvas.height"
       :width="type?.canvas.width"
-      class="border mb-4 w-full"
+      class="border mb-4 w-full mx-auto"
     />
-    <button
-      class="px-4 py-2 bg-blue-500 text-white rounded"
-      @click="downloadImage"
-    >
-      Download Image
-    </button>
-    <button
-      class="px-4 py-2 bg-purple-500 text-white rounded mt-2"
-      @click="shareOnInstagram"
-    >
-      Share on Instagram
-    </button>
+    <div class="flex items-center m-4">
+      <div class="w-16 h-16 flex justify-center items-center">
+        <button
+          :style="{
+            backgroundColor: type?.title === types[0] ? `var(--d-accent)` : 'white',
+          }"
+          class="h-8 w-16 border border-black"
+          @click="selectType(types[0])"
+        />
+      </div>
+      <div class="w-16 h-16 flex justify-center items-center">
+        <button
+          :style="{
+            backgroundColor: type?.title === types[1] ? `var(--d-primary)` : 'white',
+          }"
+          class="h-16 w-8 border border-black"
+          @click="selectType(types[1])"
+        />
+      </div>
+      <div class="w-16 h-16 flex justify-center items-center">
+        <button
+          :style="{
+            backgroundColor: type?.title === types[2] ? `var(--d-accent)` : 'white',
+          }"
+          class="h-12 w-12 border border-black"
+          @click="selectType(types[2])"
+        />
+      </div>
+    </div>
+    <div class="flex gap-4">
+      <prime-button
+        severity="info"
+        @click="downloadImage"
+      >
+        Download Image
+      </prime-button>
+      <prime-button
+        severity="help"
+        @click="shareOnInstagram"
+      >
+        Share to socials
+      </prime-button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import type { PropType } from 'vue';
+import { Button as PrimeButton } from 'primevue';
 import { sharePossibilities, type SharePossibility } from './canvasHelper';
 
 export default defineComponent({
   name: 'SocialCanvas',
+  components: {
+    PrimeButton,
+  },
   props: {
-    type: {
-      type: Object as PropType<SharePossibility>,
-      default: sharePossibilities[3],
-    },
     icon: {
       type: String,
       required: true,
@@ -53,10 +83,24 @@ export default defineComponent({
       required: false,
     },
   },
+  setup() {
+    return {
+      types: sharePossibilities.map((s: SharePossibility) => s.title),
+    };
+  },
+  data() {
+    return {
+      type: sharePossibilities.find((s: SharePossibility) => s.title === 'landscape'),
+    };
+  },
   mounted() {
     this.generateImage();
   },
   methods: {
+    selectType(t: string) {
+      this.type = sharePossibilities.find((s: SharePossibility) => s.title === t);
+      this.generateImage();
+    },
     async generateImage() {
       const canvas = this.$refs.canvas as HTMLCanvasElement;
       const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
@@ -83,40 +127,36 @@ export default defineComponent({
       // WeGlow text
       const textH = canvas.height * 0.1;
       const textW = textH * (weglowText.width / weglowText.height);
-      ctx.drawImage(weglowText, 20, 20, textW, textH);
+      ctx.drawImage(weglowText, 10, canvas.height - textH - 10, textW, textH);
       ctx.globalAlpha = 1;
 
       // Logo
       let logoH = canvas.height * 0.2;
       let logoW = logoH * (logo.width / logo.height);
-      if (logoW > canvas.width * 0.6) {
-        logoW = canvas.width * 0.6;
+      if (logoW > canvas.width * 0.3) {
+        logoW = canvas.width * 0.3;
         logoH = logoW * (logo.height / logo.width);
       }
-      ctx.save();
-      ctx.globalAlpha = 0.6;
+      ctx.ellipse(canvas.width / 2, logoH / 2 + 10, logoW / 2 + 40, logoH / 2 + 40, 0, 0, 2 * Math.PI);
       ctx.fillStyle = this.bgColor;
-      ctx.ellipse(canvas.width / 2, canvas.height - logoH / 2, logoW / 2 + 20, logoH + 20, 0, 0, 2 * Math.PI);
       ctx.fill();
-      ctx.restore();
-      ctx.drawImage(logo, canvas.width / 2 - logoW / 2, canvas.height - logoH - 10, logoW, logoH);
+      ctx.drawImage(logo, canvas.width / 2 - logoW / 2, 10, logoW, logoH);
 
       // Icon
-      const iconH = canvas.height * 0.3;
+      const iconH = canvas.height * 0.25;
       const iconW = iconH * (icon.width / icon.height);
       ctx.fillStyle = this.bgColor;
-      ctx.drawImage(icon, (canvas.width - iconW) / 2, 10, iconW, iconH);
+      ctx.drawImage(icon, (canvas.width - iconW) / 2, (canvas.height - iconH) * 2 / 5, iconW, iconH);
 
       // Text
       ctx.font = 'bold 3rem Titillium Web';
       ctx.fillStyle = `#f97316`;
       ctx.textAlign = 'center';
-      const desc = this.desc ? `"${this.desc}"` : undefined;
-      const name = this.name && this.name !== '-' ? `${this.name}` : undefined;
-      const text = `${desc || ''}${(desc && name) ? ' - ' : ''}${name || ''}`;
-      const testWidth = ctx.measureText(text).width;
-      if (testWidth > canvas.width - 10) ctx.font = 'bold 2rem Titillium Web';
-      ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+      // const testWidth = ctx.measureText(text).width;
+      // if (testWidth > canvas.width - 10) ctx.font = 'bold 2rem Titillium Web';
+      if (this.desc) ctx.fillText(`"${this.desc}"`, canvas.width / 2, canvas.height * 0.75);
+      ctx.font = 'bold 2rem Titillium Web';
+      if (this.name) ctx.fillText(`${this.desc ? '- ' : ''} ${this.name}`, canvas.width / 2, canvas.height * 0.75 + 50);
     },
     loadImage(src: string) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -161,10 +201,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped>
-canvas {
-  border-color: var('--d-primary');
-  border: 1px solid;
-}
-</style>

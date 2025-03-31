@@ -1,43 +1,24 @@
 export const sharePossibilities: SharePossibility[] = [
   {
-    title: 'fb',
+    title: 'landscape',
     canvas: {
       height: 630,
       width: 1200,
     },
-    bg: '',
   },
   {
-    title: 'igPost',
-    canvas: {
-      height: 800,
-      width: 800,
-    },
-    bg: '',
-  },
-  {
-    title: 'igStory',
+    title: 'portrait',
     canvas: {
       height: 1280,
       width: 720,
     },
-    bg: '',
   },
   {
-    title: 'li',
-    canvas: {
-      height: 627,
-      width: 1200,
-    },
-    bg: '',
-  },
-  {
-    title: 'wa',
+    title: 'square',
     canvas: {
       height: 800,
       width: 800,
     },
-    bg: '',
   },
 ];
 
@@ -47,5 +28,4 @@ export type SharePossibility = {
     height: number;
     width: number;
   };
-  bg: string;
 };
