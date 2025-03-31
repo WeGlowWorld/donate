@@ -95,12 +95,6 @@ const t: Translations = {
         required: 'Achternaam is verplicht',
       },
     },
-    productId: {
-      name: 'Gewicht van het pakje',
-      errors: {
-        required: 'Gewicht van het pakje is verplicht',
-      },
-    },
     remark: {
       name: 'Opmerking',
       errors: {},

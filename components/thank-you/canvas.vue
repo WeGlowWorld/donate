@@ -48,6 +48,10 @@ export default defineComponent({
       type: String,
       required: false,
     },
+    desc: {
+      type: String,
+      required: false,
+    },
   },
   mounted() {
     this.generateImage();
@@ -107,7 +111,9 @@ export default defineComponent({
       ctx.font = 'bold 3rem Titillium Web';
       ctx.fillStyle = `#f97316`;
       ctx.textAlign = 'center';
-      const text = `""${this.name && this.name !== '-' ? ` - ${this.name}` : ''}`;
+      const desc = this.desc ? `"${this.desc}"` : undefined;
+      const name = this.name && this.name !== '-' ? `${this.name}` : undefined;
+      const text = `${desc || ''}${(desc && name) ? ' - ' : ''}${name || ''}`;
       const testWidth = ctx.measureText(text).width;
       if (testWidth > canvas.width - 10) ctx.font = 'bold 2rem Titillium Web';
       ctx.fillText(text, canvas.width / 2, canvas.height / 2);

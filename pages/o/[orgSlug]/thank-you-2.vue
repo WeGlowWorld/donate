@@ -11,15 +11,8 @@
         >
       </a>
     </div>
-    <div v-if="donation">
-      <thank-you-canvas
-        :logo="logo"
-        :icon="icon"
-        :name="donation?.name"
-      />
-    </div>
     <span
-      v-else-if="!loaded"
+      v-if="!loaded"
       class="pi pi-spinner pi-spin w-fit h-fit"
     />
     <template v-else>
@@ -40,7 +33,7 @@
         />
       </div>
       <div class="flex flex-col gap-4 text-justify">
-        <p>Help ons nog verder door uw donatie ook te delen op één van deze sociale media, en spoor vrienden, familie en collega's aan om hetzelfde te doen.</p>
+        <p>Help ons nog verder door onze pagina ook te delen op één van deze sociale media, en spoor vrienden, familie en collega's aan om hetzelfde te doen.</p>
         <div class="flex flex-wrap gap-2 w-full">
           <PrimeButton
             v-for="sm of socialMedia"
@@ -58,6 +51,17 @@
             raised
             :pt:root:style="{ backgroundColor: 'var(--d-primary)', color: 'var(--d-primary-text)', border: 'none', padding: '0.75rem 2rem 0.75rem 2rem' }"
             @click="copyLink"
+          />
+        </div>
+      </div>
+      <div class="flex flex-col gap-4 text-justify">
+        <p>Of deel uw donatie zelf op één van de volgende kanalen!</p>
+        <div class="flex flex-wrap gap-2 w-full">
+          <thank-you-canvas
+            :logo="logo"
+            :icon="icon"
+            :name="donation?.name"
+            :desc="donation?.description"
           />
         </div>
       </div>
@@ -80,6 +84,7 @@
 
 <script lang="ts">
 import { Button as PrimeButton } from 'primevue';
+import { sharePossibilities, type SharePossibility } from '~/components/thank-you/canvasHelper';
 import type { ThankYouDonation } from '~/models/donation';
 
 export default defineComponent({
@@ -101,6 +106,7 @@ export default defineComponent({
       certificate: certificate === '1',
       campaignSlug: slug,
       orderNr: order,
+      sharePossibilities,
       socialMedia: {
         Facebook: {
           name: 'Facebook',
@@ -133,6 +139,7 @@ export default defineComponent({
     return {
       donation: undefined as ThankYouDonation | undefined,
       loaded: false,
+      selectedShare: undefined as SharePossibility | undefined,
     };
   },
   computed: {

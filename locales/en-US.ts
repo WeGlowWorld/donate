@@ -45,7 +45,149 @@ const t: Translations = {
     alreadyCreated: 'You have already created a fiscal certificate.',
     orderNotFound: 'Order not found.',
   },
-  fields: {},
+  fields: {
+    company: {
+      name: 'Donate as a company',
+      errors: {},
+    },
+    amount: {
+      name: 'Amount',
+      errors: {
+        required: 'Amount required',
+      },
+    },
+    name: {
+      name: 'Name',
+      errors: {
+        required: 'Name required',
+      },
+    },
+    description: {
+      name: 'Message',
+      errors: {
+        required: 'Message required',
+      },
+    },
+    coords: {
+      name: 'Placement of your donation',
+      errors: {
+        required: 'placement required',
+      },
+    },
+    email: {
+      name: 'E-mail',
+      errors: {
+        required: 'E-mail required',
+        email: 'E-mail invalid',
+        regex: 'E-mail invalid',
+        invalid: 'E-mail invalid',
+      },
+    },
+    firstName: {
+      name: 'First name',
+      errors: {
+        required: 'First name required',
+      },
+    },
+    lastName: {
+      name: 'Last name',
+      errors: {
+        required: 'Last name required',
+      },
+    },
+    remark: {
+      name: 'Remark',
+      errors: {},
+    },
+    street: {
+      name: 'Street',
+      errors: {
+        required: 'Street required',
+      },
+    },
+    houseNumber: {
+      name: 'House number',
+      errors: {
+        required: 'House number required',
+      },
+    },
+    houseNumberSuffix: {
+      name: 'House number suffix',
+      errors: {
+        required: 'House number suffix required',
+      },
+    },
+    town: {
+      name: 'City',
+      errors: {
+        required: 'City required',
+      },
+    },
+    postalCode: {
+      name: 'Postal code',
+      errors: {
+        required: 'Postal code required',
+      },
+    },
+    anonymous: {
+      name: 'Anonymous',
+      errors: {},
+    },
+    nationalNr: {
+      name: 'National number',
+      errors: {
+        required: 'National number required',
+      },
+    },
+    gender: {
+      name: 'Gender',
+      errors: {
+        required: 'Gender required',
+      },
+    },
+    country: {
+      name: 'Country',
+      errors: {
+        required: 'Country required',
+      },
+    },
+    locality: {
+      name: 'Locality',
+      errors: {
+        required: 'Locality required',
+      },
+    },
+    streetNr: {
+      name: 'Street and house number',
+      errors: {
+        required: 'Street and house number required',
+      },
+    },
+    premise: {
+      name: 'Premise',
+      errors: {
+        required: 'Premise required',
+      },
+    },
+    companyName: {
+      name: 'Company name',
+      errors: {
+        required: 'Company name required',
+      },
+    },
+    companyNr: {
+      name: 'Company number',
+      errors: {
+        required: 'Company number required',
+      },
+    },
+    orderNr: {
+      name: 'Order number',
+      errors: {
+        required: 'Order number required',
+      },
+    },
+  },
 };
 
 export default t;

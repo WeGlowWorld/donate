@@ -28,7 +28,7 @@
       />
     </div>
     <div class="flex flex-col gap-4 text-justify">
-      <p>Help ons nog verder door uw donatie ook te delen op één van deze sociale media, en spoor vrienden, familie en collega's aan om hetzelfde te doen.</p>
+      <p>Help ons nog verder door onze pagina ook te delen op één van deze sociale media, en spoor vrienden, familie en collega's aan om hetzelfde te doen.</p>
       <div class="flex flex-wrap gap-2 w-full">
         <PrimeButton
           v-for="sm of socialMedia"

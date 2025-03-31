@@ -45,7 +45,149 @@ const t: Translations = {
     alreadyCreated: 'Vous avez déjà créé un certificat fiscal.',
     orderNotFound: 'Commande non trouvée.',
   },
-  fields: {},
+  fields: {
+    company: {
+      name: 'Faire un don en tant qu\'entreprise',
+      errors: {},
+    },
+    amount: {
+      name: 'Montant',
+      errors: {
+        required: 'Montant requis',
+      },
+    },
+    name: {
+      name: 'Nom',
+      errors: {
+        required: 'Nom requis',
+      },
+    },
+    description: {
+      name: 'Message',
+      errors: {
+        required: 'Message requis',
+      },
+    },
+    coords: {
+      name: 'Emplacement de ton don',
+      errors: {
+        required: 'Emplacement requis',
+      },
+    },
+    email: {
+      name: 'E-mail',
+      errors: {
+        required: 'E-mail requis',
+        email: 'E-mail invalide',
+        regex: 'E-mail invalide',
+        invalid: 'E-mail invalide',
+      },
+    },
+    firstName: {
+      name: 'Prénom',
+      errors: {
+        required: 'Prénom requis',
+      },
+    },
+    lastName: {
+      name: 'Nom de famille',
+      errors: {
+        required: 'Nom de famille requis',
+      },
+    },
+    remark: {
+      name: 'Remarque',
+      errors: {},
+    },
+    street: {
+      name: 'Rue',
+      errors: {
+        required: 'Rue requise',
+      },
+    },
+    houseNumber: {
+      name: 'Numéro de maison',
+      errors: {
+        required: 'Numéro de maison requis',
+      },
+    },
+    houseNumberSuffix: {
+      name: 'Suffixe de numéro de maison',
+      errors: {
+        required: 'Suffixe de numéro de maison requis',
+      },
+    },
+    town: {
+      name: 'Ville',
+      errors: {
+        required: 'Ville requise',
+      },
+    },
+    postalCode: {
+      name: 'Code postal',
+      errors: {
+        required: 'Code postal requis',
+      },
+    },
+    anonymous: {
+      name: 'Anonyme',
+      errors: {},
+    },
+    nationalNr: {
+      name: 'Numéro national',
+      errors: {
+        required: 'Numéro national requis',
+      },
+    },
+    gender: {
+      name: 'Genre',
+      errors: {
+        required: 'Genre requis',
+      },
+    },
+    country: {
+      name: 'Pays',
+      errors: {
+        required: 'Pays requis',
+      },
+    },
+    locality: {
+      name: 'Localité',
+      errors: {
+        required: 'Localité requise',
+      },
+    },
+    streetNr: {
+      name: 'Rue et numéro de maison',
+      errors: {
+        required: 'Rue et numéro de maison requis',
+      },
+    },
+    premise: {
+      name: 'Bus',
+      errors: {
+        required: 'Bus requis',
+      },
+    },
+    companyName: {
+      name: 'Nom de l\'entreprise',
+      errors: {
+        required: 'Nom de l\'entreprise requis',
+      },
+    },
+    companyNr: {
+      name: 'Numéro d\'entreprise',
+      errors: {
+        required: 'Numéro d\'entreprise requis',
+      },
+    },
+    orderNr: {
+      name: 'Numéro de commande',
+      errors: {
+        required: 'Numéro de commande requis',
+      },
+    },
+  },
 };
 
 export default t;
