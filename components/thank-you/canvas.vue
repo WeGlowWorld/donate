@@ -113,9 +113,9 @@ export default defineComponent({
       ]);
       // BG Gradient
       const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-      gradient.addColorStop(0, '#FFFFFF'); // Start color (Peach)
-      gradient.addColorStop(0.8, '#DDDDDD'); // End color (Orange)
-      gradient.addColorStop(1, '#FFFFFF'); // End color (Orange)
+      gradient.addColorStop(0, '#FFFFFF');
+      gradient.addColorStop(0.8, '#DDDDDD');
+      gradient.addColorStop(1, '#FFFFFF');
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -154,8 +154,7 @@ export default defineComponent({
       ctx.textAlign = 'center';
       const lines = [] as string[];
       if (this.desc) {
-        const description = `${this.desc} ${this.desc} ${this.desc} ${this.desc} ${this.desc} ${this.desc} ${this.desc} ${this.desc} ${this.desc} ${this.desc}`;
-        const words = description.split(' ');
+        const words = this.desc.split(' ');
         let line = '';
         for (let i = 0; i < words.length; i++) {
           const testLine = line + words[i] + ' ';
@@ -208,8 +207,7 @@ export default defineComponent({
           if (navigator.canShare && navigator.canShare({ files: [file] })) {
             navigator.share({
               files: [file],
-              title: 'Share your story',
-              text: 'Check this out!',
+              url: 'https://testing.com',
             });
           }
           else {

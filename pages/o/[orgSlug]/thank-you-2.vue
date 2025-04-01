@@ -91,6 +91,7 @@
 import { Button as PrimeButton } from 'primevue';
 import { sharePossibilities, type SharePossibility } from '~/components/thank-you/canvasHelper';
 import type { ThankYouDonation } from '~/models/donation';
+import { VarRefType, VarType } from '~/models/enums';
 
 export default defineComponent({
   name: 'Donate',
@@ -156,12 +157,11 @@ export default defineComponent({
       return `${window.location.origin}/o/${this.route.params.orgSlug}/fiscal-certificate?order=${this.orderNr}`;
     },
     logo() {
-      return this.orgStore.variable('logo');
+      return this.orgStore.variable('logo', undefined, VarType.IMAGE, VarRefType.ORG);
     },
     icon() {
       const priceIcon = this.orgStore.content?.variables.find(v => v.title.includes('price_'));
       if (priceIcon) return priceIcon.value;
-      console.log(this.orgStore.content?.variables);
       return this.orgStore.variable('icon') as string;
     },
   },
