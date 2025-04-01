@@ -83,7 +83,7 @@ export default defineComponent({
       required: false,
     },
   },
-  setup() {
+  setup(props) {
     return {
       types: sharePossibilities.map((s: SharePossibility) => s.title),
     };
@@ -161,16 +161,19 @@ export default defineComponent({
           const metrics = ctx.measureText(testLine);
           const testWidth = metrics.width;
 
-          if (testWidth > canvas.width && i > 0) {
+          if (testWidth > canvas.width) {
             lines.push(line);
             line = words[i] + ' ';
+          }
+          else if (i === words.length - 1 && lines.length === 0) {
+            lines.push(testLine);
           }
           else {
             line = testLine;
           }
         }
         for (let i = 0; i < Math.min(4, lines.length); i++) {
-          ctx.fillText(`${i === 0 ? '"' : ''}${lines[i]}${i === lines.length - 1 ? '"' : ''}`, canvas.width / 2, canvas.height * 0.90 - (lines.length - i) * 52);
+          ctx.fillText(`${i === 0 ? '"' : ''}${lines[i]}${i === lines.length - 1 ? '"' : ''}`.replace(' "', '"'), canvas.width / 2, canvas.height * 0.90 - (lines.length - i) * 52);
         }
       }
       ctx.font = 'bold 2rem Titillium Web';
