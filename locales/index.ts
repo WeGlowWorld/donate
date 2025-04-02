@@ -33,6 +33,15 @@ export type Translations = {
   thanks: {
     toFiscal: string;
     toPage: string;
+    download: string;
+    share: string;
+    title: string;
+    fiscalTitle: string;
+    fiscalDescription: string;
+    shareTitle: string;
+    shareDescription: string;
+    shareImageLg: string;
+    shareImageSm: string;
   };
   fiscal: {
     personalFields: string;

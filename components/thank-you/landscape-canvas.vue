@@ -1,115 +1,82 @@
 <template>
-  <div class="flex flex-col items-center p-4 -mx-4 md:mx-auto">
-    <canvas
-      ref="canvas"
-      :height="type?.canvas.height"
-      :width="type?.canvas.width"
-      class="border mb-4 w-full mx-auto"
-    />
-    <div class="flex items-center m-4">
-      <div class="w-16 h-16 flex justify-center items-center">
+  <div class="flex flex-col max-w-screen justify-center items-center">
+    <div class="h-[60vh] flex justify-center items-center">
+      <canvas
+        ref="canvas"
+        :height="630"
+        :width="1200"
+        class="border w-[40rem] max-w-full shadow-xl"
+      />
+    </div>
+    <div class="flex items-center m-4 w-full justify-center">
+      <div class="w-12 h-12 flex justify-center items-center">
         <button
-          :style="{
-            backgroundColor: type?.title === types[0] ? `var(--d-accent)` : 'white',
-          }"
-          class="h-10 w-16 border rounded-sm border-black"
-          @click="selectType(types[0])"
+          :style="{ backgroundColor: `var(--d-accent)` }"
+          class="h-6 w-10 border rounded-sm border-black"
         />
       </div>
-      <div class="w-16 h-16 flex justify-center items-center">
+      <div class="w-12 h-12 flex justify-center items-center">
         <button
-          :style="{
-            backgroundColor: type?.title === types[1] ? `var(--d-primary)` : 'white',
-          }"
-          class="h-16 w-8 border rounded-sm border-black"
-          @click="selectType(types[1])"
+          class="h-10 w-6 border rounded-sm border-black bg-white"
+          @click="$emit('update:modelValue', 'portrait')"
         />
       </div>
-      <div class="w-16 h-16 flex justify-center items-center">
+      <div class="w-12 h-12 flex justify-center items-center">
         <button
-          :style="{
-            backgroundColor: type?.title === types[2] ? `var(--d-accent)` : 'white',
-          }"
-          class="h-12 w-12 border rounded-sm border-black"
-          @click="selectType(types[2])"
+          class="h-8 w-8 border rounded-sm border-black bg-white"
+          @click="$emit('update:modelValue', 'square')"
         />
       </div>
     </div>
     <div class="flex gap-4">
       <prime-button
-        severity="info"
+        severity="success"
+        :label="$t('thanks.download')"
         @click="downloadImage"
-      >
-        Download Image
-      </prime-button>
+      />
       <prime-button
-        severity="help"
-        @click="shareOnInstagram"
-      >
-        Share to socialss
-      </prime-button>
+        severity="info"
+        :label="$t('thanks.share')"
+        @click="shareImage"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Button as PrimeButton } from 'primevue';
-import { sharePossibilities, type SharePossibility } from './canvasHelper';
 
 export default defineComponent({
-  name: 'SocialCanvas',
+  name: 'LandscapeCanvas',
   components: {
     PrimeButton,
   },
   props: {
-    icon: {
-      type: String,
+    type: {
+      type: Object as PropType<{
+        icon: string;
+        logo: string;
+        bgColor: string;
+        name: string;
+        desc: string;
+      }>,
       required: true,
     },
-    logo: {
-      type: String,
-      default: 'https://weglowdashboard.blob.core.windows.net/weglow-data/weglow-orange.svg',
-    },
-    bgColor: {
-      type: String,
-      default: '#ffffff',
-    },
-    name: {
-      type: String,
-      required: false,
-    },
-    desc: {
-      type: String,
-      required: false,
-    },
   },
-  setup() {
-    return {
-      types: sharePossibilities.map((s: SharePossibility) => s.title),
-    };
-  },
-  data() {
-    return {
-      type: sharePossibilities.find((s: SharePossibility) => s.title === 'landscape'),
-    };
-  },
+  emits: ['update:modelValue'],
   mounted() {
     this.generateImage();
   },
   methods: {
-    selectType(t: string) {
-      this.type = sharePossibilities.find((s: SharePossibility) => s.title === t);
-      this.generateImage();
-    },
     async generateImage() {
       const canvas = this.$refs.canvas as HTMLCanvasElement;
       const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
       const [logo, weglow, weglowText, icon] = await Promise.all([
-        this.loadImage(this.logo),
+        this.loadImage(this.type.logo),
         this.loadImage('https://weglowdashboard.blob.core.windows.net/weglow-data/weglow-orange.svg'),
         this.loadImage('https://weglowdashboard.blob.core.windows.net/weglow-data/weglow.svg'),
-        this.loadImage(this.icon),
+        this.loadImage(this.type.icon),
       ]);
       // BG Gradient
       const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
@@ -123,38 +90,38 @@ export default defineComponent({
       const weglowH = Math.min(canvas.width * 0.7, canvas.height * 1.2);
       const weglowW = weglowH * (weglow.width / weglow.height);
       ctx.globalAlpha = 0.3;
-      ctx.drawImage(weglow, canvas.width - weglowW * 0.9, this.type?.title === 'portrait' ? -weglowH * 0.1 : canvas.height - weglowH * 0.9, weglowW, weglowH);
+      ctx.drawImage(weglow, canvas.width - weglowW * 0.9, canvas.height - weglowH * 0.9, weglowW, weglowH);
       // WeGlow text
-      const textH = this.type?.title === 'portrait' ? canvas.height * 0.05 : canvas.height * 0.1;
+      const textH = canvas.height * 0.1;
       const textW = textH * (weglowText.width / weglowText.height);
       ctx.drawImage(weglowText, 10, canvas.height - textH - 10, textW, textH);
       ctx.globalAlpha = 1;
 
       // Logo
-      let logoH = canvas.height * 0.2;
+      let logoH = canvas.height * 0.3;
       let logoW = logoH * (logo.width / logo.height);
-      if (logoW > canvas.width * 0.3) {
-        logoW = canvas.width * 0.3;
+      if (logoW > canvas.width * 0.4) {
+        logoW = canvas.width * 0.4;
         logoH = logoW * (logo.height / logo.width);
       }
-      ctx.ellipse(canvas.width / 2, this.type?.title === 'portrait' ? 160 : logoH / 2 + 10, logoW / 2 + 40, logoH / 2 + 40, 0, 0, 2 * Math.PI);
-      ctx.fillStyle = this.bgColor;
+      ctx.ellipse(canvas.width / 2, logoH / 2 + 10, logoW / 2 + 40, logoH / 2 + 40, 0, 0, 2 * Math.PI);
+      ctx.fillStyle = this.type.bgColor;
       ctx.fill();
-      ctx.drawImage(logo, canvas.width / 2 - logoW / 2, this.type?.title === 'portrait' ? 160 - logoH / 2 : 10, logoW, logoH);
+      ctx.drawImage(logo, canvas.width / 2 - logoW / 2, 10, logoW, logoH);
 
       // Icon
-      const iconH = canvas.height * 0.25;
+      const iconH = canvas.height * 0.3;
       const iconW = iconH * (icon.width / icon.height);
-      ctx.fillStyle = this.bgColor;
-      ctx.drawImage(icon, (canvas.width - iconW) / 2, (canvas.height - iconH) * 2 / 5, iconW, iconH);
+      ctx.fillStyle = this.type.bgColor;
+      ctx.drawImage(icon, (canvas.width - iconW) / 2, (canvas.height - iconH) * 1 / 3, iconW, iconH);
 
       // Text
       ctx.font = 'bold 2.5rem Titillium Web';
-      ctx.fillStyle = `#f97316`;
+      ctx.fillStyle = '#333333';
       ctx.textAlign = 'center';
       const lines = [] as string[];
-      if (this.desc) {
-        const words = this.desc.split(' ');
+      if (this.type.desc) {
+        const words = this.type.desc.split(' ');
         let line = '';
         for (let i = 0; i < words.length; i++) {
           const testLine = line + words[i] + ' ';
@@ -177,7 +144,7 @@ export default defineComponent({
         }
       }
       ctx.font = 'bold 2rem Titillium Web';
-      if (this.name) ctx.fillText(`${this.desc ? '- ' : ''} ${this.name}`, canvas.width / 2, canvas.height * 0.90);
+      if (this.type.name) ctx.fillText(`${this.type.desc ? '- ' : ''} ${this.type.name}`, canvas.width / 2, canvas.height * 0.90);
     },
     loadImage(src: string) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -194,10 +161,10 @@ export default defineComponent({
       const canvas = this.$refs.canvas as HTMLCanvasElement;
       const link = document.createElement('a');
       link.href = canvas.toDataURL('image/png');
-      link.download = 'custom-image.png';
+      link.download = 'weglow-donation.png';
       link.click();
     },
-    shareOnInstagram() {
+    shareImage() {
       const canvas = this.$refs.canvas as HTMLCanvasElement;
       const imageData = canvas.toDataURL('image/png');
 

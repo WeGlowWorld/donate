@@ -1,87 +1,125 @@
 <template>
-  <div class="w-full h-full flex flex-col gap-12">
-    <div class="max-w-full mx-auto">
-      <a
-        :href="orgStore.content?.general.website"
-        target="_blank"
-      >
-        <img
-          :src="orgStore.variable('logo')"
-          class="max-h-24 w-full h-full object-contain"
-        >
-      </a>
-    </div>
-    <p class="text-lg font-bold">
-      Bedankt voor uw donatie!
-    </p>
+  <div
+    class="w-screen md:h-screen flex md:flex-col items-center"
+  >
     <div
-      v-if="certificate"
-      class="flex flex-col gap-4 text-justify"
+      v-if="loaded && donation"
+      class="w-full lg:h-full flex flex-col-reverse lg:flex-row items-center justify-center"
     >
-      <p>Met deze donatie heeft u recht op een fiscaal attest. Het mailtje om deze gegevens in te vullen is al onderweg, maar als u dit liever nu direct doet kan u op volgende link klikken.</p>
-      <PrimeButton
-        as="a"
-        :href="fiscalLink"
-        :label="$t('thanks.toFiscal')"
-        raised
-        :pt:root:style="{ backgroundColor: 'var(--d-primary)', color: 'var(--d-primary-text)', border: 'none', padding: '0.75rem 2rem 0.75rem 2rem', width: 'fit-content' }"
-      />
-    </div>
-    <div class="flex flex-col gap-4 text-justify">
-      <p>Help ons nog verder door onze pagina ook te delen op één van deze sociale media, en spoor vrienden, familie en collega's aan om hetzelfde te doen.</p>
-      <div class="flex flex-wrap gap-2 w-full">
-        <PrimeButton
-          v-for="sm of socialMedia"
-          :key="sm.name"
-          as="a"
-          raised
-          :icon="sm.logo"
-          target="_blank"
-          :pt:root:style="{ backgroundColor: sm.color, border: 'none', padding: '0.75rem 2rem 0.75rem 2rem' }"
-          :href="`${sm.link}${pageLink}`"
+      <div
+        class="flex-1 w-full lg:h-full flex items-center justify-center py-4"
+        style="background-color: var(--d-primary);"
+      >
+        <thank-you-portrait-canvas
+          v-if="canvasType === 'portrait'"
+          v-model="canvasType"
+          :type="canvasObj"
         />
-        <PrimeButton
-          :label="$t('share.copyLink')"
-          class="ml-auto"
-          raised
-          :pt:root:style="{ backgroundColor: 'var(--d-primary)', color: 'var(--d-primary-text)', border: 'none', padding: '0.75rem 2rem 0.75rem 2rem' }"
-          @click="copyLink"
+        <thank-you-landscape-canvas
+          v-else-if="canvasType === 'landscape'"
+          v-model="canvasType"
+          :type="canvasObj"
+        />
+        <thank-you-square-canvas
+          v-else-if="canvasType === 'square'"
+          v-model="canvasType"
+          :type="canvasObj"
         />
       </div>
+      <div
+        style="background-color: var(--d-background); color: var(--d-background-text);"
+        class="w-full lg:h-full text-left flex-1 flex flex-col gap-16 items-center justify-center p-4 md:p-16"
+      >
+        <div
+          style="background-color: var(--d-background);"
+          class="max-w-100% w-fit p-4 rounded-lg mb-8"
+        >
+          <img
+            :src="canvasObj.logo"
+            alt="Logo"
+            class="w-96 max-h-96 mx-auto"
+          >
+        </div>
+        <div class="text-4xl font-bold w-full -mt-12">
+          <p>{{ $t('thanks.title') }}</p>
+        </div>
+        <div
+          v-if="qps.certificate"
+          class="w-full flex flex-col gap-4 justify-end"
+        >
+          <h2 class="text-2xl font-semibold">
+            {{ $t('thanks.fiscalTitle') }}
+          </h2>
+          <p>{{ $t('thanks.fiscalDescription') }}</p>
+          <prime-button
+            class="ml-auto"
+            as="a"
+            :href="fiscalLink"
+            :label="$t('thanks.toFiscal')"
+            raised
+            :pt:root:style="{ backgroundColor: 'var(--d-primary)', color: 'var(--d-primary-text)', border: 'none', padding: '0.75rem 2rem 0.75rem 2rem', width: 'fit-content' }"
+          />
+        </div>
+        <div
+          class="w-full flex flex-col gap-4 justify-end"
+        >
+          <h2 class="text-2xl font-semibold">
+            {{ $t('thanks.shareTitle') }}
+          </h2>
+          <p>{{ $t('thanks.shareDescription') }}</p>
+          <p class="hidden md:block">
+            {{ $t('thanks.shareImageLg') }}
+          </p>
+          <p class="md:hidden">
+            {{ $t('thanks.shareImageSm') }}
+          </p>
+          <div class="w-full flex gap-2 flex-wrap">
+            <prime-button
+              v-for="sm of socialMedia"
+              :key="sm.name"
+              as="a"
+              size="large"
+              raised
+              :icon="sm.logo"
+              target="_blank"
+              :pt:root:style="{ backgroundColor: sm.color, border: 'none', padding: '0.5rem 2rem' }"
+              :href="`${sm.link}${pageLink}`"
+            />
+            <prime-button
+              :label="$t('share.copyLink')"
+              class="ml-auto"
+              raised
+              :pt:root:style="{ backgroundColor: 'var(--d-primary)', color: 'var(--d-primary-text)', border: 'none', padding: '0.75rem 2rem 0.75rem 2rem' }"
+              @click="copyLink"
+            />
+          </div>
+        </div>
+      </div>
     </div>
-    <PrimeButton
-      as="a"
-      :label="$t('thanks.toPage')"
-      raised
-      :pt:root:style="{ width: 'fit-content', backgroundColor: 'var(--d-accent)', color: 'var(--d-accent-text)', border: 'none', padding: '0.75rem 2rem 0.75rem 2rem' }"
-      :href="pageLink"
-    />
   </div>
 </template>
-<!-- v-if="certificate" -->
 
 <script lang="ts">
 import { Button as PrimeButton } from 'primevue';
+import type { ThankYouDonation } from '~/models/donation';
+import { VarRefType, VarType } from '~/models/enums';
 
 export default defineComponent({
-  name: 'Donate',
   components: {
     PrimeButton,
   },
   setup() {
     definePageMeta({
-      layout: 'org',
-      title: 'WeGlow Donate | Thanks!',
+      layout: 'thank-you',
     });
-
-    const { slug, returning, order, certificate } = useRoute().query;
+    const route = useRoute();
     return {
-      route: ref(useRoute()),
-      orgStore: ref(useOrgStore()),
-      returning: returning !== '0' || returning === null,
-      certificate: certificate === '1',
-      campaignSlug: slug,
-      orderNr: order,
+      qps: {
+        order: route.query.order,
+        slug: route.query.slug,
+        returning: route.query.returning === '1' || route.query.returning === 'true',
+        certificate: route.query.certificate === '1' || route.query.certificate === 'true',
+      },
       socialMedia: {
         Facebook: {
           name: 'Facebook',
@@ -108,15 +146,48 @@ export default defineComponent({
           color: '#0077B5',
         },
       },
+      orgStore: ref(useOrgStore()),
+    };
+  },
+  data() {
+    return {
+      canvasType: 'portrait',
+      donation: undefined as ThankYouDonation | undefined,
+      loaded: false,
     };
   },
   computed: {
+    canvasObj() {
+      const icon = this.orgStore.content?.variables.find(v => v.title.includes('price_'))?.value || this.orgStore.variable('icon') as string;
+      const logo = this.orgStore.variable('logo', undefined, VarType.IMAGE, VarRefType.ORG) as string;
+      return {
+        icon,
+        logo,
+        bgColor: this.orgStore.content?.brandIdentity?.primaryC as string,
+        name: this.donation?.name as string,
+        desc: this.donation?.description as string,
+      };
+    },
     pageLink() {
-      return `${window.location.origin}/o/${this.route.params.orgSlug}/c/${this.campaignSlug}`;
+      return `${window.location.origin}/o/${this.$route.params.orgSlug}/c/${this.$route.query.slug}`;
     },
     fiscalLink() {
-      return `${window.location.origin}/o/${this.route.params.orgSlug}/fiscal-certificate?order=${this.orderNr}`;
+      return `${window.location.origin}/o/${this.$route.params.orgSlug}/fiscal-certificate?order=${this.$route.query.order}`;
     },
+  },
+  async mounted() {
+    try {
+      await this.orgStore.init();
+      if (!this.$route.query.order || !this.$route.query.slug) throw new Error('No order number or campaign slug');
+      this.donation = await useAPI<ThankYouDonation>(`/donation/${this.$route.query.order}/${this.$route.query.slug}`);
+      this.loaded = true;
+    }
+    catch {
+      this.$toast.add({ severity: 'error', summary: 'Error', detail: 'No donation was found', life: 5000 });
+    }
+    finally {
+      this.loaded = true;
+    }
   },
   methods: {
     copyLink() {
@@ -124,5 +195,13 @@ export default defineComponent({
     },
   },
 });
-// /o/feestvarken-vzw/thank-you?returning=1&certificate=0&slug=4H3OBDBO&order=2df6cf11-9f5d-48b9-b66f-4e8d4bfefef5 donated link
 </script>
+
+<style scoped>
+.right {
+  background-color: var(--d-primary);
+}
+.logo-div {
+
+}
+</style>

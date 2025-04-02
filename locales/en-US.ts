@@ -35,6 +35,15 @@ const t: Translations = {
   thanks: {
     toFiscal: 'To the fiscal page',
     toPage: 'To the page',
+    download: 'Download image',
+    share: 'Share image',
+    title: 'Thank you for your donation!',
+    fiscalTitle: 'Leave your fiscal details!',
+    fiscalDescription: 'For a donation of €40 or more, you will receive a fiscal receipt (in Belgium). Fill in your details via the link below to receive the receipt.',
+    shareTitle: 'Are you helping to spread this campaign?',
+    shareDescription: 'By sharing this action on the social media below, you help us to spread this campaign further. This allows us to reach even more people and have a greater impact in achieving our goals.',
+    shareImageLg: 'Don\'t forget to share the image on the left! By placing it in your story, you also encourage your friends to donate. The more people we reach, the better!',
+    shareImageSm: 'Don\'t forget to share the image below! By placing it in your story, you also encourage your friends to donate. The more people we reach, the better!',
   },
   fiscal: {
     personalFields: 'Personal details',
