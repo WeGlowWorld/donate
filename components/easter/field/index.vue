@@ -4,6 +4,7 @@
       ref="easter"
       class="easter"
     >
+      <translator :locales="availableLocales" />
       <img
         :src="logo"
         class="absolute top-4 left-4 h-32 w-32 z-40 object-contain"
@@ -60,6 +61,7 @@
 </template>
 
 <script lang="ts">
+import type { Locale } from '~/models/enums';
 import { VarRefType, VarType } from '~/models/enums';
 
 export default defineComponent({
@@ -77,6 +79,9 @@ export default defineComponent({
     };
   },
   computed: {
+    availableLocales() {
+      return this.campaignStore.content?.org.locales || this.$i18n.availableLocales as Locale[];
+    },
     fieldWidth() {
       const l = this.donationStore.coordsFull.length;
       switch (true) {
