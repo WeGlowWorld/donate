@@ -1,7 +1,10 @@
 <template>
   <div class="donate-div">
     <div class="flex flex-col items-center justify-center h-full max-w-screen-lg mx-auto gap-8">
-      <div class="text-center">
+      <button
+        class="text-center"
+        @click="donateClick"
+      >
         <h1 class="text-4xl font-bold">
           {{ $t('campaign.donate') }}
         </h1>
@@ -9,7 +12,7 @@
           class="pi pi-angle-down"
           style="font-size: 2rem;"
         />
-      </div>
+      </button>
       <div
         class="description"
         v-html="description"
@@ -88,6 +91,14 @@ export default defineComponent({
         bg: this.campaign.variables.find(v => v.title === 'button')?.value,
         text: this.campaign.variables.find(v => v.title === 'button_text')?.value,
       };
+    },
+  },
+  methods: {
+    donateClick() {
+      const element = document.querySelector('.donate-div');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     },
   },
 });
