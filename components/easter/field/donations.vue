@@ -72,7 +72,7 @@ export default defineComponent({
 .donation__hover {
   display: none;
   position: absolute;
-  @apply bg-white p-2 rounded shadow-md flex-col w-60;
+  @apply bg-white p-2 rounded shadow-md flex-col w-40 md:w-60 text-sm md:text-base;
 }
 
 .donation:hover .donation__hover {

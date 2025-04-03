@@ -59,6 +59,7 @@ type CampaignContent = {
     sum: number;
     count: number;
   };
+  specialForm: string | undefined;
 };
 
 type PriceContent = {

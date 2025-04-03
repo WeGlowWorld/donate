@@ -42,12 +42,14 @@
         </button>
       </div>
       <Button
+        v-if="campaignStore.content?.campaign.specialForm"
         :disabled="amount === null"
         class="ml-auto bg-[var(--t-button)] text-[var(--t-button-text)] hover:bg-[var(--t-button-dark)]"
         size="large"
         raised
-        as="router-link"
+        :as="specialForm ? 'a' : 'router-link'"
         :to="{ path: `/o/${$route.params.orgSlug}/donate`, query: { amount: amount, slug: $route.params.campaignSlug, noLocation: null } }"
+        :href="specialForm"
         :label="$t('campaign.donate')"
       />
     </div>
@@ -56,7 +58,7 @@
 
 <script lang="ts">
 import type { Content } from '~/models/content';
-import { VarRefType, VarType } from '~/models/enums';
+import { Locale, VarRefType, VarType } from '~/models/enums';
 
 export default defineComponent({
   name: 'EasterFieldDonate',
@@ -92,8 +94,21 @@ export default defineComponent({
         text: this.campaign.variables.find(v => v.title === 'button_text')?.value,
       };
     },
+    specialForm() {
+      return this.campaignStore.content?.campaign.specialForm?.replace('{locale}', this.localeToKoalect(this.campaignStore.locale));
+    },
   },
   methods: {
+    localeToKoalect(locale: Locale) {
+      switch (locale) {
+        case Locale.EN_US:
+          return 'en-GB';
+        case Locale.FR_FR:
+          return 'fr-FR';
+        case Locale.NL_BE:
+          return 'nl-NL';
+      }
+    },
     donateClick() {
       const element = document.querySelector('.donate-div');
       if (element) {
