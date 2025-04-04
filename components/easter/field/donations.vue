@@ -42,6 +42,13 @@ export default defineComponent({
     donations() {
       return this.donationStore.coordsFull.map((v) => {
         let icon;
+        // for (let i = this.prices.length - 1; i >= 0; i--) {
+        //   if (v.amount || 0 >= this.prices[i].amount) {
+        //     icon = this.prices[i].icon;
+        //     console.log(v.amount, i);
+        //     break;
+        //   }
+        // }
         if (v.amount as number < this.prices[0].amount) icon = this.prices[0].icon;
         if (v.amount as number >= this.prices[this.prices.length - 1].amount) icon = this.prices[this.prices.length - 1].icon;
         if (!icon) {

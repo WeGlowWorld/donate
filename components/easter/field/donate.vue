@@ -41,6 +41,18 @@
           <span> {{ campaign.org.currencySign }} {{ price.amount }} </span>
         </button>
       </div>
+      <ifta-label class="w-full">
+        <input-number
+          v-model="amount"
+          :max="9999"
+          fluid
+          :locale="$i18n.locale"
+          :invalid="amount === null"
+          mode="currency"
+          :currency="campaignStore.content?.org.currency"
+        />
+        <label for="in_label">{{ $t('donate.chooseAmount') }}</label>
+      </ifta-label>
       <Button
         v-if="campaignStore.content?.campaign.specialForm"
         :disabled="amount === null"
@@ -83,8 +95,8 @@ export default defineComponent({
     },
     selectedPrice() {
       const prices = this.campaign.prices.map(v => v.amount).sort((a, b) => a - b);
-      for (let i = 0; i < prices.length; i++) {
-        if (prices[i] >= this.amount) return prices[i];
+      for (let i = prices.length - 1; i >= 0; i--) {
+        if (this.amount >= prices[i]) return prices[i];
       }
       return prices[0];
     },
