@@ -54,7 +54,6 @@
         <label for="in_label">{{ $t('donate.chooseAmount') }}</label>
       </ifta-label>
       <Button
-        v-if="campaignStore.content?.campaign.specialForm"
         :disabled="amount === null"
         class="ml-auto bg-[var(--t-button)] text-[var(--t-button-text)] hover:bg-[var(--t-button-dark)]"
         size="large"
