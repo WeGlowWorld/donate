@@ -54,6 +54,7 @@
         <label for="in_label">{{ $t('donate.chooseAmount') }}</label>
       </ifta-label>
       <Button
+        id="donate-btn"
         :disabled="amount === null"
         class="ml-auto bg-[var(--t-button)] text-[var(--t-button-text)] hover:bg-[var(--t-button-dark)]"
         size="large"
@@ -121,7 +122,7 @@ export default defineComponent({
       }
     },
     donateClick() {
-      const element = document.querySelector('.donate-div');
+      const element = document.querySelector('#donate-btn');
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
@@ -135,7 +136,7 @@ export default defineComponent({
   top: calc(100dvh - 6rem);
   background-color: var(--t-background);
   color: var(--t-background-text);
-  @apply relative z-10 w-screen p-4 shadow-[rgb(0,0,15,0.5)_0px_0px_16px_0px] !important;
+  @apply absolute z-10 w-screen p-4 shadow-[rgb(0,0,15,0.5)_0px_0px_16px_0px] !important;
 }
 .donate-div .description {
   background-color: inherit !important;
