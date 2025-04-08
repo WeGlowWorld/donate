@@ -139,7 +139,6 @@ export default defineComponent({
 
 .easter__field {
   background: linear-gradient(0deg, rgb(147, 200, 8, 0.7) 0%, rgb(110, 153, 1, 0.7) 100%), url("/img/easter-grass.png");
-  /* background: linear-gradient(0deg, rgba(5, 217, 19, 0.7) 0%, rgba(47, 175, 47, 0.7) 100%), url("/img/easter-grass.png"); */
   background-size: 10%;
   @apply relative h-1/2 mb-24 shadow-[rgba(0,0,15,0.5)_0px_0px_16px_0px];
 }

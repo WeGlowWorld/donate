@@ -34,7 +34,7 @@ export default defineComponent({
       donationStore: ref(useDonationsStore()),
       prices: campStore.content?.prices.map((p, i) => ({
         amount: p.amount,
-        icon: campStore.content?.variables.find(v => v.title === `price_${i + 1}` && v.locale === campStore.locale)?.value,
+        icon: campStore.variable(`price_${i + 1}`, campStore.locale),
       })) || [],
     };
   },

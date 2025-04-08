@@ -38,7 +38,8 @@
             alt="icon"
             class="h-32 w-32 object-contain"
           >
-          <span> {{ campaign.org.currencySign }} {{ price.amount }} </span>
+          <span class="font-bold"> {{ campaign.org.currencySign }} {{ price.amount }} </span>
+          <span> {{ price.text }} </span>
         </button>
       </div>
       <ifta-label class="w-full">
@@ -89,8 +90,8 @@ export default defineComponent({
     prices() {
       return this.campaign.prices.map((p, i) => ({
         amount: p.amount,
-        icon: this.campaign.variables.find(v => v.title === `price_${i + 1}` && v.locale === this.campaignStore.locale)?.value,
-        text: this.campaign.variables.find(v => v.refId === p.id && v.title === 'price' && v.locale === this.campaignStore.locale)?.value,
+        icon: this.campaignStore.variable(`price_${i + 1}`, this.campaignStore.locale),
+        text: this.campaignStore.variable('price', this.campaignStore.locale),
       }));
     },
     selectedPrice() {
