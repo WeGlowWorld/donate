@@ -9,7 +9,9 @@
         :src="logo"
         class="absolute top-4 left-4 h-32 w-32 z-40 object-contain"
       >
+      <!-- CPZ -->
       <img
+        v-if="$route.params.campaignSlug !== '0J2ADWT5'"
         src="/img/bunny.svg"
         class="bunny bottom-[30%] right-12"
       >

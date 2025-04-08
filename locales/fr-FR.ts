@@ -8,7 +8,7 @@ const t: Translations = {
     title: 'Partager',
     nonProfit: 'Notre ONG',
     toWebsite: 'Vers le site web',
-    toHub: 'Vers le hub',
+    toHub: 'Regarder toutes nos actions',
     shareTo: 'Partager sur',
     copyLink: 'Copier le lien',
   },
