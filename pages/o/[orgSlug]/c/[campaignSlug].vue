@@ -39,13 +39,14 @@ if (content) {
     || campStore.variable('logo', campStore.locale, VarType.IMAGE, VarRefType.ORG);
   // CPZ
   if (content.campaign.slug === '0J2ADWT5')
-    image = 'https://weglowdashboard.blob.core.windows.net/eaa4fb92-28e3-459a-bcca-631a11d27bd4/e42e6ce1-969b-43c7-8232-477f4a37f835';
+    image = 'https://weglowdashboard.blob.core.windows.net/eaa4fb92-28e3-459a-bcca-631a11d27bd4/e42e6ce1-969b-43c7-8232-477f4a37f835.png';
   useServerSeoMeta(varsToSeo({
     title,
     description: convert(description),
     image,
   }));
 }
+console.log(content?.variables);
 
 const colorsLoaded = ref(false);
 onMounted(async () => {
