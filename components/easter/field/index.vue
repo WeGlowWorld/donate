@@ -4,7 +4,18 @@
       ref="easter"
       class="easter"
     >
-      <translator :locales="availableLocales" />
+      <div class="absolute top-4 right-4 z-40 flex gap-2 flex-wrap justify-end flex-row-reverse sm:flex-row">
+        <div>
+          <translator :locales="availableLocales" />
+        </div>
+        <!-- <custom-input-select
+          ref="searchName"
+          v-model="selectedCoord"
+          class="w-60"
+          :options="filteredOptions"
+        /> -->
+      </div>
+
       <img
         :src="logo"
         class="absolute top-4 left-4 h-32 w-32 z-40 object-contain"
@@ -55,7 +66,7 @@
         class="easter__field"
         :class="`w-[${fieldWidth}]`"
       >
-        <easter-field-donations />
+        <easter-field-donations :selected="selectedCoord" />
       </div>
     </div>
     <easter-field-donate />
@@ -77,10 +88,18 @@ export default defineComponent({
   },
   data() {
     return {
+      isFocused: false,
+      selectedCoord: '',
       position: 'center',
     };
   },
   computed: {
+    filteredOptions() {
+      return this.donationStore.coordsFull.filter(v => v.name).map(v => ({
+        label: v.name as string,
+        value: `(${v.coords[0]},${v.coords[1]})`,
+      }));
+    },
     availableLocales() {
       return this.campaignStore.content?.org.locales || this.$i18n.availableLocales as Locale[];
     },

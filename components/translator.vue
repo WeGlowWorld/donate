@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="locales && locales.length > 1"
-    class="fixed top-4 bottom-auto right-4"
+    class="bottom-auto"
   >
     <Button
       type="button"

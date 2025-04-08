@@ -1,7 +1,6 @@
 <template>
   <div class="min-h-dvh overflow-x-hidden">
     <slot />
-    <translator :locales="campStore.content?.org.locales || [Locale.NL_BE]" />
   </div>
 </template>
 

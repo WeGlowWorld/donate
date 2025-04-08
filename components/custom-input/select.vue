@@ -6,6 +6,7 @@
     class="relative"
   >
     <label
+      v-if="name"
       class="italic"
       :for="name"
     >{{ $t(`fields.${name}.name`) }} {{ required ? '*' : '' }}</label>
@@ -18,6 +19,7 @@
       :filter="filter"
       fluid
       size="large"
+      show-clear
       @change="onChange"
     />
     <Message
@@ -44,7 +46,7 @@ export default defineComponent({
   props: {
     name: {
       type: String,
-      required: true,
+      required: false,
     },
     modelValue: {
       type: String,
