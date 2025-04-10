@@ -35,6 +35,7 @@
         @click="downloadImage"
       />
       <prime-button
+        id="share-button"
         severity="info"
         :label="$t('thanks.share')"
         @click="shareImage"

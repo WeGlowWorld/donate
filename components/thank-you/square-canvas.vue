@@ -175,11 +175,6 @@ export default defineComponent({
         .then((blob) => {
           const file = new File([blob], 'story.png', { type: 'image/png' });
           const url = `${window.location.origin}/o/${this.$route.params.orgSlug}/c/${this.$route.query.campaignSlug}`;
-          this.$gtm.trackEvent({
-            event: 'test',
-            action: 'click',
-            label: 'test',
-          });
           if (navigator.canShare && navigator.canShare({ files: [file], url })) {
             navigator.share({
               files: [file],
