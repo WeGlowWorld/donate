@@ -171,12 +171,6 @@ export default defineComponent({
       link.click();
     },
     shareImage() {
-      this.$gtm.trackEvent({
-        event: 'test',
-        label: 'test',
-        action: 'click',
-        value: 1,
-      });
       const canvas = this.$refs.canvas as HTMLCanvasElement;
       const imageData = canvas.toDataURL('image/png');
 

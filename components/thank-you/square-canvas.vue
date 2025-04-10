@@ -35,6 +35,7 @@
         @click="downloadImage"
       />
       <prime-button
+        id="share-button"
         severity="info"
         :label="$t('thanks.share')"
         @click="shareImage"
@@ -164,16 +165,21 @@ export default defineComponent({
       link.download = 'weglow-donation.png';
       link.click();
     },
-    shareImage() {
+    async shareImage() {
       const canvas = this.$refs.canvas as HTMLCanvasElement;
       const imageData = canvas.toDataURL('image/png');
 
       // Convert dataURL to blob and share
-      fetch(imageData)
+      await fetch(imageData)
         .then(res => res.blob())
         .then((blob) => {
           const file = new File([blob], 'story.png', { type: 'image/png' });
           const url = `${window.location.origin}/o/${this.$route.params.orgSlug}/c/${this.$route.query.campaignSlug}`;
+          this.$gtm.trackEvent({
+            event: 'click',
+            action: 'click',
+            label: 'test',
+          });
           if (navigator.canShare && navigator.canShare({ files: [file], url })) {
             navigator.share({
               files: [file],
