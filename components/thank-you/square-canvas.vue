@@ -176,7 +176,7 @@ export default defineComponent({
           const file = new File([blob], 'story.png', { type: 'image/png' });
           const url = `${window.location.origin}/o/${this.$route.params.orgSlug}/c/${this.$route.query.campaignSlug}`;
           this.$gtm.trackEvent({
-            event: 'click',
+            event: 'test',
             action: 'click',
             label: 'test',
           });
