@@ -49,7 +49,7 @@ export default defineNuxtConfig({
   gtm: {
     id: 'GTM-PR5SJJ87',
     enabled: true,
-    debug: true,
+    // debug: true,
   },
   i18n: {
     vueI18n: './i18n.config.ts',
