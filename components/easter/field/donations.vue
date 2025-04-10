@@ -64,7 +64,7 @@ export default defineComponent({
           ...v,
           icon,
         };
-      });
+      }).sort((a, b) => (a.amount || 0) - (b.amount || 0));
     },
   },
 });
