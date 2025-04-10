@@ -123,7 +123,7 @@ export default defineComponent({
       }
     },
     donateClick() {
-      const element = document.querySelector('#donate-btn');
+      const element = document.querySelector('.donate-div');
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }

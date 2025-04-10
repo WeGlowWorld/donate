@@ -7,9 +7,9 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxtjs/i18n',
     '@nuxtjs/tailwindcss',
-    // '@zadigetvoltaire/nuxt-gtm',
+    '@zadigetvoltaire/nuxt-gtm',
     '@primevue/nuxt-module',
-    // 'nuxt-gtag',
+    'nuxt-gtag',
   ],
   ssr: true,
   app: {
@@ -46,11 +46,11 @@ export default defineNuxtConfig({
   gtag: {
     id: 'G-G4W3GZDDVV',
   },
-  // gtm: {
-  //   id: 'GTM-PR5SJJ87',
-  //   enabled: true,
-  //   debug: true,
-  // },
+  gtm: {
+    id: 'GTM-PR5SJJ87',
+    enabled: true,
+    debug: true,
+  },
   i18n: {
     vueI18n: './i18n.config.ts',
   },
