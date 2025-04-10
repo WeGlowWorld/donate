@@ -18,12 +18,14 @@
     "@pinia/nuxt": "^0.9.0",
     "@primevue/nuxt-module": "^4.2.5",
     "@types/mapbox__mapbox-gl-geocoder": "^5.0.0",
+    "@zadigetvoltaire/nuxt-gtm": "^0.0.13",
     "eslint": "^9.18.0",
     "nuxt": "^3.15.1",
     "pinia": "^2.3.0",
     "vue": "latest"
   },
   "dependencies": {
+    "@gtm-support/vue-gtm": "^3.1.0",
     "@mapbox/mapbox-gl-geocoder": "^5.0.3",
     "@primevue/forms": "^4.2.5",
     "@primevue/themes": "^4.2.5",
