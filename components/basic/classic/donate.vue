@@ -16,7 +16,7 @@
         </div>
         <div class="circle">
           <div class="text-center">
-            <b>{{ content.org.currencySign }}&nbsp;{{ content.campaign.raised.sum }}</b>
+            <b>{{ content.org.currencySign }}&nbsp;{{ raisedSum }}</b>
             <span
               v-if="content.campaign.goal"
               class="text-2xl"
@@ -109,6 +109,13 @@ export default defineComponent({
   computed: {
     icon() {
       return this.campaignStore.variable('icon', this.campaignStore.locale, VarType.IMAGE);
+    },
+    raisedSum() {
+      const sum = this.campaignStore.content?.campaign.raised.sum;
+      if (!sum) return 0;
+      return sum % 1 === 0
+        ? sum
+        : sum.toFixed(2);
     },
   },
   mounted() {
