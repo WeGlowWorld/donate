@@ -46,7 +46,6 @@ if (content) {
     image,
   }));
 }
-console.log(content?.variables);
 
 const colorsLoaded = ref(false);
 onMounted(async () => {
