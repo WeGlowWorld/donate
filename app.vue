@@ -51,9 +51,7 @@ export default defineComponent({
         }
       }
     }
-    if (!locale) {
-      locale = Locale.NL_BE;
-    }
+    if (!locale) locale = Locale.NL_BE;
     localStorage.setItem(LS_LOCALE, locale);
     this.$i18n.locale = locale;
     this.mounted = true;

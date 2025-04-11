@@ -22,7 +22,6 @@ import { Template, VarRefType, VarType } from '~/models/enums';
 definePageMeta({
   layout: 'campaign',
 });
-
 const campStore = useCampaignStore();
 await campStore.init();
 
