@@ -115,7 +115,10 @@ export default defineComponent({
       if (!sum) return 0;
       return sum % 1 === 0
         ? sum
-        : sum.toFixed(2);
+        : sum.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          });
     },
   },
   mounted() {
