@@ -11,6 +11,7 @@
       <basic-modern-description />
       <basic-modern-map />
       <basic-classic-links />
+      <basic-classic-extra />
     </div>
     <basic-footer />
   </div>

@@ -3,6 +3,7 @@ import type { Translations } from '.';
 const t: Translations = {
   campaign: {
     donate: 'Doneer',
+    extra: 'Nog wat informatie...',
   },
   share: {
     title: 'Delen',

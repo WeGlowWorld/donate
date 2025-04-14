@@ -1,6 +1,7 @@
 export type Translations = {
   campaign: {
     donate: string;
+    extra: string;
   };
   share: {
     title: string;

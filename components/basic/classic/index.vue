@@ -13,6 +13,7 @@
       <basic-classic-map class="col-span-2" />
       <basic-classic-messages />
       <basic-classic-links class="col-span-3" />
+      <basic-classic-extra class="col-span-3" />
     </div>
     <basic-footer />
   </div>
