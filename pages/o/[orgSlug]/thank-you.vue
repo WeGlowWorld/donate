@@ -184,6 +184,12 @@ export default defineComponent({
     }
     catch {
       this.$toast.add({ severity: 'error', summary: 'Error', detail: 'No donation was found', life: 5000 });
+      if (this.$route.query.slug) {
+        this.$router.push(`/o/${this.$route.params.orgSlug}/c/${this.$route.query.slug}`);
+      }
+      else {
+        window.location.href = `https://hub.weglow.world/o/${this.$route.params.orgSlug}`;
+      }
     }
     finally {
       this.loaded = true;

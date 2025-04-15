@@ -152,7 +152,7 @@ export default defineComponent({
         }
       }
       ctx.font = 'bold 2rem Titillium Web';
-      if (this.type.name) ctx.fillText(`${this.type.desc ? '- ' : ''} ${this.type.name}`, canvas.width / 2, canvas.height * 0.90);
+      if (this.type.name && this.type.name !== '-') ctx.fillText(`${this.type.desc ? '- ' : ''} ${this.type.name}`, canvas.width / 2, canvas.height * 0.90);
     },
     loadImage(src: string) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
