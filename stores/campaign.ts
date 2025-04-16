@@ -6,6 +6,7 @@ export const useCampaignStore = defineStore('campaignStore', {
     content: undefined as Content | undefined,
     initialized: false as boolean,
     error: undefined as string | undefined,
+    locale: useI18n().locale.value as Locale,
   }),
   getters: {
     variable: state => (title: string, locale?: string, type?: VarType, refType?: VarRefType, refId?: string) => (state.content?.variables.find(v =>
@@ -20,10 +21,6 @@ export const useCampaignStore = defineStore('campaignStore', {
       && (!refType || v.refType === refType)
       && (!refId || v.refId === refId),
     ))?.value,
-    locale: (state) => {
-      const locale = useI18n().locale.value as Locale;
-      return state.content?.org.locales.includes(locale) ? locale : state.content?.org.locales[0];
-    },
   },
   actions: {
     async init() {
