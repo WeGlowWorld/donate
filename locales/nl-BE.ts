@@ -8,7 +8,7 @@ const t: Translations = {
   share: {
     title: 'Delen',
     nonProfit: 'Onze non-profit',
-    toWebsite: 'Naar de website',
+    toWebsite: 'Terug naar de pagina',
     toHub: 'Bekijk al onze acties',
     shareTo: 'Delen op',
     copyLink: 'Kopieer pagina-link',

@@ -93,6 +93,15 @@
               @click="copyLink"
             />
           </div>
+          <prime-button
+            :label="$t('share.toWebsite')"
+            as="router-link"
+            :to="`/o/${$route.params.orgSlug}/c/${qps.slug}`"
+            class="ml-auto"
+            raised
+            :pt:root:style="{ backgroundColor: 'var(--d-accent)', color: 'var(--d-accent-text)', border: 'none', padding: '0.75rem 2rem 0.75rem 2rem' }"
+            @click="copyLink"
+          />
         </div>
       </div>
     </div>
@@ -201,6 +210,8 @@ export default defineComponent({
     },
   },
 });
+
+// localhost:3000/o/zebrapad-vzw/thank-you?returning=1&certificate=0&slug=43194OGT&order=17715&orderId=2883996189X8d704&orderStatusId=100&paymentSessionId=2883996189
 </script>
 
 <style scoped>
