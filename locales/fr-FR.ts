@@ -197,6 +197,10 @@ const t: Translations = {
         required: 'Numéro de commande requis',
       },
     },
+    tipsPercentage: {
+      name: 'Pourboire plate-forme',
+      errors: {},
+    },
   },
 };
 

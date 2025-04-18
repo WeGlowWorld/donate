@@ -197,6 +197,10 @@ const t: Translations = {
         required: 'Order number required',
       },
     },
+    tipsPercentage: {
+      name: 'Platform tips',
+      errors: {},
+    },
   },
 };
 
