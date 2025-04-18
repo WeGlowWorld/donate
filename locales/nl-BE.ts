@@ -197,6 +197,10 @@ const t: Translations = {
         required: 'Bestelnummer is verplicht',
       },
     },
+    tipsPercentage: {
+      name: 'Platform fooi',
+      errors: {},
+    },
   },
 };
 
