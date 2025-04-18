@@ -26,7 +26,7 @@
       name="amount"
       class="col-span-2"
     />
-    <div class="flex flex-col gap-2 col-span-2 max-w-96 w-full mx-auto">
+    <div class="flex flex-col gap-2 w-full mb-6">
       <label
         class="italic"
         for="tipsPercentage"
