@@ -8,7 +8,9 @@
         <!-- <Button @click="useRouter().push(`/o/${route.params.orgSlug}/c/${route.query.campaignSlug}`)" /> -->
         <slot />
       </div>
-      <translator :locales="orgStore.content.general.locales" />
+      <div class="absolute top-4 right-4">
+        <translator :locales="orgStore.content.general.locales" />
+      </div>
     </div>
   </div>
 </template>

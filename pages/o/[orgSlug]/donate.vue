@@ -1,6 +1,6 @@
 <template>
   <prime-form
-    class="w-full h-full flex flex-col md:grid gap-x-2 gap-y-4 grid-cols-2"
+    class="donate-form w-full h-full flex flex-col md:grid gap-x-2 gap-y-4 grid-cols-2"
     :resolver="resolver"
     :initial-values="formValues"
     @submit="submit"
@@ -24,11 +24,35 @@
       required
       positive
       name="amount"
+      class="col-span-2"
     />
+    <div class="flex flex-col gap-2 col-span-2 max-w-96 w-full mx-auto">
+      <label
+        class="italic"
+        for="tipsPercentage"
+      >{{ $t(`fields.tipsPercentage.name`) }} *</label>
+      <prime-slider
+        ref="tips-percentage"
+        v-model="formValues.tipsPercentage"
+        class="col-span-2"
+        :step="5"
+        :min="0"
+        :max="100"
+        name="tipsPercentage"
+      />
+    </div>
+    <!-- <custom-input-slider
+      v-model="formValues.tipsPercentage"
+      required
+      positive
+      name="tipsPercentage"
+      class="col-span-2"
+    /> -->
     <custom-input-text
       v-model="formValues.name"
       required
       name="name"
+      class="col-span-2"
     />
     <custom-input-text
       v-model="formValues.description"
@@ -159,8 +183,8 @@
 </template>
 
 <script lang="ts">
+import { Slider as PrimeSlider, Button as PrimeButton } from 'primevue';
 import { Form as PrimeForm, type FormSubmitEvent } from '@primevue/forms';
-import { Button as PrimeButton } from 'primevue';
 import { zodResolver } from '@primevue/forms/resolvers/zod';
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
@@ -169,7 +193,7 @@ import countryOptions from '~/assets/europeanCountries';
 
 export default defineComponent({
   name: 'Donate',
-  components: { PrimeForm, PrimeButton },
+  components: { PrimeForm, PrimeButton, PrimeSlider },
   setup() {
     definePageMeta({
       layout: 'org',
@@ -190,7 +214,8 @@ export default defineComponent({
       coords: ref(route.query.noLocation === undefined ? [0, 0] : [-1, -1]),
       genderOptions: [{ value: 'M', label: 'M' }, { value: 'F', label: 'F' }, { value: 'X', label: 'X' }],
       formValues: ref({
-        amount: parseInt(route.query.amount as string) || 123,
+        amount: parseInt(route.query.amount as string),
+        tipsPercentage: route.params.orgSlug === 'dummy-org' ? 15 : 0,
         email: '',
         name: '',
         description: '',
@@ -222,8 +247,23 @@ export default defineComponent({
       submitting: false,
     };
   },
+  watch: {
+    'formValues.tipsPercentage': {
+      immediate: true,
+      handler(newVal: number) {
+        const slider = document.querySelector('.p-slider-handle');
+        if (slider) {
+          slider.setAttribute('data-tips', `${newVal.toString()}% (€${(this.formValues.amount * (newVal / 100)).toFixed(2)})`);
+        }
+      },
+    },
+  },
   mounted() {
     this.initializeMap();
+    const slider = document.querySelector('.p-slider-handle');
+    if (slider) {
+      slider.setAttribute('data-tips', `${this.formValues.tipsPercentage.toString()}% (€${(this.formValues.amount * (this.formValues.tipsPercentage / 100)).toFixed(2)})`);
+    }
   },
   methods: {
     toPage() {
@@ -283,6 +323,13 @@ h2 {
 </style>
 
 <style>
+.donate-form .p-slider-handle::after {
+  position: absolute;
+  width: 200px;
+  text-align: center;
+  top: 100%;
+  content: attr(data-tips);
+}
 .mapboxgl-ctrl-geocoder {
   width: 100%;
   max-width: 100%;
