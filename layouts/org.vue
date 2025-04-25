@@ -2,13 +2,18 @@
   <div class="w-screen overflow-x-hidden">
     <div
       v-if="orgStore.initialized && orgStore.content"
-      class="donate-page min-h-dvh flex p-4 md:p-16"
+      class="donate-page min-h-dvh flex flex-col"
     >
-      <div class="donate-form max-w-4xl mx-auto w-full h-fit p-4 md:p-8 shadow-lg">
-        <!-- <Button @click="useRouter().push(`/o/${route.params.orgSlug}/c/${route.query.campaignSlug}`)" /> -->
-        <slot />
+      <div class="absolute right-4 top-4">
+        <translator :locales="orgStore.content.general.locales" />
       </div>
-      <translator :locales="orgStore.content.general.locales" />
+      <div class="p-4 md:p-16">
+        <div class="donate-form max-w-4xl mx-auto w-full h-fit p-4 md:p-8 shadow-lg">
+          <!-- <Button @click="useRouter().push(`/o/${route.params.orgSlug}/c/${route.query.campaignSlug}`)" /> -->
+          <slot />
+        </div>
+      </div>
+      <basic-footer class="md:-p-16 mt-auto" />
     </div>
   </div>
 </template>

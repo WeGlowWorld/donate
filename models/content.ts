@@ -100,4 +100,10 @@ export type ContentOrg = {
     backgroundC: string;
     backgroundTC: string;
   };
+  billing?: {
+    address: string;
+    phone: string;
+    email: string;
+    vatNr: string;
+  };
 };

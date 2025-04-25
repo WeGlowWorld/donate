@@ -1,161 +1,194 @@
 <template>
-  <prime-form
-    class="w-full h-full flex flex-col md:grid gap-x-2 gap-y-4 grid-cols-2"
-    :resolver="resolver"
-    :initial-values="formValues"
-    @submit="submit"
-  >
-    <div class="max-w-full mx-auto col-span-2 mb-4">
-      <a
-        :href="orgStore.content?.general.website"
-        target="_blank"
-      >
-        <img
-          :src="orgStore.variable('logo')"
-          class="max-h-24 w-full h-full object-contain"
-        >
-      </a>
-    </div>
-    <h2>
-      {{ $t('donate.donation') }}
-    </h2>
-    <custom-input-number
-      v-model="formValues.amount"
-      required
-      positive
-      name="amount"
-    />
-    <custom-input-text
-      v-model="formValues.name"
-      required
-      name="name"
-    />
-    <custom-input-text
-      v-model="formValues.description"
-      class="col-span-2"
-      required
-      name="description"
-    />
-
-    <form-field
-      v-if="hasLocation"
-      name="coords"
-      :initial-value="formValues.address"
-      class="relative"
+  <div>
+    <prime-form
+      class="w-full h-full flex flex-col md:grid gap-x-2 gap-y-4 grid-cols-2"
+      :resolver="resolver"
+      :initial-values="formValues"
+      @submit="submit"
     >
-      <label
-        class="italic"
-        for="coords"
-      >{{ $t(`fields.coords.name`) }} *</label>
-      <div>
-        <div
-          id="geocoder"
-          class="geocoder"
-        />
-        <div
-          id="map"
-          ref="map"
-          class="map-container"
-        />
+      <div class="max-w-full mx-auto col-span-2 mb-4">
+        <a
+          :href="orgStore.content?.general.website"
+          target="_blank"
+        >
+          <img
+            :src="orgStore.variable('logo')"
+            class="max-h-24 w-full h-full object-contain"
+          >
+        </a>
       </div>
-      <Message
-        v-if="coords[0] === 0 && coords[1] === 0"
-        severity="error"
-        size="small"
-        variant="simple"
+      <h2>
+        {{ $t('donate.donationTo', { org: orgStore.variable('org_name') }) }}
+      </h2>
+      <custom-input-number
+        v-model="formValues.amount"
+        required
+        positive
+        name="amount"
+      />
+      <custom-input-text
+        v-model="formValues.name"
+        required
+        name="name"
+      />
+      <custom-input-text
+        v-model="formValues.description"
+        class="col-span-2"
+        required
+        name="description"
+      />
+
+      <form-field
+        v-if="hasLocation"
+        name="coords"
+        :initial-value="formValues.address"
+        class="relative"
       >
-        {{ $t(`fields.coords.errors.required`) }}
-      </Message>
-    </form-field>
-    <custom-input-text
-      v-model="formValues.email"
-      required
-      name="email"
-    />
-    <custom-input-switch
-      v-model="formValues.anonymous"
-      name="anonymous"
-      class="ml-auto col-span-2"
-    />
-    <template v-if="orgStore.content?.general.superAdmin === 'kbs' && formKbsValues">
-      <div class="col-span-2 flex">
-        <h2>{{ $t(formKbsValues.company ? 'fiscal.companyFields' : 'fiscal.personalFields') }}</h2>
-        <custom-input-switch
-          v-model="formKbsValues.company"
-          name="company"
-          class="ml-auto"
+        <label
+          class="italic"
+          for="coords"
+        >{{ $t(`fields.coords.name`) }} *</label>
+        <div>
+          <div
+            id="geocoder"
+            class="geocoder"
+          />
+          <div
+            id="map"
+            ref="map"
+            class="map-container"
+          />
+        </div>
+        <Message
+          v-if="coords[0] === 0 && coords[1] === 0"
+          severity="error"
+          size="small"
+          variant="simple"
+        >
+          {{ $t(`fields.coords.errors.required`) }}
+        </Message>
+      </form-field>
+      <custom-input-text
+        v-model="formValues.email"
+        required
+        name="email"
+      />
+      <custom-input-switch
+        v-model="formValues.anonymous"
+        name="anonymous"
+        class="ml-auto col-span-2"
+      />
+      <template v-if="orgStore.content?.general.superAdmin === 'kbs' && formKbsValues">
+        <div class="col-span-2 flex">
+          <h2>{{ $t(formKbsValues.company ? 'fiscal.companyFields' : 'fiscal.personalFields') }}</h2>
+          <custom-input-switch
+            v-model="formKbsValues.company"
+            name="company"
+            class="ml-auto"
+          />
+        </div>
+        <template v-if="formKbsValues.company">
+          <custom-input-text
+            v-model="formKbsValues.companyName"
+            required
+            name="companyName"
+          />
+          <custom-input-text
+            v-model="formKbsValues.nationalNr"
+            required
+            name="vatNr"
+          />
+        </template>
+        <template v-else>
+          <custom-input-text
+            v-model="formKbsValues.firstName"
+            required
+            name="firstName"
+          />
+          <custom-input-text
+            v-model="formKbsValues.lastName"
+            required
+            name="lastName"
+          />
+          <custom-input-text
+            v-model="formKbsValues.nationalNr"
+            required
+            name="nationalNr"
+          />
+          <custom-input-select
+            v-model="formKbsValues.gender"
+            :options="genderOptions"
+            name="gender"
+          />
+        </template>
+        <h2>{{ $t('fiscal.locationFields') }}</h2>
+        <custom-input-select
+          v-model="formKbsValues.country"
+          :options="countryOptions"
+          name="country"
+        />
+        <div class="hidden md:block" />
+        <custom-input-text
+          v-model="formKbsValues.locality"
+          required
+          name="locality"
+        />
+        <custom-input-text
+          v-model="formKbsValues.postalCode"
+          required
+          name="postalCode"
+        />
+        <custom-input-text
+          v-model="formKbsValues.streetNr"
+          required
+          name="streetNr"
+        />
+        <custom-input-text
+          v-model="formKbsValues.premise"
+          required
+          name="premise"
+        />
+      </template>
+      <div class="md:col-span-2 ml-auto">
+        <prime-button
+          :loading="submitting"
+          type="submit"
+          :label="$t('donate.submit')"
         />
       </div>
-      <template v-if="formKbsValues.company">
-        <custom-input-text
-          v-model="formKbsValues.companyName"
-          required
-          name="companyName"
-        />
-        <custom-input-text
-          v-model="formKbsValues.nationalNr"
-          required
-          name="vatNr"
-        />
-      </template>
-      <template v-else>
-        <custom-input-text
-          v-model="formKbsValues.firstName"
-          required
-          name="firstName"
-        />
-        <custom-input-text
-          v-model="formKbsValues.lastName"
-          required
-          name="lastName"
-        />
-        <custom-input-text
-          v-model="formKbsValues.nationalNr"
-          required
-          name="nationalNr"
-        />
-        <custom-input-select
-          v-model="formKbsValues.gender"
-          :options="genderOptions"
-          name="gender"
-        />
-      </template>
-      <h2>{{ $t('fiscal.locationFields') }}</h2>
-      <custom-input-select
-        v-model="formKbsValues.country"
-        :options="countryOptions"
-        name="country"
-      />
-      <div class="hidden md:block" />
-      <custom-input-text
-        v-model="formKbsValues.locality"
-        required
-        name="locality"
-      />
-      <custom-input-text
-        v-model="formKbsValues.postalCode"
-        required
-        name="postalCode"
-      />
-      <custom-input-text
-        v-model="formKbsValues.streetNr"
-        required
-        name="streetNr"
-      />
-      <custom-input-text
-        v-model="formKbsValues.premise"
-        required
-        name="premise"
-      />
-    </template>
-    <div class="md:col-span-2 ml-auto">
-      <prime-button
-        :loading="submitting"
-        type="submit"
-        :label="$t('donate.submit')"
-      />
+    </prime-form>
+    <div
+      v-if="orgStore.content?.billing"
+      class="footer"
+    >
+      <div>
+        <p
+          v-if="orgStore.content?.billing.address"
+          class="text-sm"
+        >
+          <b>{{ $t('donate.address') }}: </b> {{ orgStore.content.billing.address }}
+        </p>
+        <p
+          v-if="orgStore.content?.billing.email"
+          class="text-sm"
+        >
+          <b>{{ $t('donate.email') }}: </b> {{ orgStore.content.billing.email }}
+        </p>
+        <p
+          v-if="orgStore.content?.billing.phone"
+          class="text-sm"
+        >
+          <b>{{ $t('donate.phone') }}: </b> {{ orgStore.content.billing.phone }}
+        </p>
+        <p
+          v-if="orgStore.content?.billing.vatNr"
+          class="text-sm"
+        >
+          <b>{{ $t('donate.vatNr') }}: </b> {{ orgStore.content.billing.vatNr }}
+        </p>
+      </div>
     </div>
-  </prime-form>
+  </div>
 </template>
 
 <script lang="ts">

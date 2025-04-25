@@ -94,7 +94,7 @@
             />
           </div>
           <prime-button
-            :label="$t('share.toWebsite')"
+            :label="$t('share.toDonate')"
             as="router-link"
             :to="`/o/${$route.params.orgSlug}/c/${qps.slug}`"
             class="ml-auto"

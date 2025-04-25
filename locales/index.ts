@@ -6,6 +6,7 @@ export type Translations = {
   share: {
     title: string;
     nonProfit: string;
+    toDonate: string;
     toWebsite: string;
     toHub: string;
     shareTo: string;
@@ -15,12 +16,17 @@ export type Translations = {
     title: string;
     next: string;
     donation: string;
+    donationTo: string;
     submit: string;
     send: string;
     chooseAmount: string;
     fiscal: string;
     raised: string;
     canvasTitle: string;
+    address: string;
+    phone: string;
+    email: string;
+    vatNr: string;
   };
   messages: {
     title: string;
