@@ -1,6 +1,7 @@
 import EN_US from './locales/en-US';
 import FR_FR from './locales/fr-FR';
 import NL_BE from './locales/nl-BE';
+import RO_RO from './locales/ro-RO';
 
 export default defineI18nConfig(() => ({
   legacy: false,
@@ -11,5 +12,6 @@ export default defineI18nConfig(() => ({
     'nl-BE': NL_BE,
     'fr-FR': FR_FR,
     'en-US': EN_US,
+    'ro-RO': RO_RO,
   },
 }));

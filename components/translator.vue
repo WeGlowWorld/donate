@@ -43,7 +43,6 @@ export default defineComponent({
     const campStore = useCampaignStore();
     if (!campStore.content?.org.locales.includes(useI18n().locale.value as Locale)) campStore.locale = campStore.content?.org.locales[0] || Locale.NL_BE;
     return {
-      // i18n: useI18n(),
       campaignStore: ref(campStore),
       Template: Template,
     };
