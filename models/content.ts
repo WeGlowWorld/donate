@@ -85,6 +85,7 @@ export type ContentOrg = {
     approvePtp: boolean;
     country: string;
     email: string;
+    currency: Currency;
     locales: Locale[];
     phoneNr: string;
     slug: string;

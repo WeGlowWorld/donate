@@ -21,6 +21,8 @@
       :show-buttons="showButtons"
       :max-fraction-digits="2"
       :locale="$i18n.locale"
+      :mode="currency ? 'currency': 'decimal'"
+      :currency="currency"
       @input="onInput"
     />
     <Message
@@ -64,6 +66,10 @@ export default defineComponent({
     disabled: {
       type: Boolean,
       default: false,
+    },
+    currency: {
+      type: String,
+      required: false,
     },
   },
   emits: ['update:modelValue'],

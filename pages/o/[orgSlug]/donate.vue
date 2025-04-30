@@ -25,6 +25,7 @@
         required
         positive
         name="amount"
+        :currency="orgStore.content?.general.currency"
       />
       <custom-input-text
         v-model="formValues.name"

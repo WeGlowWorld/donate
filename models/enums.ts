@@ -10,6 +10,7 @@ export enum Currency {
   EUR = '€',
   GBP = '£',
   USD = '$',
+  RON = 'LEI',
 }
 
 export enum PaymentMethod {
