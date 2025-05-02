@@ -34,6 +34,7 @@ const t: Translations = {
     phone: 'Phone number',
     email: 'E-mail',
     vatNr: 'VAT number',
+    stripePublishKey: 'This API call cannot be made with a publishable API key. Please use a secret API key.',
   },
   messages: {
     noMessages: 'No messages',

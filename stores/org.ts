@@ -76,6 +76,7 @@ export const useOrgStore = defineStore('orgStore', {
         });
       }
       catch (err) {
+        this.$toast.add({ severity: 'error', summary: 'Error', detail: err, life: 5000 });
         if (err instanceof Error)
           this.$state.error = err.message;
         throw err;

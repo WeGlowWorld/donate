@@ -34,6 +34,7 @@ const t: Translations = {
     phone: 'Numéro de téléphone',
     email: 'E-mail',
     vatNr: 'Numéro de TVA',
+    stripePublishKey: 'Cette API ne peut pas être appelée avec une clé API publiable. Veuillez utiliser une clé API secrète.',
   },
   messages: {
     noMessages: 'Pas de messages',

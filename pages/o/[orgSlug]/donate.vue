@@ -200,6 +200,7 @@ import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import { donateKbsZod, donateZod } from '~/models/donation';
 import countryOptions from '~/assets/europeanCountries';
+import type { BackendError } from '~/models/error';
 
 export default defineComponent({
   name: 'Donate',
@@ -280,8 +281,10 @@ export default defineComponent({
         );
         window.location.href = checkout;
       }
-      catch (err) {
-        console.error(err);
+      catch (_err) {
+        const err = _err as BackendError;
+        this.$toast.add({ severity: 'error', summary: 'Error', detail: this.$t('donate.stripePublishKey'), life: 5000 });
+        console.log(err);
       }
       finally {
         this.submitting = false;

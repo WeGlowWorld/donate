@@ -27,6 +27,7 @@ export type Translations = {
     phone: string;
     email: string;
     vatNr: string;
+    stripePublishKey: string;
   };
   messages: {
     title: string;

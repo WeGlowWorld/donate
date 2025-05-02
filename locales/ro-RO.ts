@@ -34,6 +34,7 @@ const t: Translations = {
     email: 'E-mail',
     vatNr: 'Număr TVA',
     donationTo: 'Donează pentru',
+    stripePublishKey: 'Această apelare API nu poate fi efectuată cu o cheie API publicabilă. Te rugăm să folosești o cheie API secretă.',
   },
   messages: {
     noMessages: 'Niciun mesaj',
