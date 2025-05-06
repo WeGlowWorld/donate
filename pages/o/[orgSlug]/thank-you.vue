@@ -160,7 +160,7 @@ export default defineComponent({
   },
   data() {
     return {
-      canvasType: 'landscape',
+      canvasType: 'portrait',
       donation: undefined as ThankYouDonation | undefined,
       loaded: false,
     };
