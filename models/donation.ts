@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { Currency, Locale, OrderStatus } from './enums';
+import type { Currency, Locale, OrderStatus, PaymentMethod } from './enums';
 
 export const certificateZod = z.object({
   company: z.boolean(),
@@ -65,6 +65,7 @@ export type DonateKbsBody = z.infer<typeof donateKbsZod>;
 
 export type ThankYouDonation = {
   status: OrderStatus;
+  method: PaymentMethod;
   amount: number;
   name: string;
   description: string;

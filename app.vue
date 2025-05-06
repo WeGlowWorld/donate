@@ -28,13 +28,34 @@ export default defineComponent({
   setup() {
     const colorMode = useColorMode();
     colorMode.value = 'light';
-
-    useI18n().setLocale('nl-BE');
+    const i18n = useI18n();
+    const route = useRoute();
+    if (route.query.share_lang) i18n.setLocale(route.query.share_lang as string);
+    return {
+      i18n: ref(i18n),
+      router: ref(useRouter()),
+    };
   },
   data() {
     return {
       mounted: true,
     };
+  },
+  watch: {
+    'i18n.locale': {
+      immediate: true,
+      handler(newLocale) {
+        if (import.meta.client) {
+          this.router.replace({
+            query: {
+              ...this.$route.query,
+              share_lang: newLocale,
+            },
+          });
+          localStorage.setItem(LS_LOCALE, newLocale);
+        }
+      },
+    },
   },
   async mounted() {
     let locale = localStorage.getItem(LS_LOCALE);

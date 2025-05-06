@@ -28,7 +28,7 @@
       </div>
       <div
         style="background-color: var(--d-background); color: var(--d-background-text);"
-        class="w-full lg:h-full text-left flex-1 flex flex-col gap-16 items-center justify-center p-4 md:p-16"
+        class="w-full lg:h-full text-left flex-1 flex flex-col gap-16 items-center justify-center md:justify-normal p-4 md:p-16 md:overflow-y-scroll"
       >
         <div
           style="background-color: var(--d-background);"
@@ -37,7 +37,7 @@
           <img
             :src="canvasObj.logo"
             alt="Logo"
-            class="w-96 max-h-96 mx-auto"
+            class="w-48 max-h-48 mx-auto"
           >
         </div>
         <div class="text-4xl font-bold w-full -mt-12">
@@ -111,7 +111,7 @@
 <script lang="ts">
 import { Button as PrimeButton } from 'primevue';
 import type { ThankYouDonation } from '~/models/donation';
-import { VarRefType, VarType } from '~/models/enums';
+import { OrderStatus, PaymentMethod, VarRefType, VarType } from '~/models/enums';
 
 export default defineComponent({
   components: {
@@ -160,7 +160,7 @@ export default defineComponent({
   },
   data() {
     return {
-      canvasType: 'portrait',
+      canvasType: 'landscape',
       donation: undefined as ThankYouDonation | undefined,
       loaded: false,
     };
@@ -186,9 +186,20 @@ export default defineComponent({
   },
   async mounted() {
     try {
+      // http://localhost:3000/o/special-olympics-belgium/thank-you?returning=true&certificate=true&slug=N56779MO&order=18224
       await this.orgStore.init();
       if (!this.$route.query.order || !this.$route.query.slug) throw new Error('No order number or campaign slug');
       this.donation = await useAPI<ThankYouDonation>(`/donation/${this.$route.query.order}/${this.$route.query.slug}`);
+
+      if (this.donation.status === OrderStatus.CANCELLED) throw new Error();
+
+      if (this.donation.method === PaymentMethod.STRIPE) {
+        const orderStatusId = this.$route.query.orderStatusId as string || undefined;
+        console.log('orderStatusId', orderStatusId);
+        if (orderStatusId && parseInt(orderStatusId) < 0) {
+          throw new Error();
+        }
+      }
       this.loaded = true;
     }
     catch {

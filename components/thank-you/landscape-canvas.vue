@@ -74,12 +74,12 @@ export default defineComponent({
       const canvas = this.$refs.canvas as HTMLCanvasElement;
       const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
-      const [logo, weglow, weglowText, icon] = await Promise.all([
+      const [logo, weglowText, icon] = await Promise.all([
         this.loadImage(this.type.logo),
-        this.loadImage('https://weglowdashboard.blob.core.windows.net/weglow-data/weglow-orange.svg'),
         this.loadImage('https://weglowdashboard.blob.core.windows.net/weglow-data/weglow.svg'),
         this.loadImage(this.type.icon),
       ]);
+
       // BG Gradient
       const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
       gradient.addColorStop(0, '#FFFFFF');
@@ -88,34 +88,31 @@ export default defineComponent({
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // WeGlow logo
-      const weglowH = Math.min(canvas.width * 0.7, canvas.height * 1.2);
-      const weglowW = weglowH * (weglow.width / weglow.height);
-      ctx.globalAlpha = 0.3;
-      ctx.drawImage(weglow, canvas.width - weglowW * 0.9, canvas.height - weglowH * 0.9, weglowW, weglowH);
       // WeGlow text
+      ctx.globalAlpha = 0.4;
       const textH = canvas.height * 0.1;
       const textW = textH * (weglowText.width / weglowText.height);
       ctx.drawImage(weglowText, 10, canvas.height - textH - 10, textW, textH);
       ctx.globalAlpha = 1;
 
       // Logo
-      let logoH = canvas.height * 0.3;
+      let logoH = canvas.height * 0.5;
       let logoW = logoH * (logo.width / logo.height);
       if (logoW > canvas.width * 0.4) {
         logoW = canvas.width * 0.4;
         logoH = logoW * (logo.height / logo.width);
       }
-      ctx.ellipse(canvas.width / 2, logoH / 2 + 10, logoW / 2 + 40, logoH / 2 + 40, 0, 0, 2 * Math.PI);
-      ctx.fillStyle = this.type.bgColor;
-      ctx.fill();
-      ctx.drawImage(logo, canvas.width / 2 - logoW / 2, 10, logoW, logoH);
+      ctx.drawImage(logo, canvas.width - logoW - 20, 20, logoW, logoH);
 
       // Icon
-      const iconH = canvas.height * 0.3;
-      const iconW = iconH * (icon.width / icon.height);
+      let iconH = canvas.height * 0.5;
+      let iconW = iconH * (logo.width / logo.height);
+      if (iconW > canvas.width * 0.4) {
+        iconW = canvas.width * 0.4;
+        iconH = iconW * (logo.height / logo.width);
+      }
       ctx.fillStyle = this.type.bgColor;
-      ctx.drawImage(icon, (canvas.width - iconW) / 2, (canvas.height - iconH) * 1 / 3, iconW, iconH);
+      ctx.drawImage(icon, 20, 20, iconW, iconH);
 
       // Text
       ctx.font = 'bold 2.5rem Titillium Web';

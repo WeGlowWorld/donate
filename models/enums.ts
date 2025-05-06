@@ -17,6 +17,7 @@ export enum PaymentMethod {
   WORLDLINE = 'WORLDLINE',
   PAY_NL = 'PAY_NL',
   PAYCONIQ = 'PAYCONIQ',
+  STRIPE = 'STRIPE',
 }
 
 export enum Locale {
