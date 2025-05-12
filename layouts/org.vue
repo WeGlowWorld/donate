@@ -19,6 +19,8 @@
 </template>
 
 <script lang="ts">
+import type { Locale } from '~/models/enums';
+
 export default defineComponent({
   setup() {
     const route = useRoute();
@@ -30,12 +32,16 @@ export default defineComponent({
     });
     return {
       route: ref(route),
+      i18n: ref(useI18n()),
       orgStore: ref(useOrgStore()),
     };
   },
   watch: {
     'orgStore.content': {
       handler(newVal) {
+        // Set locale
+        if (this.orgStore.content && !this.orgStore.content.general.locales.includes(this.i18n.locale as Locale))
+          this.i18n.locale = this.orgStore.content.general.locales[0];
         if (newVal.brandIdentity) {
           const style = document.documentElement.style;
           style.setProperty('--d-primary', `#${newVal.brandIdentity.primaryC}`);

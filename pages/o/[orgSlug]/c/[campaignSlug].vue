@@ -17,12 +17,14 @@
 
 <script lang="ts" setup>
 import { convert } from 'html-to-text';
+import type { Locale } from '~/models/enums';
 import { Template, VarRefType, VarType } from '~/models/enums';
 
 definePageMeta({
   layout: 'campaign',
 });
 const campStore = useCampaignStore();
+const i18n = useI18n();
 await campStore.init();
 
 await useDonationsStore().init();
@@ -39,6 +41,10 @@ if (content) {
 
   if (content.base.template === Template.EASTER_FIELD)
     image = 'https://weglowdashboard.blob.core.windows.net/weglow-data/EASTER_FIELD.png';
+
+  // Set locale
+  if (!content.org.locales.includes(i18n.locale.value as Locale))
+    i18n.locale.value = content.org.locales[0];
 
   // CPZ
   if (content.campaign.slug === '0J2ADWT5')
