@@ -31,6 +31,7 @@
         name="orderNr"
       />
       <custom-input-switch
+        v-if="fields.includes('company')"
         v-model="formValues.company"
         name="company"
         class="col-span-full"
@@ -38,11 +39,13 @@
       <template v-if="formValues.company">
         <label class="col-span-full font-bold">{{ $t('fiscal.companyFields') }}</label>
         <custom-input-text
+          v-if="fields.includes('companyName')"
           v-model="formValues.companyName"
           required
           name="companyName"
         />
         <custom-input-text
+          v-if="fields.includes('companyNr')"
           v-model="formValues.companyNr"
           required
           name="companyNr"
@@ -51,21 +54,25 @@
       <template v-else>
         <label class="col-span-full font-bold">{{ $t('fiscal.personalFields') }}</label>
         <custom-input-text
+          v-if="fields.includes('firstName')"
           v-model="formValues.firstName"
           required
           name="firstName"
         />
         <custom-input-text
+          v-if="fields.includes('lastName')"
           v-model="formValues.lastName"
           required
           name="lastName"
         />
         <custom-input-text
+          v-if="fields.includes('nationalNr')"
           v-model="formValues.nationalNr"
           required
           name="nationalNr"
         />
         <custom-input-select
+          v-if="fields.includes('gender')"
           v-model="formValues.gender"
           :options="genderOptions"
           name="gender"
@@ -73,30 +80,44 @@
       </template>
       <label class="col-span-full font-bold">{{ $t('fiscal.locationFields') }}</label>
       <custom-input-select
+        v-if="fields.includes('country')"
         v-model="formValues.country"
         :options="countryOptions"
         name="country"
       />
       <div class="hidden md:block" />
       <custom-input-text
+        v-if="fields.includes('locality')"
         v-model="formValues.locality"
         required
         name="locality"
       />
       <custom-input-text
+        v-if="fields.includes('postalCode')"
         v-model="formValues.postalCode"
         required
         name="postalCode"
       />
       <custom-input-text
+        v-if="fields.includes('streetNr')"
         v-model="formValues.streetNr"
         required
         name="streetNr"
       />
       <custom-input-text
+        v-if="fields.includes('premise')"
         v-model="formValues.premise"
         name="premise"
       />
+      <p class="col-span-full">
+        {{ $t(`donate.bottomText.general`) }}
+      </p>
+      <p
+        v-if="$te(`donate.bottomText.country.${country}`)"
+        class="col-span-full"
+      >
+        {{ $t(`donate.bottomText.country.${country}`) }}
+      </p>
       <div class="md:col-span-2 ml-auto">
         <Button
           type="submit"
@@ -146,7 +167,7 @@ export default defineComponent({
         nationalNr: '',
         companyName: '',
         companyNr: '',
-        country: '',
+        country: undefined,
         locality: '',
         postalCode: '',
         streetNr: '',
@@ -156,6 +177,19 @@ export default defineComponent({
       resolver: zodResolver(certificateZod),
       orgSlug: this.$route.params.orgSlug,
     };
+  },
+  // http://localhost:3000/o/dummy-org/fiscal-certificate?slug=NZNGCAUV&order=18345&share_lang=en-US
+  computed: {
+    country() {
+      return this.orgStore.content?.general.country;
+    },
+    fields() {
+      if (!this.country) return [];
+      if (this.country === 'UK') {
+        return ['firstName', 'lastName', 'country', 'locality', 'postalCode', 'streetNr', 'premise'];
+      }
+      return ['firstName', 'lastName', 'country', 'locality', 'postalCode', 'streetNr', 'premise', 'company', 'companyName', 'companyNr', 'nationalNr', 'gender'];
+    },
   },
   methods: {
     async submit(event: FormSubmitEvent) {

@@ -1,5 +1,5 @@
 import type { ContentOrg } from '~/models/content';
-import type { VarRefType, VarType } from '~/models/enums';
+import { Locale, type VarRefType, type VarType } from '~/models/enums';
 import type { DonateBody, DonateKbsBody } from '~/models/donation';
 
 export const useOrgStore = defineStore('orgStore', {
@@ -41,7 +41,7 @@ export const useOrgStore = defineStore('orgStore', {
         this.initialized = true;
       }
     },
-    async donate(orgSlug: string, campSlug: string, body: DonateBody & { certificate?: DonateKbsBody }): Promise<string> {
+    async donate(orgSlug: string, campSlug: string, body: DonateBody & { certificate?: DonateKbsBody }, wantsFiscal = true, locale = Locale.NL_BE): Promise<string> {
       try {
         return await useAPI<string>(`/donation/${orgSlug}/${campSlug}`, {
           method: 'POST',
@@ -73,9 +73,14 @@ export const useOrgStore = defineStore('orgStore', {
                 }
               : undefined,
           },
+          query: {
+            wants_fiscal: wantsFiscal ? undefined : '0',
+            locale: locale,
+          },
         });
       }
       catch (err) {
+        console.error(err);
         this.$toast.add({ severity: 'error', summary: 'Error', detail: err, life: 5000 });
         if (err instanceof Error)
           this.$state.error = err.message;

@@ -34,7 +34,14 @@ const t: Translations = {
     email: 'E-mail',
     vatNr: 'Număr TVA',
     donationTo: 'Donează pentru',
+    error: 'A apărut o eroare la procesarea donației tale. Te rugăm să încerci din nou mai târziu.',
     stripePublishKey: 'Această apelare API nu poate fi efectuată cu o cheie API publicabilă. Te rugăm să folosești o cheie API secretă.',
+    bottomText: {
+      general: 'Îți vom salva întotdeauna datele personale în siguranță și le vom procesa doar în scopul pentru care au fost colectate.',
+      country: {
+        UK: 'Prin completarea acestui formular, comunic că sunt contribuabil din Regatul Unit și că doresc să fac o donație. Înțeleg că, dacă plătesc mai puțin impozit pe venit și/sau impozit pe câștigurile de capital decât suma de impozit pe donații solicitată pentru toate donațiile mele în acel an fiscal, este responsabilitatea mea să plătesc diferența.',
+      },
+    },
   },
   messages: {
     noMessages: 'Niciun mesaj',
@@ -203,6 +210,16 @@ const t: Translations = {
       errors: {
         required: 'Numărul comenzii este obligatoriu',
       },
+    },
+    wantFiscal: {
+      name: 'Vreau un certificat fiscal',
+      errors: {
+        required: 'Certificatul fiscal este obligatoriu',
+      },
+    },
+    wantsFiscalUK: {
+      name: 'Vreau o declarație Gift Aid',
+      errors: {},
     },
   },
 };

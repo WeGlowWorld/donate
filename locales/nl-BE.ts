@@ -34,7 +34,14 @@ const t: Translations = {
     phone: 'Telefoonnummer',
     email: 'E-mailadres',
     vatNr: 'BTW-nummer',
+    error: 'Er is een fout opgetreden bij het verwerken van je donatie. Probeer het later opnieuw.',
     stripePublishKey: 'This API call cannot be made with a publishable API key. Please use a secret API key.',
+    bottomText: {
+      general: 'We zullen je persoonlijke gegevens altijd veilig opslaan en alleen verwerken voor het doel waarvoor ze zijn verzameld.',
+      country: {
+        UK: 'Door dit formulier in te vullen, deel ik mee dat ik een belastingbetaler in het Verenigd Koninkrijk ben en dat ik mijn donatie wil doen. Ik begrijp dat als ik minder inkomstenbelasting en/of vermogenswinstbelasting betaal dan het bedrag van de belastingvermindering die op al mijn donaties in dat belastingjaar wordt geclaimd, het mijn verantwoordelijkheid is om het verschil te betalen.',
+      },
+    },
   },
   messages: {
     noMessages: 'Geen berichten',
@@ -203,6 +210,14 @@ const t: Translations = {
       errors: {
         required: 'Bestelnummer is verplicht',
       },
+    },
+    wantsFiscal: {
+      name: 'Ik wil een fiscaal attest ontvangen',
+      errors: {},
+    },
+    wantsFiscalUK: {
+      name: 'Ik wil een Gift Aid verklaring ontvangen',
+      errors: {},
     },
   },
 };

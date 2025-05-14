@@ -34,7 +34,14 @@ const t: Translations = {
     phone: 'Numéro de téléphone',
     email: 'E-mail',
     vatNr: 'Numéro de TVA',
+    error: 'Une erreur s\'est produite lors du traitement de votre don. Veuillez réessayer plus tard.',
     stripePublishKey: 'Cette API ne peut pas être appelée avec une clé API publiable. Veuillez utiliser une clé API secrète.',
+    bottomText: {
+      general: 'Nous sauvons toujours vos données personnelles en toute sécurité et ne les traiterons que pour le but pour lequel elles ont été collectées.',
+      country: {
+        UK: 'En remplissant ce formulaire, je m\'assure que je suis un contribuable britannique et que je souhaite faire don de mon don. Je comprends que si je paie moins d\'impôt sur le revenu et/ou d\'impôt sur les plus-values que le montant de l\'aide fiscale réclamée sur tous mes dons au cours de cette année fiscale, il est de ma responsabilité de payer la différence.',
+      },
+    },
   },
   messages: {
     noMessages: 'Pas de messages',
@@ -203,6 +210,14 @@ const t: Translations = {
       errors: {
         required: 'Numéro de commande requis',
       },
+    },
+    wantsFiscal: {
+      name: 'Je veux un reçu fiscal',
+      errors: {},
+    },
+    wantsFiscalUK: {
+      name: 'Je veux une déclaration de Gift Aid',
+      errors: {},
     },
   },
 };

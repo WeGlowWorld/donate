@@ -43,7 +43,7 @@
         v-if="hasLocation"
         name="coords"
         :initial-value="formValues.address"
-        class="relative"
+        class="relative z-10"
       >
         <label
           class="italic"
@@ -74,11 +74,19 @@
         required
         name="email"
       />
-      <custom-input-switch
-        v-model="formValues.anonymous"
-        name="anonymous"
-        class="ml-auto col-span-2"
-      />
+      <div class="flex flex-col col-span-full gap-2">
+        <custom-input-switch
+          v-model="formValues.anonymous"
+          name="anonymous"
+          reverse
+        />
+        <custom-input-switch
+          v-if="country === 'UK'"
+          v-model="wantsFiscal"
+          :name="country ==='UK' ? 'wantsFiscalUK' : 'wantsFiscal'"
+          reverse
+        />
+      </div>
       <template v-if="orgStore.content?.general.superAdmin === 'kbs' && formKbsValues">
         <div class="col-span-2 flex">
           <h2>{{ $t(formKbsValues.company ? 'fiscal.companyFields' : 'fiscal.personalFields') }}</h2>
@@ -222,14 +230,14 @@ export default defineComponent({
       orgStore: ref(orgStore),
       isKbs,
       countryOptions,
-      coords: ref(route.query.noLocation === undefined ? [0, 0] : [-1, -1]),
+      coords: ref(route.query.noLocation === undefined ? [100, 100] : [-1, -1]),
       genderOptions: [{ value: 'M', label: 'M' }, { value: 'F', label: 'F' }, { value: 'X', label: 'X' }],
       formValues: ref({
         amount: parseInt(route.query.amount as string) || 123,
-        email: '',
-        name: '',
-        description: '',
-        address: ref(''),
+        email: 'admin@weglow.world',
+        name: 'Test',
+        description: 'Test',
+        address: 'Test',
         anonymous: false,
       }),
       formKbsValues: ref({
@@ -253,9 +261,15 @@ export default defineComponent({
   },
   data() {
     return {
+      wantsFiscal: true,
       map: null as unknown as mapboxgl.Map,
       submitting: false,
     };
+  },
+  computed: {
+    country() {
+      return this.orgStore.content?.general.country;
+    },
   },
   mounted() {
     this.initializeMap();
@@ -278,12 +292,14 @@ export default defineComponent({
             certificate: this.isKbs ? this.formKbsValues : undefined,
             coords: this.coords,
           },
+          this.wantsFiscal,
+          this.$i18n.locale,
         );
         window.location.href = checkout;
       }
       catch (_err) {
         const err = _err as BackendError;
-        this.$toast.add({ severity: 'error', summary: 'Error', detail: this.$t('donate.stripePublishKey'), life: 5000 });
+        this.$toast.add({ severity: 'error', summary: 'Error', detail: this.$t('donate.error'), life: 5000 });
         console.log(err);
       }
       finally {

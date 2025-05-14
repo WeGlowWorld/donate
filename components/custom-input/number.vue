@@ -21,6 +21,7 @@
       :show-buttons="showButtons"
       :max-fraction-digits="2"
       :locale="$i18n.locale"
+      :use-grouping="!!currency"
       :mode="currency ? 'currency': 'decimal'"
       :currency="currency"
       @input="onInput"

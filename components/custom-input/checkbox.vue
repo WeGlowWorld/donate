@@ -5,28 +5,25 @@
     :initial-value="modelValue"
     class="relative"
   >
-    <div
-      class="flex items-center gap-2"
-      :class="reverse ? 'flex-row-reverse justify-end' : ''"
-    >
+    <div class="flex items-center gap-2">
       <label
         class="italic"
         :for="name"
       >{{ $t(`fields.${name}.name`) }}</label>
-      <toggle-switch
+      <Checkbox
         :value="modelValue"
         :name="name"
         @value-change="onChange"
       />
     </div>
-    <Message
+    <!-- <Message
       v-if="$field?.invalid"
       severity="error"
       size="small"
       variant="simple"
     >
       {{ $t(`fields.${name}.errors.${$field.error}`) }}
-    </Message>
+    </Message> -->
   </form-field>
 </template>
 
@@ -43,10 +40,6 @@ export default defineComponent({
     modelValue: {
       type: Boolean,
       required: false,
-    },
-    reverse: {
-      type: Boolean,
-      default: false,
     },
   },
   emits: ['update:modelValue'],

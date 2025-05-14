@@ -28,6 +28,11 @@ export type Translations = {
     email: string;
     vatNr: string;
     stripePublishKey: string;
+    error: string;
+    bottomText: {
+      general: string;
+      country: Record<string, string>;
+    };
   };
   messages: {
     title: string;

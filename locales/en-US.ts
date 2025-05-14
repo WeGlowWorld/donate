@@ -34,7 +34,14 @@ const t: Translations = {
     phone: 'Phone number',
     email: 'E-mail',
     vatNr: 'VAT number',
+    error: 'An error occurred while processing your donation. Please try again later.',
     stripePublishKey: 'This API call cannot be made with a publishable API key. Please use a secret API key.',
+    bottomText: {
+      general: 'We will always securely store your personal data and only process it for the purpose for which it was collected.',
+      country: {
+        UK: 'By completing this form I communicate that I am a UK taxpayer & I want to Gift Aid my donation. I understand that if I pay less Income Tax and/or Capital Gains Tax than the amount of Gift Aid claimed on all my donations in that tax year it is my responsibility to pay any difference.',
+      },
+    },
   },
   messages: {
     noMessages: 'No messages',
@@ -203,6 +210,14 @@ const t: Translations = {
       errors: {
         required: 'Order number required',
       },
+    },
+    wantsFiscal: {
+      name: 'I want a fiscal certificate',
+      errors: {},
+    },
+    wantsFiscalUK: {
+      name: 'I want a Gift Aid Declaration',
+      errors: {},
     },
   },
 };
