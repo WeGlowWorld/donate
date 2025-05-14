@@ -233,7 +233,7 @@ export default defineComponent({
       coords: ref(route.query.noLocation === undefined ? [100, 100] : [-1, -1]),
       genderOptions: [{ value: 'M', label: 'M' }, { value: 'F', label: 'F' }, { value: 'X', label: 'X' }],
       formValues: ref({
-        amount: parseInt(route.query.amount as string) || 123,
+        amount: parseInt(route.query.amount as string) || 0,
         email: '',
         name: '',
         description: '',
