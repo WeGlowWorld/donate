@@ -230,7 +230,7 @@ export default defineComponent({
       orgStore: ref(orgStore),
       isKbs,
       countryOptions,
-      coords: ref(route.query.noLocation === undefined ? [100, 100] : [-1, -1]),
+      coords: ref(route.query.noLocation === undefined ? [0, 0] : [-1, -1]),
       genderOptions: [{ value: 'M', label: 'M' }, { value: 'F', label: 'F' }, { value: 'X', label: 'X' }],
       formValues: ref({
         amount: parseInt(route.query.amount as string) || 0,
