@@ -234,10 +234,10 @@ export default defineComponent({
       genderOptions: [{ value: 'M', label: 'M' }, { value: 'F', label: 'F' }, { value: 'X', label: 'X' }],
       formValues: ref({
         amount: parseInt(route.query.amount as string) || 123,
-        email: 'admin@weglow.world',
-        name: 'Test',
-        description: 'Test',
-        address: 'Test',
+        email: '',
+        name: '',
+        description: '',
+        address: '',
         anonymous: false,
       }),
       formKbsValues: ref({
