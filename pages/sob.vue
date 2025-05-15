@@ -26,28 +26,33 @@
         alt="Logo"
       >
     </div>
-    <div class="candles-container w-[calc(100%-4rem)] h-[calc(100%-4rem)] absolute bottom-8 left-8 text-white text-3xl">
-      <div
-        v-for="don in donations"
-        :key="don.location[0]"
-        class="absolute w-32 flex items-center justify-center flex-col transition-all duration-1000"
-        :style="{
-          left: don.animated ? `${don.location[0]}%` : '50%',
-          top: don.animated ? `${don.location[1]}%` : '50%',
-          opacity: don.animated && don.show ? '1' : '0',
-          translate: 'translate(-50%, -50%)',
-        }"
+    <div class="candles-container w-[calc(100%-4rem)] h-[calc(100%-24rem)] absolute top-48 left-8 text-white text-3xl">
+      <template
+        v-for="(don, i) in donations"
+        :key="`${don.name}-${i}`"
       >
-        <img
-          src="/assets/img/sob-flame.svg"
-          class="w-full h-full object-contain"
-          alt="Candle Flame"
+        <div
+          v-if="don.show && don.location"
+          class="absolute w-32 flex items-center justify-center flex-col transition-all duration-1000"
+          :style="{
+            left: don.animated ? `${don.location[0]}%` : '50%',
+            top: don.animated ? `${don.location[1]}%` : '50%',
+            opacity: don.animated && don.show ? '1' : '0',
+          }"
         >
-        <span
-          class="candle-text"
-          style="text-shadow: 0px 1px 0px rgb(0 0 0 / 0.075);"
-        >{{ don.name }}</span>
-      </div>
+          <img
+            src="/assets/img/sob-flame.svg"
+            class="w-full h-full object-contain"
+            alt="Candle Flame"
+          >
+          <span class="candle-text font-semibold text-justify">
+            {{ don.name }}
+          </span>
+          <span class="candle-text text-sm text-justify w-full">
+            {{ don.description }}
+          </span>
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -60,8 +65,9 @@ export default defineComponent({
       lang: 'nl' as 'nl' | 'fr',
       donations: [] as {
         name: string;
+        description: string;
         updatedAt: string;
-        location: [number, number];
+        location?: [number, number];
         animated: boolean;
         show: boolean;
       }[],
@@ -69,6 +75,17 @@ export default defineComponent({
       sum: 0,
       lastSuccess: 0,
     };
+  },
+  computed: {
+    firstIndexOfLastFalseGroup() {
+      if (this.donations[this.donations.length - 1]?.show) return -1;
+      const end = [...this.donations].reverse().findIndex(item => !item.show);
+      if (end === -1) return -1;
+      const lastFalseIndex = this.donations.length - 1 - end;
+      let start = lastFalseIndex;
+      while (start > 0 && !this.donations[start - 1].show) start--;
+      return start;
+    },
   },
   async mounted() {
     setInterval(() => {
@@ -82,30 +99,25 @@ export default defineComponent({
       }
     }, 10000);
     setInterval(() => {
-      if (this.donations.length > 10) {
-        const firstShow = this.donations.findIndex(v => v.show);
-        const next = this.donations[firstShow + 10];
-        if (next) {
-          this.donations[firstShow].show = false;
-          next.show = true;
-
-          setTimeout(() => {
-            next.animated = true;
-          }, 100);
-        }
-      }
-      else {
-        const next = this.donations[this.donations.length - 1];
-        if (next) {
-          next.show = true;
-          setTimeout(() => {
-            next.animated = true;
-          }, 100);
-        }
-      }
-      if (this.donations.length === 0 || this.donations[this.donations.length - 1].show) {
+      console.log(this.firstIndexOfLastFalseGroup);
+      if (this.firstIndexOfLastFalseGroup === -1) {
         this.fetchDonations();
+        return;
       }
+      if (this.donations.filter(v => v.show).length > 9) {
+        const shown = this.donations.find(v => v.show);
+        if (shown) {
+          shown.show = false;
+          shown.animated = false;
+        }
+      }
+
+      const newDonation = this.donations[this.firstIndexOfLastFalseGroup];
+      newDonation.show = true;
+      newDonation.location = this.chooseLocation();
+      setTimeout(() => {
+        newDonation.animated = true;
+      }, 100);
     }, 5000);
   },
   methods: {
@@ -118,6 +130,7 @@ export default defineComponent({
         donations: {
           name: string;
           updatedAt: string;
+          description: string;
         }[];
         count: number;
         sum: number;
@@ -131,17 +144,18 @@ export default defineComponent({
         this.lastSuccess = 3;
         return;
       }
-      // useRoute().query.last = counterData.donations[counterData.donations.length - 1]?.updatedAt;
-      this.donations.push(...counterData.donations.map(v => ({
-        ...v,
-        location: this.chooseLocation(),
-        animated: false,
-        show: false,
-      })));
-      this.count = counterData.count;
-      this.sum = counterData.sum;
+      useRoute().query.last = counterData.donations[counterData.donations.length - 1]?.updatedAt;
+      for (const d of counterData.donations) {
+        this.donations.push({
+          ...d,
+          animated: false,
+          show: false,
+        });
+      }
+      this.count = counterData.count || this.count + counterData.donations.length;
     },
     chooseLocation(): [number, number] {
+      const minDistance = 20;
       try {
         let randomX = Math.random() * 80;
         if (randomX > 40) randomX += 20;
@@ -157,6 +171,17 @@ export default defineComponent({
         if (randomY > 30 && randomY < 70) {
           if (randomX > 40 && randomX < 60) throw new Error();
         }
+
+        // Proximity check to existing candles
+        for (const don of this.donations) {
+          if (!don.location || !don.show) continue; // Skip if location is not set
+          const [x, y] = don.location;
+          const dx = randomX - x;
+          const dy = randomY - y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < minDistance) throw new Error(); // Too close to another candle
+        }
+
         return [
           randomX,
           randomY,
