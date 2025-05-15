@@ -6,7 +6,7 @@
       :initial-values="formValues"
       @submit="submit"
     >
-      <div class="max-w-full mx-auto col-span-2 mb-4">
+      <div class="flex justify-between w-full max-w-full mx-auto col-span-2 mb-4">
         <a
           :href="orgStore.content?.general.website"
           target="_blank"
@@ -16,6 +16,12 @@
             class="max-h-24 w-full h-full object-contain"
           >
         </a>
+        <div class="w-24 h-24">
+          <img
+            class="w-full h-full"
+            src="https://afrianafoundation.org/wp-content/uploads/2014/02/anbi-logo.png"
+          >
+        </div>
       </div>
       <h2>
         {{ $t('donate.donationTo', { org: orgStore.variable('org_name') }) }}
@@ -74,25 +80,18 @@
         required
         name="email"
       />
-      <div class="flex flex-wrap justify-between gap-2 col-span-full">
-        <div class="flex flex-col gap-2">
-          <custom-input-switch
-            v-model="formValues.anonymous"
-            name="anonymous"
-            reverse
-          />
-          <custom-input-switch
-            v-if="country === 'UK'"
-            v-model="wantsFiscal"
-            :name="country ==='UK' ? 'wantsFiscalUK' : 'wantsFiscal'"
-            reverse
-          />
-        </div>
-        <!-- <img
-          v-if="country === 'NL'"
-          class="w-24 h-24"
-          src="https://afrianafoundation.org/wp-content/uploads/2014/02/anbi-logo.png"
-        > -->
+      <div class="flex flex-col gap-2 col-span-full">
+        <custom-input-switch
+          v-model="formValues.anonymous"
+          name="anonymous"
+          reverse
+        />
+        <custom-input-switch
+          v-if="country === 'UK'"
+          v-model="wantsFiscal"
+          :name="country ==='UK' ? 'wantsFiscalUK' : 'wantsFiscal'"
+          reverse
+        />
       </div>
       <template v-if="orgStore.content?.general.superAdmin === 'kbs' && formKbsValues">
         <div class="col-span-2 flex">
