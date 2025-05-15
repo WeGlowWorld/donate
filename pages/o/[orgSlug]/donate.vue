@@ -1,7 +1,7 @@
 <template>
   <div>
     <prime-form
-      class="w-full h-full flex flex-col md:grid gap-x-2 gap-y-4 grid-cols-2"
+      class="donate-form w-full h-full flex flex-col md:grid gap-x-2 gap-y-4 grid-cols-2"
       :resolver="resolver"
       :initial-values="formValues"
       @submit="submit"
@@ -49,7 +49,7 @@
           class="italic"
           for="coords"
         >{{ $t(`fields.coords.name`) }} *</label>
-        <div>
+        <div :class="{ 'filled-field': formValues.address.length > 0 }">
           <div
             id="geocoder"
             class="geocoder"
@@ -74,18 +74,25 @@
         required
         name="email"
       />
-      <div class="flex flex-col col-span-full gap-2">
-        <custom-input-switch
-          v-model="formValues.anonymous"
-          name="anonymous"
-          reverse
-        />
-        <custom-input-switch
-          v-if="country === 'UK'"
-          v-model="wantsFiscal"
-          :name="country ==='UK' ? 'wantsFiscalUK' : 'wantsFiscal'"
-          reverse
-        />
+      <div class="flex flex-wrap justify-between gap-2 col-span-full">
+        <div class="flex flex-col gap-2">
+          <custom-input-switch
+            v-model="formValues.anonymous"
+            name="anonymous"
+            reverse
+          />
+          <custom-input-switch
+            v-if="country === 'UK'"
+            v-model="wantsFiscal"
+            :name="country ==='UK' ? 'wantsFiscalUK' : 'wantsFiscal'"
+            reverse
+          />
+        </div>
+        <!-- <img
+          v-if="country === 'NL'"
+          class="w-24 h-24"
+          src="https://afrianafoundation.org/wp-content/uploads/2014/02/anbi-logo.png"
+        > -->
       </div>
       <template v-if="orgStore.content?.general.superAdmin === 'kbs' && formKbsValues">
         <div class="col-span-2 flex">
@@ -336,14 +343,16 @@ h2 {
 </style>
 
 <style>
-.mapboxgl-ctrl-geocoder {
+.donate-form .mapboxgl-ctrl-geocoder {
   width: 100%;
   max-width: 100%;
   box-shadow: none;
   background-color: var(--q-background-color);
 }
-
-.mapboxgl-ctrl-geocoder--icon-close {
+.donate-form .mapboxgl-ctrl-geocoder--pin-right {
+  display: none;
+}
+.donate-form .mapboxgl-ctrl-geocoder--icon-close {
   margin-top: 0;
 }
 
@@ -368,7 +377,7 @@ h2 {
   }
 }
 
-.mapboxgl-ctrl-geocoder input {
+.donate-form .mapboxgl-ctrl-geocoder input {
   border: 1px solid var(--p-inputtext-border-color);
   border-radius: 6px;
   padding: 12px 14px;
@@ -392,11 +401,11 @@ h2 {
   }
 }
 
-.mapboxgl-ctrl-geocoder--icon {
+.donate-form .mapboxgl-ctrl-geocoder--icon {
   display: none;
 }
 
-.geocoder-pin-right {
+.donate-form .geocoder-pin-right {
   display: none;
 }
 

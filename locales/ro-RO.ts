@@ -93,9 +93,9 @@ const t: Translations = {
       },
     },
     coords: {
-      name: 'Locație',
+      name: 'De unde donezi?',
       errors: {
-        required: 'Locația este obligatorie',
+        required: 'Locația este obligatorie (nu trebuie să fie adresa ta exactă)',
       },
     },
     email: {

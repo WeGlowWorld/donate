@@ -93,9 +93,9 @@ const t: Translations = {
       },
     },
     coords: {
-      name: 'Locatie',
+      name: 'Van waar doneert u?',
       errors: {
-        required: 'Locatie is verplicht',
+        required: 'Locatie verplicht (moet niet uw exacte adres te zijn)',
       },
     },
     email: {
