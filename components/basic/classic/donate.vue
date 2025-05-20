@@ -43,9 +43,11 @@
           {{ $t('donate.fiscal') }}
         </p>
         <div class="flex flex-col gap-4">
-          <div class="flex flex-wrap gap-2">
+          <div
+            class="flex flex-wrap gap-2"
+          >
             <prime-button
-              v-for="price of content.prices"
+              v-for="price of content.prices.sort((a, b) => a.amount - b.amount)"
               :key="price.amount"
               :variant="amount === price.amount ? undefined : 'outlined'"
               :style="[
@@ -54,7 +56,7 @@
                   : 'border: 1px solid var(--t-button); background-color: var(--t-button-text) !important;',
               ]"
               size="large"
-              class="flex-1 min-w-48"
+              class="flex-1 min-w-32 md:min-w-48"
               @click="amount = price.amount"
             >
               <b>{{ content.org.currencySign }}&nbsp;{{ price.amount }}</b>{{ campaignStore.variable('price', $i18n.locale, VarType.TRANSLATION, VarRefType.PRICE, price.id) }}
