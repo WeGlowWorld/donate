@@ -59,7 +59,11 @@ export enum SubscriptionStatus {
 }
 
 export enum CampaignCategory {
-  RUN = 'RUN',
+  CELEBRATION = 'CELEBRATION',
+  SPORTS = 'SPORTS',
+  IN_MEMORY = 'IN_MEMORY',
+  EVENT = 'EVENT',
+  OTHER = 'OTHER',
 }
 
 export enum OrderStatus {

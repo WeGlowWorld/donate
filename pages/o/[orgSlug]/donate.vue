@@ -16,7 +16,10 @@
             class="max-h-24 w-full h-full object-contain"
           >
         </a>
-        <div class="w-24 h-24">
+        <div
+          v-if="country === 'NL'"
+          class="w-24 h-24"
+        >
           <img
             class="w-full h-full"
             src="https://afrianafoundation.org/wp-content/uploads/2014/02/anbi-logo.png"
