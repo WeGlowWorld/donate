@@ -31,6 +31,7 @@ await useDonationsStore().init();
 
 const content = campStore.content;
 if (content) {
+  if (useRoute().params.campaignSlug === 'ERRDEV0Y') i18n.setLocale('nl-BE');
   // Set SEO meta tags
   const title = campStore.variable('campaign_name', campStore.locale) || campStore.variable('org_name', campStore.locale);
   const description = campStore.variable('description', campStore.locale, VarType.TRANSLATION, VarRefType.CAMPAIGN)
