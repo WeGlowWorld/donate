@@ -3,12 +3,13 @@
     class="w-screen h-screen relative overflow-hidden"
     style="background-image: linear-gradient(to bottom, #05162C, #AA3E02);"
   >
-    <div class="qr-container h-1/4 absolute bottom-0 right-0">
-      <img
+    <div class="qr-container absolute bottom-2 right-2">
+      <span class="text-right text-white font-bold text-[3rem]">winningtogether.be</span>
+      <!-- <img
         src="/assets/img/sob-qr.png"
-        class="h-full w-fit object-contain object-right-bottom"
+        class="h-[calc(100%-1.5rem)] w-fit object-contain object-right-bottom"
         alt="QR Code"
-      >
+      > -->
     </div>
     <div class="center-flame-container h-full w-full absolute flex flex-col items-center justify-around text-white text-7xl font-bold">
       <h1>{{ lang === 'nl' ? 'Steek samen de vlam op!' : 'Allumer la flamme ensemble!' }}</h1>
@@ -26,7 +27,7 @@
         alt="Logo"
       >
     </div>
-    <div class="candles-container w-[calc(100%-4rem)] h-[calc(100%-24rem)] absolute top-48 left-8 text-white text-3xl">
+    <div class="candles-container w-[calc(100%-8rem)] h-[calc(100%-24rem)] absolute top-48 left-0 text-white text-3xl">
       <template
         v-for="(don, i) in donations"
         :key="`${don.name}-${i}`"
@@ -71,8 +72,8 @@ export default defineComponent({
         animated: boolean;
         show: boolean;
       }[],
-      count: 0,
-      sum: 0,
+      count: 0 as number,
+      sum: 0 as number,
       lastSuccess: 0,
     };
   },
@@ -104,11 +105,13 @@ export default defineComponent({
         this.fetchDonations();
         return;
       }
-      if (this.donations.filter(v => v.show).length > 9) {
+      if (this.donations.filter(v => v.show).length > 1) {
         const shown = this.donations.find(v => v.show);
         if (shown) {
-          shown.show = false;
           shown.animated = false;
+          setTimeout(() => {
+            shown.show = false;
+          }, 1000);
         }
       }
 
@@ -126,17 +129,22 @@ export default defineComponent({
         this.lastSuccess -= 1;
         return;
       };
+      const last = this.donations.reduce((acc, v) => {
+        if (!acc) return new Date(v.updatedAt);
+        return acc > new Date(v.updatedAt) ? acc : new Date(v.updatedAt);
+      }, undefined as Date | undefined)?.toISOString();
+
       const counterData = await useAPI<{
         donations: {
           name: string;
           updatedAt: string;
           description: string;
         }[];
-        count: number;
-        sum: number;
+        count: string; // TODO: return as number
+        sum: string;
       }>(`/donation/counter/N56779MO`, {
         query: {
-          last: this.donations[this.donations.length - 1]?.updatedAt,
+          last,
         },
       });
       if (!counterData) return;
@@ -144,7 +152,7 @@ export default defineComponent({
         this.lastSuccess = 3;
         return;
       }
-      useRoute().query.last = counterData.donations[counterData.donations.length - 1]?.updatedAt;
+      // this. = counterData.donations[counterData.donations.length - 1]?.updatedAt;
       for (const d of counterData.donations) {
         this.donations.push({
           ...d,
@@ -152,24 +160,16 @@ export default defineComponent({
           show: false,
         });
       }
-      this.count = counterData.count || this.count + counterData.donations.length;
+      this.count = parseInt(counterData.count) || this.count + counterData.donations.length;
     },
     chooseLocation(): [number, number] {
       const minDistance = 20;
       try {
-        let randomX = Math.random() * 80;
-        if (randomX > 40) randomX += 20;
+        const randomX = Math.random() * 100;
         const randomY = Math.random() * 100;
 
-        if (randomY < 30) {
-          if (randomY < 10) throw new Error();
-          if (randomX < 30 || randomX > 70) throw new Error();
-        }
-        if (randomY > 70) {
-          if (randomX > 70 || (randomX > 40 && randomX < 60)) throw new Error();
-        }
-        if (randomY > 30 && randomY < 70) {
-          if (randomX > 40 && randomX < 60) throw new Error();
+        if ((randomX < 60 && randomX > 40) && randomY > 15) {
+          throw new Error();
         }
 
         // Proximity check to existing candles
