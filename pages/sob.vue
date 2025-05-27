@@ -3,13 +3,13 @@
     class="w-screen h-screen relative overflow-hidden"
     style="background-image: linear-gradient(to bottom, #05162C, #AA3E02);"
   >
-    <div class="qr-container absolute bottom-2 right-2">
-      <span class="text-right text-white font-bold text-[3rem]">winningtogether.be</span>
-      <!-- <img
+    <div class="qr-container absolute bottom-2 right-2 flex flex-col items-center">
+      <span class="text-right text-white font-bold text-[2.5rem]">winningtogether.be</span>
+      <img
         src="/assets/img/sob-qr.png"
         class="h-[calc(100%-1.5rem)] w-fit object-contain object-right-bottom"
         alt="QR Code"
-      > -->
+      >
     </div>
     <div class="center-flame-container h-full w-full absolute flex flex-col items-center justify-around text-white text-7xl font-bold">
       <h1>{{ lang === 'nl' ? 'Steek samen de vlam op!' : 'Allumer la flamme ensemble!' }}</h1>
@@ -168,7 +168,10 @@ export default defineComponent({
         const randomX = Math.random() * 100;
         const randomY = Math.random() * 100;
 
-        if ((randomX < 60 && randomX > 40) && randomY > 15) {
+        if (
+          ((randomX < 60 && randomX > 40) && randomY > 15)
+          || (randomX > 80 && randomY > 60)
+        ) {
           throw new Error();
         }
 
