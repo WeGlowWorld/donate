@@ -105,7 +105,7 @@ export default defineComponent({
         this.fetchDonations();
         return;
       }
-      if (this.donations.filter(v => v.show).length > 1) {
+      if (this.donations.filter(v => v.show).length > 9) {
         const shown = this.donations.find(v => v.show);
         if (shown) {
           shown.animated = false;
