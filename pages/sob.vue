@@ -100,7 +100,6 @@ export default defineComponent({
       }
     }, 10000);
     setInterval(() => {
-      console.log(this.firstIndexOfLastFalseGroup);
       if (this.firstIndexOfLastFalseGroup === -1) {
         this.fetchDonations();
         return;

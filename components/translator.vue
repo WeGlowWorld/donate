@@ -3,25 +3,30 @@
     v-if="locales && locales.length > 1"
     class="bottom-auto"
   >
-    <Button
+    <button
       type="button"
-      severity="secondary"
-      class="h-full w-16 p-1"
+      class="bg-slate-100 p-2 rounded-md flex items-center justify-center text-2xl"
       @click="opened = !opened"
     >
-      <span class="text-nowrap">{{ lang($i18n.locale) }}</span>
-    </Button>
+      <span
+        class="fi"
+        :class="`fi-${flag($i18n.locale as Locale)}`"
+      />
+    </button>
     <div
       v-if="opened"
-      class="absolute top-[105%] w-full left-0 bg-white flex flex-col gap-1 border-2 border-slate-100 rounded-md z-50 transition-all duration-300"
+      class="absolute top-[105%] left-1/2 -translate-x-1/2 bg-white flex flex-col border-2 border-slate-100 rounded-md z-50"
     >
       <div
         v-for="l in locales"
         :key="l"
-        class="hover:bg-slate-100 p-2 cursor-pointer flex justify-center"
+        class="hover:bg-slate-100 p-2 cursor-pointer flex justify-center text-2xl"
         @click="changeLocale(l)"
       >
-        <span>{{ lang(l) }}</span>
+        <span
+          class="fi"
+          :class="`fi-${flag(l)}`"
+        />
       </div>
     </div>
   </div>
@@ -30,6 +35,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Locale, Template } from '~/models/enums';
+import 'flag-icons/css/flag-icons.min.css';
 
 export default defineComponent({
   name: 'TranslatorComponent',
@@ -67,8 +73,18 @@ export default defineComponent({
       this.campaignStore.locale = l as Locale;
       this.opened = false;
     },
-    lang(l: string) {
-      return l.split('-')[0].toUpperCase() || 'NL';
+    flag(l: Locale) {
+      switch (l) {
+        case Locale.EN_US:
+          return 'gb';
+        case Locale.FR_FR:
+          return 'fr';
+        case Locale.NL_BE:
+          return 'nl';
+        case Locale.RO_RO:
+          return 'ro';
+      }
+      throw new Error(`Unknown locale: ${l}`);
     },
   },
 });

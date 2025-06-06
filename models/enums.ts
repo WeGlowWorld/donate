@@ -24,12 +24,14 @@ export enum Locale {
   NL_BE = 'nl-BE',
   EN_US = 'en-US',
   FR_FR = 'fr-FR',
+  RO_RO = 'ro-RO',
 }
 
 export enum LocaleUnderscore {
   NL_BE = 'nl_BE',
   EN_US = 'en_US',
   FR_FR = 'fr_FR',
+  RO_RO = 'ro-RO',
 }
 
 export function mapLocaleToUnderscore(locale: Locale): LocaleUnderscore {
