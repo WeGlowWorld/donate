@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --p-progressbar-background: repeating-linear-gradient(
+    -45deg,
+    var(--p-green-600),
+    var(--p-green-600) 1px,
+    var(--p-slate-50) 1px,
+    var(--p-slate-50) 8px
+  ) !important;
+
+  --p-progressbar-value-background: var(--p-green-600) !important;
+}
+
+.p-progressbar {
+  border: var(--p-green-600) solid 1px !important;
+}
+
+.p-progressbar-value {
+  overflow: visible !important;
+}
+
+.p-progressbar-value::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -8px;
+  width: 0; 
+  height: 0; 
+  border-left: 0.5rem solid transparent;
+  border-right: 0.5rem solid transparent;
+  
+  border-top: 0.5rem solid var(--t-button);
+}

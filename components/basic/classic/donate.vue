@@ -31,7 +31,7 @@
         v-if="content.campaign.goal"
         class="mt-4"
         :value="progressBar"
-        :pt:value:style="{ backgroundColor: 'var(--p-green-600)', maxWidth: '100%' }"
+        :pt:value:style="{ maxWidth: '100%' }"
       />
     </div>
     <basic-classic-card :title="$t('donate.title')">
