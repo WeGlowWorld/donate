@@ -27,6 +27,7 @@ export const useCampaignStore = defineStore('campaignStore', {
       const { orgSlug, campaignSlug } = useRoute().params;
       try {
         const content = await useAPI<Content>(`/campaign/content/${orgSlug || 'feestvarken-vzw'}/${campaignSlug || '4H3OBDBO'}`);
+        console.log(content);
         if (!content) throw new Error('No content found');
 
         this.content = {
