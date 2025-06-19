@@ -43,7 +43,6 @@ export const useOrgStore = defineStore('orgStore', {
     },
     async donate(orgSlug: string, campSlug: string, body: DonateBody & { certificate?: DonateKbsBody }, wantsFiscal = true, locale = Locale.NL_BE): Promise<string> {
       try {
-        console.log(orgSlug);
         return await useAPI<string>(`/donation/${orgSlug}/${campSlug}`, {
           method: 'POST',
           body: {
@@ -56,7 +55,7 @@ export const useOrgStore = defineStore('orgStore', {
             },
             order: {
               email: body.email,
-              recurring: orgSlug === 'dummy-org' ? true : false,
+              recurring: false,
             },
             certificate: body.certificate
               ? {

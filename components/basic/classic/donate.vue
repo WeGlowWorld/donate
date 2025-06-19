@@ -37,7 +37,7 @@
     <basic-classic-card :title="$t('donate.title')">
       <div class="px-2 py-4 flex flex-col gap-8">
         <p
-          v-if="content.base.certificates"
+          v-if="content.base.certificates && content.org.country === 'BE'"
           class="text-sm"
         >
           {{ $t('donate.fiscal') }}

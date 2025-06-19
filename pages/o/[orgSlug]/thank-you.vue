@@ -195,7 +195,6 @@ export default defineComponent({
 
       if (this.donation.method === PaymentMethod.STRIPE) {
         const orderStatusId = this.$route.query.orderStatusId as string || undefined;
-        console.log('orderStatusId', orderStatusId);
         if (orderStatusId && parseInt(orderStatusId) < 0) {
           throw new Error();
         }

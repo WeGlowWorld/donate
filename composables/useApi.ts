@@ -5,6 +5,7 @@ export async function useAPI<T>(
   options?: UseFetchOptions<T>,
 ) {
   const { data, error } = await useFetch(url, {
+    baseURL: useRuntimeConfig().public.apiUrl,
     ...options,
     $fetch: useNuxtApp().$api as typeof $fetch,
   });
