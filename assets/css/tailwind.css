@@ -4,11 +4,11 @@
 
 :root {
   --p-progressbar-background: repeating-linear-gradient(
-    -45deg,
+    -60deg,
     var(--p-green-600),
     var(--p-green-600) 1px,
     var(--p-slate-50) 1px,
-    var(--p-slate-50) 8px
+    var(--p-slate-50) 16px
   ) !important;
 
   --p-progressbar-value-background: var(--p-green-600) !important;
