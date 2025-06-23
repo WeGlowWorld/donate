@@ -221,6 +221,10 @@ const t: Translations = {
       name: 'Vreau o declarație Gift Aid',
       errors: {},
     },
+    recurring: {
+      name: 'Donație recurentă lunară',
+      errors: {},
+    },
   },
 };
 export default t;

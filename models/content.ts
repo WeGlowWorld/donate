@@ -92,6 +92,7 @@ export type ContentOrg = {
     ogm?: string;
     website?: string;
     superAdmin?: string;
+    allowRecurring?: boolean;
   };
   brandIdentity?: {
     primaryC: string;

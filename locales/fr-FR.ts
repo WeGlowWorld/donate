@@ -219,6 +219,10 @@ const t: Translations = {
       name: 'Je veux une déclaration de Gift Aid',
       errors: {},
     },
+    recurring: {
+      name: 'Don récurrent mensuel',
+      errors: {},
+    },
   },
 };
 

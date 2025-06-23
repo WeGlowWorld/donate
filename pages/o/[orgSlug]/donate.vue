@@ -34,12 +34,21 @@
         required
         positive
         name="amount"
+        class="col-span-full"
         :currency="orgStore.content?.general.currency"
+      />
+      <custom-input-switch
+        v-if="orgStore.content?.general.allowRecurring"
+        v-model="formValues.recurring"
+        name="recurring"
+        reverse
+        class="col-span-full"
       />
       <custom-input-text
         v-model="formValues.name"
         required
         name="name"
+        class="col-span-full"
       />
       <custom-input-text
         v-model="formValues.description"
@@ -248,6 +257,7 @@ export default defineComponent({
         description: '',
         address: '',
         anonymous: false,
+        recurring: false,
       }),
       formKbsValues: ref({
         company: false,
@@ -293,6 +303,7 @@ export default defineComponent({
       try {
         this.submitting = true;
         if (!event.valid || (this.coords[0] === 0 && this.coords[1] === 0)) return;
+        console.log(this.formValues);
         const checkout = await this.orgStore.donate(
           this.orgSlug,
           this.campSlug,

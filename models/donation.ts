@@ -36,6 +36,7 @@ export const donateZod = z.object({
   description: z.string().nonempty('required').max(255),
   address: z.array(z.number()).length(2, 'required'),
   anonymous: z.boolean(),
+  recurring: z.boolean(),
 });
 export const donate2Zod = z.object({
   amount: z.number().lt(9999, 'lte').finite(),
@@ -44,6 +45,7 @@ export const donate2Zod = z.object({
   description: z.string().max(255),
   coords: z.array(z.number()).length(2),
   anonymous: z.boolean(),
+  recurring: z.boolean(),
 });
 export type DonateBody = z.infer<typeof donate2Zod>;
 
