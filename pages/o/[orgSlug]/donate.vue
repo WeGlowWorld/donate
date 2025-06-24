@@ -291,6 +291,7 @@ export default defineComponent({
     },
   },
   mounted() {
+    console.log(this.orgStore.content?.general);
     this.initializeMap();
   },
   methods: {
@@ -303,7 +304,6 @@ export default defineComponent({
       try {
         this.submitting = true;
         if (!event.valid || (this.coords[0] === 0 && this.coords[1] === 0)) return;
-        console.log(this.formValues);
         const checkout = await this.orgStore.donate(
           this.orgSlug,
           this.campSlug,
