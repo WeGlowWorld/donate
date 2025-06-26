@@ -42,6 +42,10 @@ const t: Translations = {
         UK: 'Prin completarea acestui formular, comunic că sunt contribuabil din Regatul Unit și că doresc să fac o donație. Înțeleg că, dacă plătesc mai puțin impozit pe venit și/sau impozit pe câștigurile de capital decât suma de impozit pe donații solicitată pentru toate donațiile mele în acel an fiscal, este responsabilitatea mea să plătesc diferența.',
       },
     },
+    month: 'lună',
+    oneTime: 'O singură dată',
+    monthly: 'Lunar',
+    recurringWarning: 'Atenție: această donație este o donație lunară recurentă. Această donație se va repeta în fiecare lună până când o vei anula. Dacă dorești să anulezi această donație, trebuie să contactezi organizația.',
   },
   messages: {
     noMessages: 'Niciun mesaj',

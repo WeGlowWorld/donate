@@ -42,6 +42,10 @@ const t: Translations = {
         UK: 'By completing this form I communicate that I am a UK taxpayer & I want to Gift Aid my donation. I understand that if I pay less Income Tax and/or Capital Gains Tax than the amount of Gift Aid claimed on all my donations in that tax year it is my responsibility to pay any difference.',
       },
     },
+    month: 'month',
+    oneTime: 'One-time',
+    monthly: 'Monthly',
+    recurringWarning: 'Attention: this donation is a recurring monthly donation. This donation will repeat every month until you cancel it. If you want to cancel this donation, you need to contact the organization.',
   },
   messages: {
     noMessages: 'No messages',

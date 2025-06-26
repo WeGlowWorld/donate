@@ -7,8 +7,8 @@
       <div class="absolute right-4 top-4">
         <translator :locales="orgStore.content.general.locales" />
       </div>
-      <div class="p-4 md:p-16">
-        <div class="donate-form max-w-4xl mx-auto w-full h-fit p-4 md:p-8 shadow-lg">
+      <div class="p-4 md:p-8">
+        <div class="donate-form max-w-2xl mx-auto w-full h-fit p-4 md:p-8 shadow-lg">
           <!-- <Button @click="useRouter().push(`/o/${route.params.orgSlug}/c/${route.query.campaignSlug}`)" /> -->
           <slot />
         </div>
@@ -60,6 +60,9 @@ export default defineComponent({
           style.setProperty('--p-primary-200', darkenHexColor(c, 1.3));
           style.setProperty('--p-primary-100', darkenHexColor(c, 1.4));
         }
+        useSeoMeta({
+          title: this.orgStore.variable('org_name'),
+        });
       },
       deep: true,
     },
@@ -83,6 +86,7 @@ export default defineComponent({
 .donate-form {
   background-color: var(--d-background);
   color: var(--d-background-text);
+  @apply rounded-lg
 }
 label {
   @apply text-xl font-bold col-span-2;

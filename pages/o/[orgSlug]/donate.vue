@@ -1,19 +1,19 @@
 <template>
   <div>
     <prime-form
-      class="donate-form w-full h-full flex flex-col md:grid gap-x-2 gap-y-4 grid-cols-2"
+      class="donate-form w-full h-full flex flex-col gap-x-2 gap-y-4 grid-cols-2"
       :resolver="resolver"
       :initial-values="formValues"
       @submit="submit"
     >
-      <div class="flex justify-between w-full max-w-full mx-auto col-span-2 mb-4">
+      <div class="flex justify-between w-full max-w-full mx-auto col-span-2">
         <a
           :href="orgStore.content?.general.website"
           target="_blank"
         >
           <img
             :src="orgStore.variable('logo')"
-            class="max-h-24 w-full h-full object-contain"
+            class="max-h-24 h-full object-contain"
           >
         </a>
         <div
@@ -21,7 +21,7 @@
           class="w-24 h-24"
         >
           <img
-            class="w-full h-full"
+            class="h-full"
             src="https://afrianafoundation.org/wp-content/uploads/2014/02/anbi-logo.png"
           >
         </div>
@@ -29,31 +29,42 @@
       <h2>
         {{ $t('donate.donationTo', { org: orgStore.variable('org_name') }) }}
       </h2>
+      <select-button
+        v-if="orgStore.content?.general.allowRecurring"
+        v-model="recurring"
+        :options="[{ value: 'oneTime', label: $t('donate.oneTime') }, { value: 'monthly', label: $t('donate.monthly') }]"
+        option-value="value"
+        option-label="label"
+        size="small"
+        class="monthly-toggle"
+      />
+      <p
+        v-if="formValues.recurring"
+        class="text-sm"
+      >
+        {{ $t('donate.recurringWarning') }}
+      </p>
       <custom-input-number
         v-model="formValues.amount"
-        required
         positive
         name="amount"
-        class="col-span-full"
         :currency="orgStore.content?.general.currency"
+        :after="recurring === 'monthly' ? `/${$t('donate.month')}` : undefined"
       />
-      <custom-input-switch
-        v-if="orgStore.content?.general.allowRecurring"
-        v-model="formValues.recurring"
-        name="recurring"
-        reverse
-        class="col-span-full"
-      />
-      <custom-input-text
-        v-model="formValues.name"
-        required
-        name="name"
-        class="col-span-full"
-      />
+      <div class="flex flex-col md:flex-row gap-2">
+        <custom-input-text
+          v-model="formValues.name"
+          name="name"
+          class="flex-1"
+        />
+        <custom-input-text
+          v-model="formValues.email"
+          name="email"
+          class="flex-1"
+        />
+      </div>
       <custom-input-text
         v-model="formValues.description"
-        class="col-span-2"
-        required
         name="description"
       />
 
@@ -64,9 +75,9 @@
         class="relative z-10"
       >
         <label
-          class="italic"
+          class="font-semibold"
           for="coords"
-        >{{ $t(`fields.coords.name`) }} *</label>
+        >{{ $t(`fields.coords.name`) }}</label>
         <div :class="{ 'filled-field': formValues.address.length > 0 }">
           <div
             id="geocoder"
@@ -87,11 +98,6 @@
           {{ $t(`fields.coords.errors.required`) }}
         </Message>
       </form-field>
-      <custom-input-text
-        v-model="formValues.email"
-        required
-        name="email"
-      />
       <div class="flex flex-col gap-2 col-span-full">
         <custom-input-switch
           v-model="formValues.anonymous"
@@ -154,7 +160,6 @@
           :options="countryOptions"
           name="country"
         />
-        <div class="hidden md:block" />
         <custom-input-text
           v-model="formKbsValues.locality"
           required
@@ -190,28 +195,11 @@
     >
       <div>
         <p
-          v-if="orgStore.content?.billing.address"
+          v-for="key in Object.keys(orgStore.content.billing)"
+          :key="key"
           class="text-sm"
         >
-          <b>{{ $t('donate.address') }}: </b> {{ orgStore.content.billing.address }}
-        </p>
-        <p
-          v-if="orgStore.content?.billing.email"
-          class="text-sm"
-        >
-          <b>{{ $t('donate.email') }}: </b> {{ orgStore.content.billing.email }}
-        </p>
-        <p
-          v-if="orgStore.content?.billing.phone"
-          class="text-sm"
-        >
-          <b>{{ $t('donate.phone') }}: </b> {{ orgStore.content.billing.phone }}
-        </p>
-        <p
-          v-if="orgStore.content?.billing.vatNr"
-          class="text-sm"
-        >
-          <b>{{ $t('donate.vatNr') }}: </b> {{ orgStore.content.billing.vatNr }}
+          <b>{{ $t(`donate.${key}`) }}: </b> {{ (orgStore.content.billing as any)[key] }}
         </p>
       </div>
     </div>
@@ -224,6 +212,7 @@ import { Button as PrimeButton } from 'primevue';
 import { zodResolver } from '@primevue/forms/resolvers/zod';
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import { $t } from '@primevue/themes';
 import { donateKbsZod, donateZod } from '~/models/donation';
 import countryOptions from '~/assets/europeanCountries';
 import type { BackendError } from '~/models/error';
@@ -280,6 +269,7 @@ export default defineComponent({
   },
   data() {
     return {
+      recurring: 'oneTime',
       wantsFiscal: true,
       map: null as unknown as mapboxgl.Map,
       submitting: false,
@@ -290,8 +280,15 @@ export default defineComponent({
       return this.orgStore.content?.general.country;
     },
   },
+  watch: {
+    recurring(newVal: string) {
+      if (!newVal) {
+        this.recurring = 'oneTime';
+      }
+      this.formValues.recurring = newVal === 'monthly';
+    },
+  },
   mounted() {
-    console.log(this.orgStore.content?.general);
     this.initializeMap();
   },
   methods: {
@@ -304,6 +301,7 @@ export default defineComponent({
       try {
         this.submitting = true;
         if (!event.valid || (this.coords[0] === 0 && this.coords[1] === 0)) return;
+
         const checkout = await this.orgStore.donate(
           this.orgSlug,
           this.campSlug,
@@ -390,11 +388,11 @@ h2 {
   }
 }
 
-.donate-form .mapboxgl-ctrl-geocoder input {
+.donate-form .mapboxgl-ctrl-geocoder--input {
   border: 1px solid var(--p-inputtext-border-color);
   border-radius: 6px;
-  padding: 12px 14px;
-  font-size: 18px;
+  padding: 5px 12px;
+  font-size: 0.875rem;
   color: rgba(0, 0, 0, 0.54);
   line-height: 27px;
   width: 100%;
@@ -425,9 +423,9 @@ h2 {
 .suggestions-wrapper {
   z-index: 1000;
   position: absolute;
-  background-color: white;
   color: black;
   border: 1px solid #ccc;
+  background-color: white;
 }
 .suggestions-wrapper ul {
   list-style-type: none;
@@ -437,7 +435,23 @@ h2 {
   padding: 0.25rem 0.5rem;
 }
 .suggestions-wrapper li:hover {
-  background-color: #f1f1f1;
+  background-color: #eeeeee;
   cursor: pointer;
+}
+
+.donate-form .monthly-toggle {
+  display: flex;
+  width: 100%;
+}
+
+.donate-form .monthly-toggle .p-togglebutton {
+  flex-grow: 1;
+  border: 1px solid var(--p-inputtext-border-color);
+}
+
+.donate-form .monthly-toggle .p-togglebutton-checked {
+  background-color: var(--d-primary);
+  color: var(--d-primary-text);
+  border-color: var(--d-primary);
 }
 </style>

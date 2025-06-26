@@ -7,7 +7,7 @@
   >
     <label
       v-if="name"
-      class="italic"
+      class="font-semibold"
       :for="name"
     >{{ $t(`fields.${name}.name`) }} {{ required ? '*' : '' }}</label>
     <PrimeSelect
@@ -18,7 +18,7 @@
       option-value="value"
       :filter="filter"
       fluid
-      size="large"
+      size="small"
       show-clear
       @change="onChange"
     />

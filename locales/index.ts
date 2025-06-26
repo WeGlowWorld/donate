@@ -33,6 +33,10 @@ export type Translations = {
       general: string;
       country: Record<string, string>;
     };
+    month: string;
+    oneTime: string;
+    monthly: string;
+    recurringWarning: string;
   };
   messages: {
     title: string;

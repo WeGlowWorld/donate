@@ -10,7 +10,7 @@
       :class="reverse ? 'flex-row-reverse justify-end' : ''"
     >
       <label
-        class="italic"
+        class="font-semibold"
         :for="name"
       >{{ $t(`fields.${name}.name`) }}</label>
       <toggle-switch

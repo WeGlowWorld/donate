@@ -42,6 +42,10 @@ const t: Translations = {
         UK: 'En remplissant ce formulaire, je m\'assure que je suis un contribuable britannique et que je souhaite faire don de mon don. Je comprends que si je paie moins d\'impôt sur le revenu et/ou d\'impôt sur les plus-values que le montant de l\'aide fiscale réclamée sur tous mes dons au cours de cette année fiscale, il est de ma responsabilité de payer la différence.',
       },
     },
+    month: 'mois',
+    oneTime: 'Unique',
+    monthly: 'Mensuel',
+    recurringWarning: 'Attention: ce don est un don mensuel récurrent. Ce don se répétera chaque mois jusqu\'à ce que vous l\'annuliez. Si vous souhaitez annuler ce don, vous devez contacter l\'organisation.',
   },
   messages: {
     noMessages: 'Pas de messages',

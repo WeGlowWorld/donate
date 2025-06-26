@@ -42,6 +42,10 @@ const t: Translations = {
         UK: 'Door dit formulier in te vullen, deel ik mee dat ik een belastingbetaler in het Verenigd Koninkrijk ben en dat ik mijn donatie wil doen. Ik begrijp dat als ik minder inkomstenbelasting en/of vermogenswinstbelasting betaal dan het bedrag van de belastingvermindering die op al mijn donaties in dat belastingjaar wordt geclaimd, het mijn verantwoordelijkheid is om het verschil te betalen.',
       },
     },
+    month: 'maand',
+    oneTime: 'Eenmalig',
+    monthly: 'Maandelijks',
+    recurringWarning: 'Let op: deze donatie is een terugkerende maandelijkse donatie. Deze donatie zal zich dus elke maand herhalen totdat je deze annuleert. Indien u deze donatie wilt annuleren, dient u contact op te nemen met de organisatie.',
   },
   messages: {
     noMessages: 'Geen berichten',

@@ -7,7 +7,7 @@
   >
     <div class="flex items-center gap-2">
       <label
-        class="italic"
+        class="font-semibold"
         :for="name"
       >{{ $t(`fields.${name}.name`) }}</label>
       <Checkbox

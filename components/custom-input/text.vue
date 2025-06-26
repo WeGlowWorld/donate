@@ -6,14 +6,14 @@
     class="relative"
   >
     <label
-      class="italic"
+      class="font-semibold"
       :for="name"
     >{{ $t(`fields.${name}.name`) }} {{ required ? '*' : '' }}</label>
     <input-text
       :value="modelValue"
       :name="name"
-      size="large"
       type="text"
+      size="small"
       fluid
       @input="onInput"
     />
