@@ -58,11 +58,14 @@ const t: Translations = {
     share: 'Deel deze afbeelding',
     title: 'Bedankt voor je donatie!',
     fiscalTitle: 'Laat je fiscale gegevens achter!',
-    fiscalDescription: 'Voor een donatie van €40 of meer ontvangt je (in België) een fiscaal attest. Vul via onderstaande link je gegevens in om het attest te ontvangen.',
     shareTitle: 'Help jij mee deze campagne rond te laten gaan?',
     shareDescription: 'Door deze actie te delen op onderstaande sociale media, help je ons om deze campagne verder te verspreiden. Hierdoor kunnen we nog meer mensen bereiken en een grotere impact hebben om onze doelen te bereiken.',
     shareImageLg: 'Vergeet ook zeker de afbeelding links niet te delen! Door deze op je story te plaatsen spreek je ook je vrienden aan om te doneren. Hoe meer mensen we bereiken, hoe beter!',
     shareImageSm: 'Vergeet ook zeker de afbeelding onderaan niet te delen! Door deze op je story te plaatsen spreek je ook je vrienden aan om te doneren. Hoe meer mensen we bereiken, hoe beter!',
+    fiscalText: {
+      UK: 'Voor een donatie van een Britse belastingbetaler kun je een Gift Aid-certificaat aanvragen. Vul je gegevens in via de onderstaande link om de Gift Aid-verklaring te ontvangen.',
+      BE: 'Voor een donatie van €40 of meer ontvangt je (in België) een fiscaal attest. Vul via onderstaande link je gegevens in om het attest te ontvangen.',
+    },
   },
   fiscal: {
     personalFields: 'Persoonlijke gegevens',

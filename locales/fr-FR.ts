@@ -58,11 +58,14 @@ const t: Translations = {
     share: 'Partager l\'image',
     title: 'Merci pour votre don!',
     fiscalTitle: 'Laissez vos informations fiscales!',
-    fiscalDescription: 'Pour un don de 40 € ou plus, vous recevrez un reçu fiscal (en Belgique). Remplissez vos informations via le lien ci-dessous pour recevoir le reçu.',
     shareTitle: 'Aidez-vous à faire circuler cette campagne?',
     shareDescription: 'En partageant cette action sur les réseaux sociaux ci-dessous, vous nous aidez à faire circuler cette campagne. Cela nous permet d\'atteindre encore plus de personnes et d\'avoir un plus grand impact pour atteindre nos objectifs.',
     shareImageLg: 'N\'oubliez pas de partager l\'image à gauche! En la plaçant dans votre story, vous incitez également vos amis à faire un don. Plus nous atteignons de personnes, mieux c\'est!',
     shareImageSm: 'N\'oubliez pas de partager l\'image ci-dessous! En la plaçant dans votre story, vous incitez également vos amis à faire un don. Plus nous atteignons de personnes, mieux c\'est!',
+    fiscalText: {
+      UK: 'Pour un don effectué par un contribuable britannique, vous pouvez demander un certificat Gift Aid. Veuillez remplir vos informations via le lien ci-dessous pour recevoir la déclaration Gift Aid.',
+      BE: 'Pour un don de 40 € ou plus, vous recevrez un reçu fiscal (en Belgique). Remplissez vos informations via le lien ci-dessous pour recevoir le reçu.',
+    },
   },
   fiscal: {
     personalFields: 'Données personnelles',

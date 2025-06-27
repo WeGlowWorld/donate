@@ -58,11 +58,14 @@ const t: Translations = {
     share: 'Distribuie această imagine',
     title: 'Îți mulțumim pentru donație!',
     fiscalTitle: 'Lasă-ți datele fiscale!',
-    fiscalDescription: 'Pentru o donație de 40 € sau mai mult vei primi (în Belgia) un certificat fiscal. Completează datele tale prin linkul de mai jos pentru a primi certificatul.',
     shareTitle: 'Ne ajuți să facem cunoscută această campanie?',
     shareDescription: 'Distribuind această acțiune pe rețelele sociale de mai jos, ne ajuți să facem cunoscută campania. Astfel putem ajunge la și mai mulți oameni și să avem un impact mai mare în atingerea obiectivelor noastre.',
     shareImageLg: 'Nu uita să distribui și imaginea din stânga! Postând-o în story-ul tău, îi încurajezi și pe prietenii tăi să doneze. Cu cât ajungem la mai mulți oameni, cu atât mai bine!',
     shareImageSm: 'Nu uita să distribui și imaginea de mai jos! Postând-o în story-ul tău, îi încurajezi și pe prietenii tăi să doneze. Cu cât ajungem la mai mulți oameni, cu atât mai bine!',
+    fiscalText: {
+      UK: 'Pentru o donație făcută de un contribuabil din Regatul Unit, poți solicita un certificat Gift Aid. Completează datele tale prin linkul de mai jos pentru a primi declarația Gift Aid.',
+      BE: 'Pentru o donație de 40 € sau mai mult vei primi (în Belgia) un certificat fiscal. Completează datele tale prin linkul de mai jos pentru a primi certificatul.',
+    },
   },
   fiscal: {
     personalFields: 'Date personale',

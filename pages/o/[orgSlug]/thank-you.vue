@@ -44,13 +44,13 @@
           <p>{{ $t('thanks.title') }}</p>
         </div>
         <div
-          v-if="qps.certificate"
+          v-if="qps.certificate && fiscalText"
           class="w-full flex flex-col gap-4 justify-end"
         >
           <h2 class="text-2xl font-semibold">
             {{ $t('thanks.fiscalTitle') }}
           </h2>
-          <p>{{ $t('thanks.fiscalDescription') }}</p>
+          <p>{{ fiscalText }}</p>
           <prime-button
             class="ml-auto"
             as="a"
@@ -166,6 +166,16 @@ export default defineComponent({
     };
   },
   computed: {
+    fiscalText() {
+      switch (this.orgStore.content?.general.country) {
+        case 'BE':
+          return this.$t('thanks.fiscalText.BE');
+        case 'UK':
+          return this.$t('thanks.fiscalText.UK');
+        default:
+          return undefined;
+      }
+    },
     canvasObj() {
       const icon = this.orgStore.content?.variables.find(v => v.title.includes('price_'))?.value || this.orgStore.variable('icon') as string;
       const logo = this.orgStore.variable('logo', undefined, VarType.IMAGE, VarRefType.ORG) as string;
