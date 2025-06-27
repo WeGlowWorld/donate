@@ -183,9 +183,9 @@ const t: Translations = {
       },
     },
     locality: {
-      name: 'Locality',
+      name: 'Town',
       errors: {
-        required: 'Locality required',
+        required: 'Town required',
       },
     },
     streetNr: {
@@ -195,10 +195,8 @@ const t: Translations = {
       },
     },
     premise: {
-      name: 'Premise',
-      errors: {
-        required: 'Premise required',
-      },
+      name: 'Apartment or unit',
+      errors: {},
     },
     companyName: {
       name: 'Company name',
