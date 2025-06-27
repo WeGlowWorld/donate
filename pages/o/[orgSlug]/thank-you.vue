@@ -171,7 +171,7 @@ export default defineComponent({
         case 'BE':
           return this.$t('thanks.fiscalText.BE');
         case 'UK':
-          return this.$t('thanks.fiscalText.UK');
+          return this.$t('thanks.fiscalText.UK', { orgName: this.orgStore.variable('org_name') });
         default:
           return undefined;
       }

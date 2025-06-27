@@ -63,7 +63,7 @@ const t: Translations = {
     shareImageLg: 'Don\'t forget to share the image on the left! By placing it in your story, you also encourage your friends to donate. The more people we reach, the better!',
     shareImageSm: 'Don\'t forget to share the image below! By placing it in your story, you also encourage your friends to donate. The more people we reach, the better!',
     fiscalText: {
-      UK: 'For a donation done by a UK taxpayer, you can claim a Gift Aid certificate. Please fill in your details via the link below to receive the Gift Aid Declaration.',
+      UK: 'Gift Aid makes every £1 worth at least £1.25 at no extra cost to you. Gift Aid is reclaimed by {orgName} from the tax you pay for the current tax year. There is no obligation to make further donations but if you complete this form, we will be able to claim Gift Aid on the donations you have made and any you may make in the future.',
       BE: 'For a donation of €40 or more, you will receive a fiscal receipt (in Belgium). Fill in your details via the link below to receive the receipt.',
     },
   },
