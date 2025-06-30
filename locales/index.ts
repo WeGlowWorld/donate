@@ -37,6 +37,11 @@ export type Translations = {
     oneTime: string;
     monthly: string;
     recurringWarning: string;
+    supportOurPlatform: string;
+    supportOurPlatformDescription: string;
+    proceedsInfo: string;
+    enableTips: string;
+    otherTip: string;
   };
   messages: {
     title: string;
@@ -54,11 +59,14 @@ export type Translations = {
     share: string;
     title: string;
     fiscalTitle: string;
-    fiscalDescription: string;
     shareTitle: string;
     shareDescription: string;
     shareImageLg: string;
     shareImageSm: string;
+    fiscalText: {
+      UK: string;
+      BE: string;
+    };
   };
   fiscal: {
     personalFields: string;

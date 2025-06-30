@@ -51,6 +51,68 @@
         :currency="orgStore.content?.general.currency"
         :after="recurring === 'monthly' ? `/${$t('donate.month')}` : undefined"
       />
+      <div
+        v-if="country === 'UK'"
+        class="border border-orange-300 bg-orange-100 p-2 rounded-lg w-full flex flex-col gap-2"
+      >
+        <h4 class="font-semibold">
+          <i class="pi pi-star text-orange-500 mr-2" /> {{ $t('donate.supportOurPlatform') }}
+        </h4>
+        <p class="text-gray-700 text-sm">
+          {{ $t('donate.supportOurPlatformDescription') }}
+        </p>
+        <div>
+          <div class="flex gap-2 items-center tip-buttons">
+            <checkbox
+              v-model="enableTips"
+              size="small"
+              binary
+              :pt:box:style="enableTips ? 'background-color: var(--p-orange-500); border-color: var(--p-orange-500);' : ''"
+            />
+            <div
+              v-if="enableTips"
+              class="flex gap-2 items-center"
+            >
+              <div class="flex gap-2">
+                <Button
+                  :class="{ 'custom-active': selectedTip === 10 }"
+                  label="10%"
+                  @click="selectTip(10)"
+                />
+                <Button
+                  :class="{ 'custom-active': selectedTip === 12 }"
+                  label="12%"
+                  @click="selectTip(12)"
+                />
+                <Button
+                  :class="{ 'custom-active': selectedTip === 15 }"
+                  label="15%"
+                  @click="selectTip(15)"
+                />
+              </div>
+              <span
+                v-if="formValues.tip !== undefined && formValues.tip > 0"
+                class="text-sm"
+              >
+                =
+              </span>
+              <input-number
+                v-model="formValues.tip"
+                :currency="orgStore.content?.general.currency"
+                mode="currency"
+                size="small"
+                :placeholder="$t('donate.otherTip')"
+              />
+            </div>
+            <span
+              v-else
+            >{{ $t('donate.enableTips') }}</span>
+          </div>
+        </div>
+        <p class="text-xs text-gray-700">
+          <span class="pi pi-info-circle text-sm" /> {{ $t('donate.proceedsInfo') }}
+        </p>
+      </div>
       <div class="flex flex-col md:flex-row gap-2">
         <custom-input-text
           v-model="formValues.name"
@@ -241,6 +303,7 @@ export default defineComponent({
       genderOptions: [{ value: 'M', label: 'M' }, { value: 'F', label: 'F' }, { value: 'X', label: 'X' }],
       formValues: ref({
         amount: parseInt(route.query.amount as string) || 0,
+        tip: undefined as number | undefined,
         email: '',
         name: '',
         description: '',
@@ -273,6 +336,8 @@ export default defineComponent({
       wantsFiscal: true,
       map: null as unknown as mapboxgl.Map,
       submitting: false,
+      enableTips: true,
+      selectedTip: 12,
     };
   },
   computed: {
@@ -287,11 +352,25 @@ export default defineComponent({
       }
       this.formValues.recurring = newVal === 'monthly';
     },
+    'formValues.amount'(newVal: number) {
+      if (this.country === 'UK' && this.enableTips) {
+        this.formValues.tip = Math.round(newVal * this.selectedTip) / 100;
+      }
+    },
   },
   mounted() {
+    if (this.country === 'UK') {
+      // this.enableTips = true;
+      this.formValues.tip = Math.round(this.formValues.amount * 12) / 100;
+    }
     this.initializeMap();
   },
   methods: {
+    selectTip(tip: number) {
+      this.enableTips = true;
+      this.selectedTip = tip;
+      this.formValues.tip = Math.round(this.formValues.amount * tip) / 100;
+    },
     toPage() {
       this.$router.push({
         path: `/o/${this.$route.params.orgSlug}/c/${this.$route.query.campaignSlug}`,
@@ -309,6 +388,7 @@ export default defineComponent({
             ...this.formValues,
             certificate: this.isKbs ? this.formKbsValues : undefined,
             coords: this.coords,
+            tip: this.enableTips && this.formValues.tip && this.formValues.tip > 0 ? this.formValues.tip : undefined,
           },
           this.wantsFiscal,
           this.$i18n.locale,
@@ -453,5 +533,17 @@ h2 {
   background-color: var(--d-primary);
   color: var(--d-primary-text);
   border-color: var(--d-primary);
+}
+
+.tip-buttons .p-button {
+  @apply bg-white border text-black border-orange-500;
+  @apply text-sm px-3 py-1 !important;
+  &:hover {
+    @apply bg-orange-600 border-orange-600 text-white !important;
+  }
+}
+
+.tip-buttons .custom-active {
+  @apply text-sm px-3 py-2 bg-orange-500 text-white;
 }
 </style>

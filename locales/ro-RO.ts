@@ -46,6 +46,11 @@ const t: Translations = {
     oneTime: 'O singură dată',
     monthly: 'Lunar',
     recurringWarning: 'Atenție: această donație este o donație lunară recurentă. Această donație se va repeta în fiecare lună până când o vei anula. Dacă dorești să anulezi această donație, trebuie să contactezi organizația.',
+    supportOurPlatform: 'Sprijină și platforma noastră!',
+    supportOurPlatformDescription: 'Ajută-ne să menținem donațiile gratuite pentru toate organizațiile caritabile.',
+    proceedsInfo: '100% din donația ta principală merge către organizație',
+    enableTips: 'Da, sprijinim și platforma voastră',
+    otherTip: 'Altă sumă',
   },
   messages: {
     noMessages: 'Niciun mesaj',

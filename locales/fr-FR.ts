@@ -46,6 +46,11 @@ const t: Translations = {
     oneTime: 'Unique',
     monthly: 'Mensuel',
     recurringWarning: 'Attention: ce don est un don mensuel récurrent. Ce don se répétera chaque mois jusqu\'à ce que vous l\'annuliez. Si vous souhaitez annuler ce don, vous devez contacter l\'organisation.',
+    supportOurPlatform: 'Soutenez également notre plateforme!',
+    supportOurPlatformDescription: 'Aidez-nous à garder les dons gratuits pour toutes les organisations caritatives.',
+    proceedsInfo: '100% de votre don principal va à l\'organisation',
+    enableTips: 'Oui, je soutiens également votre plateforme',
+    otherTip: 'Autre montant',
   },
   messages: {
     noMessages: 'Pas de messages',

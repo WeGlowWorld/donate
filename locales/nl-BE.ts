@@ -46,6 +46,11 @@ const t: Translations = {
     oneTime: 'Eenmalig',
     monthly: 'Maandelijks',
     recurringWarning: 'Let op: deze donatie is een terugkerende maandelijkse donatie. Deze donatie zal zich dus elke maand herhalen totdat je deze annuleert. Indien u deze donatie wilt annuleren, dient u contact op te nemen met de organisatie.',
+    supportOurPlatform: 'Steun ook ons platform!',
+    supportOurPlatformDescription: 'Help ons doneren gratis te houden voor alle goede doelen.',
+    proceedsInfo: '100% van je hoofddonatie gaat naar de organisatie',
+    enableTips: 'Ja, ik steun jullie platform ook',
+    otherTip: 'Ander bedrag',
   },
   messages: {
     noMessages: 'Geen berichten',

@@ -57,6 +57,7 @@ export const useOrgStore = defineStore('orgStore', {
             order: {
               email: body.email,
               recurring: body.recurring,
+              tip: body.tip,
             },
             certificate: body.certificate
               ? {

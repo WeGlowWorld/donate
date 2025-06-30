@@ -30,7 +30,8 @@ export const donateZod = z.object({
   amount: z.number({
     required_error: 'required',
     invalid_type_error: 'required',
-  }).lt(9999, 'lte').finite('required'),
+  }).positive('lte').lt(9999, 'lte').finite('required'),
+  tip: z.number().positive('lte').lt(9999, 'lte').optional(),
   email: z.string().nonempty('required').email('email').max(255, 'max'),
   name: z.string().nonempty('required').max(255),
   description: z.string().nonempty('required').max(255),
@@ -40,6 +41,7 @@ export const donateZod = z.object({
 });
 export const donate2Zod = z.object({
   amount: z.number().lt(9999, 'lte').finite(),
+  tip: z.number().positive('lte').lt(9999, 'lte').optional(),
   email: z.string().email('email').max(255, 'max'),
   name: z.string().max(255),
   description: z.string().max(255),

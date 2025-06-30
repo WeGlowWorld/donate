@@ -46,6 +46,11 @@ const t: Translations = {
     oneTime: 'One-time',
     monthly: 'Monthly',
     recurringWarning: 'Attention: this donation is a recurring monthly donation. This donation will repeat every month until you cancel it. If you want to cancel this donation, you need to contact the organization.',
+    supportOurPlatform: 'Support our platform too!',
+    supportOurPlatformDescription: 'Help us keep donating free for all charities.',
+    proceedsInfo: '100% of your main donation goes to the organization',
+    enableTips: 'Yes, I also support your platform',
+    otherTip: 'Other amount',
   },
   messages: {
     noMessages: 'No messages',
