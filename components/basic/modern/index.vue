@@ -9,7 +9,7 @@
       class="flex flex-col mx-auto w-full gap-x-8 gap-y-16 xl:grid max-w-[90rem] py-16 px-4"
     >
       <basic-modern-description />
-      <basic-modern-map />
+      <basic-modern-map v-if="$route.params.campaignSlug !== 'IZH2QPMO'" />
       <basic-classic-links />
       <basic-classic-extra />
     </div>

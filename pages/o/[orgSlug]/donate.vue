@@ -294,7 +294,7 @@ export default defineComponent({
     if (!route.query['slug']) throw new Error('Campaign slug is required');
 
     const isKbs = orgStore.content?.general.superAdmin === 'kbs';
-    const hasLocation = route.query.noLocation === undefined;
+    const hasLocation = route.query.noLocation === undefined && route.query.slug !== 'IZH2QPMO';
     return {
       orgStore: ref(orgStore),
       isKbs,
@@ -362,6 +362,10 @@ export default defineComponent({
     if (this.country === 'UK') {
       // this.enableTips = true;
       this.formValues.tip = Math.round(this.formValues.amount * 12) / 100;
+    }
+
+    if (this.$route.query.slug === 'IZH2QPMO') {
+      this.coords = [50, 50]; // Set default coordinates for specific campaign
     }
     this.initializeMap();
   },
