@@ -39,7 +39,7 @@
         </div>
         <Button
           :pt:root:style="{ overflow: 'visible', fontSize: '1.5rem', marginLeft: 'auto' }"
-          @click="tab=1"
+          @click="nextTab"
         >
           {{ $t('campaign.donate') }}
           <div class="absolute -top-8 -right-2">
@@ -101,6 +101,7 @@
 </template>
 
 <script lang="ts">
+import { useScroll } from '@vueuse/core';
 import { Button as PrimeButton } from 'primevue';
 import { VarRefType, VarType } from '~/models/enums';
 
@@ -139,6 +140,14 @@ export default defineComponent({
       if (this.campaignStore.content && this.campaignStore.content.campaign.goal)
         this.progressBar = Math.min(Math.round(this.campaignStore.content.campaign.raised.sum / this.campaignStore.content.campaign.goal * 100 * 100) / 100, 100);
     }, 200);
+  },
+  methods: {
+    nextTab() {
+      this.tab = 1;
+      this.$nextTick(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    },
   },
 });
 </script>
