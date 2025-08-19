@@ -13,7 +13,7 @@ onMounted(() => {
   const { params, path } = useRoute();
   if (path.includes('campaigns')) {
     if (path.includes('overview')) {
-      window.location.href = `https://hub.weglow.world/o/${params.orgSlug}`;
+      window.location.href = `https://weglow.world/o/${params.orgSlug}`;
     }
     else {
       window.location.href = 'https://weglow.world/dashboard';
