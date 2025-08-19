@@ -7,9 +7,8 @@
   </div>
 </template>
 
-<!-- <script setup lang="ts">
+<script setup lang="ts">
 onMounted(() => {
-  console.log('here');
   const { params, path } = useRoute();
   if (path.includes('campaigns')) {
     if (path.includes('overview')) {
@@ -20,10 +19,10 @@ onMounted(() => {
     }
   }
   else {
-    window.location.href = `https://weglow.world${path}`;
+    window.location.href = `https://weglow.world/redirect-campaign?orgSlug=${params.orgSlug}&campaignSlug=${params.campaignSlug}`;
   }
 });
-</script> -->
+</script>
 
 <!-- <template>
   <link
