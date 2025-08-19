@@ -1,15 +1,15 @@
-<template>
+<!-- <template>
   <div class="w-screen h-screen bg-orange-50 flex justify-center items-center">
     <div class="bg-white max-w-xl w-full p-4 rounded-lg shadow-lg text-center">
       Hi, <b class="text-orange-500">WeGlow</b> is currently migrating to a <b class="text-orange-500">new and improved</b> platform.
       Check back soon for updates! Sorry for the inconvenience.
     </div>
   </div>
-</template>
+</template> -->
 
-<!-- <script setup lang="ts">
+<script setup lang="ts">
 onMounted(() => {
-  console.log('here')
+  console.log('here');
   const { params, path } = useRoute();
   if (path.includes('campaigns')) {
     if (path.includes('overview')) {
@@ -23,7 +23,7 @@ onMounted(() => {
     window.location.href = `https://weglow.world${path}`;
   }
 });
-</script> -->
+</script>
 
 <!-- <template>
   <link
