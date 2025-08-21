@@ -76,6 +76,7 @@ import { Locale, VarRefType, VarType } from '~/models/enums';
 export default defineComponent({
   name: 'EasterFieldDonate',
   setup() {
+    console.log('');
     const campaignStore = useCampaignStore();
     return {
       campaign: ref(campaignStore.content as Content),
